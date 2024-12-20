@@ -9,6 +9,7 @@ import React from "react";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import PieChart from "./PieChart";
 import { filterCustomer } from "../../utils/thunks/Thunks";
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 const ModalLeyenda = ({ isVisible, setIsVisible, customer, day }) => {
   const data = [
@@ -46,7 +47,7 @@ const ModalLeyenda = ({ isVisible, setIsVisible, customer, day }) => {
 
         <View style={styles.graficoContainer}>
           {/* Gráfico */}
-          <PieChart data={data} colors={colors} size={170} />
+          <PieChart data={data} colors={colors} size={RFPercentage(23)} />
 
           {/* Leyenda */}
           <View style={styles.containerLeyendaIcono}>
@@ -56,11 +57,16 @@ const ModalLeyenda = ({ isVisible, setIsVisible, customer, day }) => {
                 style={{
                   display: "flex",
                   flexDirection: "row",
+                  width: RFPercentage(13.5),
+                  justifyContent: "space-evenly",
                 }}
               >
                 <FontAwesome
                   name="bell"
-                  style={{ color: `${colors[index]}`, fontSize: 20 }}
+                  style={{
+                    color: `${colors[index]}`,
+                    fontSize: RFPercentage(2.5),
+                  }}
                 />
 
                 <Text style={styles.leyenda}>{element}</Text>
@@ -94,8 +100,8 @@ const styles = StyleSheet.create({
     borderColor: "white",
     position: "absolute",
     top: "30%",
-    left: "10%",
-    right: "10%",
+    left: "7%",
+    right: "7%",
     borderRadius: 15,
     borderWidth: 1,
     paddingVertical: 10,
@@ -106,12 +112,13 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
+    width: RFPercentage(15),
+    gap: 7,
   },
   graficoContainer: {
     flex: 1,
     display: "flex",
     flexDirection: "row",
-    gap: 20,
     justifyContent: "space-evenly",
   },
   containerTitleLeyenda: {
@@ -125,16 +132,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     color: "white",
     width: 70,
-    paddingTop: 5,
     paddingHorizontal: 5,
+    fontSize: RFPercentage(1.6),
   },
   titleLeyenda: {
     display: "flex",
     flexDirection: "row",
     color: "orange",
-    width: 15,
+    width: 10,
     height: 20,
-    borderRadius: 5,
     justifyContent: "center",
     textAlign: "center",
     alignItems: "center",
