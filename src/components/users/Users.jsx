@@ -81,11 +81,7 @@ const Users = ({ data, enable, dataConfiguration, day }) => {
                     {
                       textAlign: "right",
                       color: "orange",
-                      fontSize:
-                        element?.resultPrestamo[0]?.cuotaNeto?.length >= 8
-                          ? 13
-                          : 15,
-                      //fontSize: RFPercentage(1.7),
+                      fontSize: RFPercentage(2),
                     },
                   ]}
                 >
@@ -100,7 +96,10 @@ const Users = ({ data, enable, dataConfiguration, day }) => {
               {enable ? null : (
                 <FontAwesome
                   name="bell"
-                  style={{ fontSize: 25, color: datePay(element, day)?.color }}
+                  style={{
+                    fontSize: RFPercentage(3.2),
+                    color: datePay(element, day)?.color,
+                  }}
                 />
               )}
             </TouchableOpacity>
@@ -116,7 +115,7 @@ export default Users;
 const styles = StyleSheet.create({
   dataItem: {
     display: "flex",
-    height: 55,
+    height: 50,
     flexDirection: "row",
     justifyContent: "space-evenly",
     paddingHorizontal: 5,
@@ -132,7 +131,7 @@ const styles = StyleSheet.create({
     //backgroundColor: "red",
   },
   text: {
-    fontSize: RFPercentage(1.7),
+    fontSize: RFPercentage(1.8),
     color: "cornsilk",
   },
   iconAlertOff: {

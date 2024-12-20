@@ -11,6 +11,7 @@ import { orderData } from "../../utils/thunks/Thunks";
 import ModalLeyenda from "../../modals/modalLeyenda/ModalLeyenda";
 import Entypo from "react-native-vector-icons/Entypo";
 import Fontisto from "react-native-vector-icons/Fontisto";
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 const DataCustomer = ({
   data,
@@ -168,7 +169,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     borderWidth: 1,
     borderColor: "rgba(36, 146, 224, 0.625)",
-    marginHorizontal: 5,
+    marginHorizontal: 7,
     marginTop: 15,
     marginBottom: 5,
   },
