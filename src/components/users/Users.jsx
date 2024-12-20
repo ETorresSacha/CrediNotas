@@ -3,11 +3,12 @@ import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { datePay } from "../../utils/thunks/Thunks";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 const Users = ({ data, enable, dataConfiguration, day }) => {
   const navigation = useNavigation();
 
-  //todo--> se guardará este código, como para recordar la funcionalida, puede ser útil en otra aplicación
+  //todo--> se guardará este código, como para recordar la funcionalida, puede ser útil en otra aplicación (estilo dinamico)
   // estilos dinámico del ícono de alerta
   // const [estilos, setEstilos] = useState({
   //   fontSize: 35,
@@ -56,7 +57,7 @@ const Users = ({ data, enable, dataConfiguration, day }) => {
               </View>
 
               {/* Nombre */}
-              <View style={{ width: 100, paddingLeft: !enable ? 5 : 15 }}>
+              <View style={{ paddingLeft: !enable ? 5 : 15 }}>
                 <Text style={styles.text}>{`${
                   element?.nombre?.split(" ")[0]
                 }`}</Text>
@@ -73,7 +74,7 @@ const Users = ({ data, enable, dataConfiguration, day }) => {
               )}
 
               {/* Monto */}
-              <View style={{ width: 85, alignItems: "center" }}>
+              <View style={{ alignItems: "center" }}>
                 <Text
                   style={[
                     styles.text,
@@ -81,15 +82,16 @@ const Users = ({ data, enable, dataConfiguration, day }) => {
                       textAlign: "right",
                       color: "orange",
                       fontSize:
-                        element?.resultPrestamo[0]?.montoCuota?.length >= 8
+                        element?.resultPrestamo[0]?.cuotaNeto?.length >= 8
                           ? 13
                           : 15,
+                      //fontSize: RFPercentage(1.7),
                     },
                   ]}
                 >
                   {enable
                     ? element?.capital
-                    : element?.resultPrestamo[0]?.montoCuota}
+                    : element?.resultPrestamo[0]?.cuotaNeto}
                 </Text>
               </View>
 
@@ -98,7 +100,7 @@ const Users = ({ data, enable, dataConfiguration, day }) => {
               {enable ? null : (
                 <FontAwesome
                   name="bell"
-                  style={{ fontSize: 35, color: datePay(element, day)?.color }}
+                  style={{ fontSize: 25, color: datePay(element, day)?.color }}
                 />
               )}
             </TouchableOpacity>
@@ -127,9 +129,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
+    //backgroundColor: "red",
   },
   text: {
-    fontSize: 15,
+    fontSize: RFPercentage(1.7),
     color: "cornsilk",
   },
   iconAlertOff: {

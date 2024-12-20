@@ -59,7 +59,6 @@ const styles = StyleSheet.create({
     //marginLeft: 30,
     borderRadius: 20,
     gap: 30,
-    backgroundColor: "red",
   },
 
   text: {
