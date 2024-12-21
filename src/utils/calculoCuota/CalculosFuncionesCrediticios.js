@@ -333,9 +333,6 @@ export const mora =(data, dataConfiguration)=>{
      let diff = fechaInicio-fechaFin ;
         diff = diff/(1000*60*60*24)
 
-        console.log("dias:",intMoratorio);
-        
-
     // Cálculo del interes
     let int = (intMoratorio*data?.cuotaCapital*diff)
 

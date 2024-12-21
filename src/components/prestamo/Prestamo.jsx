@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
     color: "cornsilk",
     borderBottomColor: "white",
     borderBottomWidth: 1,
-    fontSize: 17,
+    fontSize: 15.5,
     width: RFPercentage(20),
   },
 
@@ -231,7 +231,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   dropdown: {
-    height: 30,
+    height: 27,
     width: RFPercentage(20),
     backgroundColor: "white",
     borderRadius: 12,
