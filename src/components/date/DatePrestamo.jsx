@@ -3,6 +3,7 @@ import ModalDate from "../modalDate/ModalDate";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { formatDate } from "../../utils/thunks/Thunks";
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 const DatePrestamo = ({
   prestamo,
@@ -25,7 +26,7 @@ const DatePrestamo = ({
 
   return (
     <View style={styles.container}>
-      <View style={[styles.formItem, { paddingBottom: 20 }]}>
+      <View style={[styles.formItem]}>
         <View style={styles.legendContainer}>
           <Text style={styles.legend}>Fecha de desembolso: </Text>
         </View>
@@ -93,17 +94,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     display: "flex",
+    gap: 20,
   },
 
   formItem: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 5,
+    justifyContent: "space-evenly",
   },
 
   inputContainerDate: {
-    width: 160,
+    width: RFPercentage(20),
   },
   input: {
     textAlign: "center",
@@ -134,12 +135,11 @@ const styles = StyleSheet.create({
   },
   legend: {
     fontWeight: "500",
-    paddingLeft: 10,
     fontSize: 16,
-    paddingRight: 40,
     color: "white",
+    paddingHorizontal: 5,
   },
   legendContainer: {
-    width: 180,
+    width: RFPercentage(14),
   },
 });

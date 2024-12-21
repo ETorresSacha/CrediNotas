@@ -11,7 +11,6 @@ import { orderData } from "../../utils/thunks/Thunks";
 import ModalLeyenda from "../../modals/modalLeyenda/ModalLeyenda";
 import Entypo from "react-native-vector-icons/Entypo";
 import Fontisto from "react-native-vector-icons/Fontisto";
-import { RFPercentage } from "react-native-responsive-fontsize";
 
 const DataCustomer = ({
   data,

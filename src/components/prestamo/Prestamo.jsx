@@ -5,6 +5,7 @@ import { View, StyleSheet, Text, TextInput } from "react-native";
 import DatePrestamo from "../date/DatePrestamo";
 import { useFocusEffect } from "@react-navigation/native";
 import { RadioButton } from "react-native-paper";
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 const infoPeriod = [
   { label: "Diario", value: "1" },
@@ -61,7 +62,7 @@ const Prestamo = ({
       {/* ------------------ PERIODO ------------------*/}
       <View style={styles.formItem}>
         <View style={styles.legendContainer}>
-          <Text style={styles.legend}>Periodo: </Text>
+          <Text style={styles.legend}>Periodo:</Text>
         </View>
         <View style={styles.inputContainer}>
           <Dropdown
@@ -92,12 +93,13 @@ const Prestamo = ({
             renderItem={renderItem}
           />
         </View>
+        <View style={{ width: RFPercentage(6), backgroundColor: "red" }}></View>
       </View>
 
       {/* ------------------ CAPITAL ------------------*/}
       <View style={styles.formItem}>
         <View style={styles.legendContainer}>
-          <Text style={styles.legend}>Capital: </Text>
+          <Text style={styles.legend}>Capital:</Text>
         </View>
         <View style={styles.inputContainer}>
           <TextInput
@@ -116,12 +118,13 @@ const Prestamo = ({
             keyboardType="numeric"
           />
         </View>
+        <View style={{ width: RFPercentage(6), backgroundColor: "red" }}></View>
       </View>
 
       {/* ------------------ TEA ó INTERES ------------------*/}
       <View style={styles.formItem}>
         <View style={styles.legendContainer}>
-          <Text style={styles.legend}>Interes</Text>
+          <Text style={styles.legend}>Interes:</Text>
         </View>
         <View style={styles.inputContainer}>
           <TextInput
@@ -140,12 +143,13 @@ const Prestamo = ({
             keyboardType="numeric"
           />
         </View>
+        <View style={{ width: RFPercentage(6), backgroundColor: "red" }}></View>
       </View>
 
       {/* ------------------ NÚMERO DE CUOTAS ------------------*/}
       <View style={styles.formItem}>
         <View style={styles.legendContainer}>
-          <Text style={styles.legend}>N° Cuotas: </Text>
+          <Text style={styles.legend}>N° Cuotas:</Text>
         </View>
         <View style={styles.inputContainer}>
           <TextInput
@@ -165,36 +169,7 @@ const Prestamo = ({
             keyboardType="numeric"
           />
         </View>
-      </View>
-      {/* ------------------ TIPO DE PAGO ------------------*/}
-
-      <View style={styles.formItem}>
-        <View style={styles.legendContainer}>
-          <Text style={styles.legend}>Tipo de pago: </Text>
-        </View>
-        <View style={styles.inputContainer}>
-          <RadioButton.Group
-            onValueChange={(newValue) => {
-              setTipoPago(newValue);
-              setPrestamo({ ...prestamo, tipoPago: newValue });
-            }}
-            value={prestamo?.tipoPago}
-          >
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              {["Interes", "Fraccionado"].map((element, index) => {
-                return (
-                  <View
-                    style={{ flexDirection: "row", alignItems: "center" }}
-                    key={index}
-                  >
-                    <RadioButton value={element} uncheckedColor="white" />
-                    <Text style={{ color: "white" }}>{element}</Text>
-                  </View>
-                );
-              })}
-            </View>
-          </RadioButton.Group>
-        </View>
+        <View style={{ width: RFPercentage(6), backgroundColor: "red" }}></View>
       </View>
 
       {/* ------------------ FECHA DE DESEMBOLSO ------------------*/}
@@ -211,16 +186,14 @@ const Prestamo = ({
 export default Prestamo;
 
 const styles = StyleSheet.create({
-  container: { flex: 1, paddingTop: 30, gap: 25 },
+  container: { flex: 1, paddingTop: 30, gap: 10 },
 
   formItem: {
-    paddingHorizontal: 5,
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-evenly",
   },
   inputContainer: {
-    flex: 1,
-    paddingRight: 40,
     textAlign: "center",
     alignItems: "center",
   },
@@ -231,20 +204,18 @@ const styles = StyleSheet.create({
     color: "cornsilk",
     borderBottomColor: "white",
     borderBottomWidth: 1,
-    width: 160,
     fontSize: 17,
+    width: RFPercentage(20),
   },
 
   legend: {
+    paddingHorizontal: 5,
+    width: RFPercentage(14),
     fontWeight: "500",
-    paddingLeft: 10,
     fontSize: 16,
-    paddingRight: 40,
     color: "white",
   },
-  legendContainer: {
-    flex: 1,
-  },
+  legendContainer: {},
   icon: {
     marginRight: 5,
   },
@@ -261,7 +232,7 @@ const styles = StyleSheet.create({
   },
   dropdown: {
     height: 30,
-    width: 170,
+    width: RFPercentage(20),
     backgroundColor: "white",
     borderRadius: 12,
     padding: 12,
@@ -273,6 +244,5 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 1.41,
     elevation: 2,
-    //borderColor: "red",
   },
 });
