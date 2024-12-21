@@ -192,7 +192,7 @@ const Calculator = ({
           fechaDesembolso: prestamo?.fechaDesembolso,
           fechaPrimeraCuota: prestamo?.fechaPrimeraCuota,
           periodo: prestamo?.periodo,
-          tipoPago: prestamo?.tipoPago,
+          tipoPago: prestamo?.tipoPago, //! para este tipo de prestamo creo que ya no se esta considerando el tipo de prestamo, evaluar, sino eliminarlo
           tasaPrimaMensual: changeValue ? valueTPM : dataConfiguration?.tpm, //! ESTA PARTE DEBEMOS YA CORREGIR, SI SE ELIMINA O SE QUEDA
           resultPrestamo: result,
         });
@@ -307,7 +307,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   text: {
-    fontSize: 22,
+    fontSize: 20,
     lineHeight: 21,
     fontWeight: "bold",
     letterSpacing: 0.25,

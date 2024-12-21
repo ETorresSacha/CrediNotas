@@ -52,12 +52,17 @@ const Users = ({ data, enable, dataConfiguration, day }) => {
               }
             >
               {/* DNI */}
-              <View>
+              <View style={{ backgroundColor: "green" }}>
                 <Text style={styles.text}>{element?.dni}</Text>
               </View>
 
               {/* Nombre */}
-              <View style={{ paddingLeft: !enable ? 5 : 15 }}>
+              <View
+                style={{
+                  backgroundColor: "green",
+                  paddingLeft: !enable ? 5 : 15,
+                }}
+              >
                 <Text style={styles.text}>{`${
                   element?.nombre?.split(" ")[0]
                 }`}</Text>
@@ -128,7 +133,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    //backgroundColor: "red",
   },
   text: {
     fontSize: RFPercentage(1.8),
@@ -139,3 +143,5 @@ const styles = StyleSheet.create({
     fontSize: 35,
   },
 });
+
+//! TIENE QUE ESTAR ALINEADO TODOS LOS ELEMENTOS DE CADA USUARIO
