@@ -17,6 +17,7 @@ import Loading from "../../components/loading/Loading";
 import Entypo from "@expo/vector-icons/Entypo";
 import { mora } from "../../utils/calculoCuota/CalculosFuncionesCrediticios";
 import { diffDay } from "../../utils/thunks/Thunks";
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 const Detail = (props) => {
   const { onGetCronograma, onDeleteCustomer } = UseStorage();
@@ -275,7 +276,7 @@ const styles = StyleSheet.create({
   title: {
     paddingVertical: 10,
     color: "cornsilk",
-    fontSize: 17,
+    fontSize: RFValue(14),
     fontWeight: "bold",
   },
   Data: {
@@ -289,12 +290,12 @@ const styles = StyleSheet.create({
   itemTitle: {
     width: 90,
     color: "cornsilk",
-    fontSize: 17,
+    fontSize: RFValue(13.5),
     fontWeight: "bold",
   },
   itemText: {
     color: "white",
-    fontSize: 17,
+    fontSize: RFValue(14),
   },
   iconos: {
     gap: 5,

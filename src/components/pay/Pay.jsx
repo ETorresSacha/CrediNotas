@@ -5,6 +5,7 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { formatDate } from "../../utils/thunks/Thunks";
 import Loading from "../loading/Loading";
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 const Pay = ({
   data,
@@ -140,15 +141,33 @@ const Pay = ({
               style={{
                 display: "flex",
                 flexDirection: "row",
-                justifyContent: "space-around",
+                justifyContent: "space-evenly",
                 paddingBottom: 15,
               }}
             >
-              <View style={[styles.containerSubTitle, { gap: 3 }]}>
-                <Text style={[styles.subTitle, { fontWeight: "bold" }]}>
+              <View
+                style={[
+                  styles.containerSubTitle,
+                  {
+                    gap: 4,
+                    justifyContent: "space-evenly",
+                  },
+                ]}
+              >
+                <Text
+                  style={[
+                    styles.subTitle,
+                    { fontWeight: "bold", fontSize: RFValue(12.5) },
+                  ]}
+                >
                   Fecha de pago:
                 </Text>
-                <Text style={[styles.subTitle, { color: "orange" }]}>
+                <Text
+                  style={[
+                    styles.subTitle,
+                    { color: "orange", fontSize: RFValue(13) },
+                  ]}
+                >
                   {!cancelledShare
                     ? dataSee?.fechaPago == undefined
                       ? null
@@ -159,10 +178,18 @@ const Pay = ({
               <View
                 style={[
                   styles.containerSubTitle,
-                  { justifyContent: "space-around", gap: 3 },
+                  {
+                    justifyContent: "space-around",
+                    gap: 4,
+                  },
                 ]}
               >
-                <Text style={[styles.subTitle, { fontWeight: "bold" }]}>
+                <Text
+                  style={[
+                    styles.subTitle,
+                    { fontWeight: "bold", fontSize: RFValue(12.5) },
+                  ]}
+                >
                   Cuota total:
                 </Text>
                 <Text
@@ -170,7 +197,10 @@ const Pay = ({
                     styles.subTitle,
                     {
                       color: color == "red" ? color : "orange",
-                      fontSize: dataSee?.cuotaNeto?.length >= 8 ? 15 : 17,
+                      fontSize:
+                        dataSee?.cuotaNeto?.length >= 8
+                          ? RFValue(12)
+                          : RFValue(13),
                     },
                   ]}
                 >
@@ -190,7 +220,7 @@ const Pay = ({
                 ]}
               >
                 <Text style={styles.subTitle}>Fecha de desembolso</Text>
-                <Text style={{ color: "white", fontSize: 17 }}>
+                <Text style={{ color: "white", fontSize: RFValue(14) }}>
                   {dataSee?.fechaPago == undefined
                     ? null
                     : formatDate(dataSee?.fechaDesembolso)}
@@ -205,7 +235,7 @@ const Pay = ({
                 ]}
               >
                 <Text style={styles.subTitle}>Total del préstamo</Text>
-                <Text style={{ color: "white", fontSize: 17 }}>
+                <Text style={{ color: "white", fontSize: RFValue(14) }}>
                   S/ {dataSee?.capital}
                 </Text>
               </View>
@@ -218,7 +248,7 @@ const Pay = ({
                 ]}
               >
                 <Text style={styles.subTitle}>Total del interes</Text>
-                <Text style={{ color: "white", fontSize: 17 }}>
+                <Text style={{ color: "white", fontSize: RFValue(14) }}>
                   S/ {dataSee?.interesTotal}
                 </Text>
               </View>
@@ -231,7 +261,7 @@ const Pay = ({
                 ]}
               >
                 <Text style={styles.subTitle}>Tipo de préstamo</Text>
-                <Text style={{ color: "white", fontSize: 17 }}>
+                <Text style={{ color: "white", fontSize: RFValue(14) }}>
                   {data[0].periodo}
                 </Text>
               </View>
@@ -244,7 +274,7 @@ const Pay = ({
                 ]}
               >
                 <Text style={styles.subTitle}>Interes</Text>
-                <Text style={{ color: "white", fontSize: 17 }}>
+                <Text style={{ color: "white", fontSize: RFValue(14) }}>
                   {data[0].interes} %
                 </Text>
               </View>
@@ -256,7 +286,7 @@ const Pay = ({
                 ]}
               >
                 <Text style={styles.subTitle}>Cuota</Text>
-                <Text style={{ color: "white", fontSize: 17 }}>
+                <Text style={{ color: "white", fontSize: RFValue(14) }}>
                   S/ {!cancelledShare ? dataSee?.cuotaNeto : "0"}
                 </Text>
               </View>
@@ -271,7 +301,7 @@ const Pay = ({
                 <Text
                   style={{
                     color: color == "red" ? color : "white",
-                    fontSize: 17,
+                    fontSize: RFValue(14),
                   }}
                 >
                   S/ {parseFloat(intMora).toFixed(2)}
@@ -310,9 +340,7 @@ const Pay = ({
 export default Pay;
 
 const styles = StyleSheet.create({
-  container: {
-    paddingVertical: 20,
-  },
+  container: {},
 
   pagosTitle: {
     display: "flex",
@@ -323,7 +351,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   titleText: {
-    fontSize: 17,
+    fontSize: RFValue(14),
     color: "cornsilk",
     fontWeight: "bold",
   },
@@ -338,8 +366,7 @@ const styles = StyleSheet.create({
   },
 
   subTitle: {
-    fontSize: 16,
-    //fontWeight: "bold",
+    fontSize: RFValue(14),
     color: "cornsilk",
   },
   containerSubTitle: {
