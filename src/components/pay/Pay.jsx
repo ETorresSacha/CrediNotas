@@ -309,28 +309,33 @@ const Pay = ({
               </View>
             </View>
           </View>
-          <TouchableOpacity
-            style={
-              !cancelledShare
-                ? [
-                    styles.buttonContainer,
-                    { backgroundColor: "orange", width: 300 },
-                  ]
-                : [styles.buttonContainer, { borderColor: "white", width: 300 }]
-            }
-            onPress={!cancelledShare ? handlePayShare : null}
-            disabled={cancelledShare}
-          >
-            {!cancelledShare ? (
-              <FontAwesome
-                name="money"
-                style={{ color: "cornsilk", fontSize: 40 }}
-              />
-            ) : null}
-            <Text style={styles.subTitle}>
-              {!cancelledShare ? "Pagar" : "Deuda Cancelado"}
-            </Text>
-          </TouchableOpacity>
+          <View style={{ alignItems: "center" }}>
+            <TouchableOpacity
+              style={
+                !cancelledShare
+                  ? [
+                      styles.buttonContainer,
+                      { backgroundColor: "orange", width: RFPercentage(40) },
+                    ]
+                  : [
+                      styles.buttonContainer,
+                      { borderColor: "white", width: RFPercentage(40) },
+                    ]
+              }
+              onPress={!cancelledShare ? handlePayShare : null}
+              disabled={cancelledShare}
+            >
+              {!cancelledShare ? (
+                <FontAwesome
+                  name="money"
+                  style={{ color: "cornsilk", fontSize: 40 }}
+                />
+              ) : null}
+              <Text style={styles.subTitle}>
+                {!cancelledShare ? "Pagar" : "Deuda Cancelado"}
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
       )}
     </View>
@@ -363,6 +368,7 @@ const styles = StyleSheet.create({
   pagosDetalle: {
     marginVertical: 15,
     justifyContent: "space-around",
+    alignContent: "center",
   },
 
   subTitle: {
@@ -380,7 +386,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignContent: "center",
     height: 40,
-    marginLeft: 55,
     justifyContent: "center",
     borderRadius: 10,
     gap: 10,

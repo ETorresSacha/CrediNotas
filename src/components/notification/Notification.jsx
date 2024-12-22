@@ -5,6 +5,7 @@ import Feather from "react-native-vector-icons/Feather";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { formatDate } from "../../utils/thunks/Thunks";
 import UseStorageBusiness from "../hooks/UseHookDataNeg";
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import {
   calculoMora,
   mora,
@@ -137,7 +138,9 @@ export default Notification;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingVertical: 10,
+    marginTop: 15,
+    //paddingVertical: RFPercentage(1),
+    backgroundColor: "red",
   },
 
   notificationTitle: {
@@ -148,16 +151,17 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(36, 146, 224, 0.625)",
     paddingHorizontal: 15,
   },
+  //! FALTA CORREGIR LOS ESTILOS, EL TAMAÑO DEL CONTENEDOR DE NOTIFICACIONES EL TAMAÑO DE LA LETRAA Y SINCRONIZAR LA DISTANCIA CON EL BOTON VER CRONOGRAMA
   title: {
-    paddingVertical: 10,
+    paddingVertical: 13,
     color: "cornsilk",
-    fontSize: 17,
+    fontSize: RFValue(13),
     fontWeight: "bold",
   },
   containerIcons: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-evenly",
-    paddingVertical: 30,
+    paddingVertical: RFPercentage(2),
   },
 });

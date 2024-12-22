@@ -234,20 +234,22 @@ const Detail = (props) => {
               dataNotification={dataSee} //
               dataConfiguration={valueProps?.dataConfiguration}
             />
-            <TouchableOpacity
-              style={styles.verCronograma}
-              onPress={() =>
-                navigation.navigate("Cronograma", {
-                  user: user[0].resultPrestamo,
-                  id: valueProps?.id,
-                  enable: valueProps?.enable,
-                  typeColor: valueProps?.typeColor,
-                  dataConfiguration: valueProps?.dataConfiguration,
-                })
-              }
-            >
-              <Text style={styles.subTitle}> Ver conograma</Text>
-            </TouchableOpacity>
+            <View style={{ alignItems: "center" }}>
+              <TouchableOpacity
+                style={styles.verCronograma}
+                onPress={() =>
+                  navigation.navigate("Cronograma", {
+                    user: user[0].resultPrestamo,
+                    id: valueProps?.id,
+                    enable: valueProps?.enable,
+                    typeColor: valueProps?.typeColor,
+                    dataConfiguration: valueProps?.dataConfiguration,
+                  })
+                }
+              >
+                <Text style={styles.subTitle}> Ver conograma</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </ScrollView>
       )}
@@ -315,7 +317,7 @@ const styles = StyleSheet.create({
     alignContent: "center",
     height: 40,
     width: 300,
-    marginLeft: 55,
+    //marginLeft: 55,
     justifyContent: "center",
     borderRadius: 10,
     gap: 10,
