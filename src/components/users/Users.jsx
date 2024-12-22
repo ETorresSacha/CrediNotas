@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { datePay } from "../../utils/thunks/Thunks";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { RFPercentage } from "react-native-responsive-fontsize";
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 const Users = ({ data, enable, dataConfiguration, day }) => {
   const navigation = useNavigation();
@@ -52,29 +52,33 @@ const Users = ({ data, enable, dataConfiguration, day }) => {
               }
             >
               {/* DNI */}
-              <View style={{ backgroundColor: "green" }}>
+              <View style={{}}>
                 <Text style={styles.text}>{element?.dni}</Text>
               </View>
 
               {/* Nombre */}
               <View
                 style={{
-                  backgroundColor: "green",
-                  paddingLeft: !enable ? 5 : 15,
+                  width: RFPercentage(11.5),
                 }}
               >
-                <Text style={styles.text}>{`${
-                  element?.nombre?.split(" ")[0]
-                }`}</Text>
+                <Text
+                  style={[
+                    styles.text,
+                    {
+                      fontSize:
+                        element?.nombre?.split(" ")[0].length > 10
+                          ? RFValue(10.5)
+                          : RFValue(12),
+                    },
+                  ]}
+                >{`${element?.nombre?.split(" ")[0]}`}</Text>
               </View>
 
               {/* Fecha */}
               {enable ? null : (
-                <View>
-                  <Text style={styles.text}>
-                    {datePay(element, day).fecha}
-                    {/* fecha */}
-                  </Text>
+                <View style={{}}>
+                  <Text style={styles.text}>{datePay(element, day).fecha}</Text>
                 </View>
               )}
 
@@ -86,7 +90,11 @@ const Users = ({ data, enable, dataConfiguration, day }) => {
                     {
                       textAlign: "right",
                       color: "orange",
-                      fontSize: RFPercentage(2),
+                      fontSize:
+                        element?.resultPrestamo[0]?.cuotaNeto.length > 8
+                          ? RFValue(10.5)
+                          : RFValue(12),
+                      width: RFPercentage(8.5),
                     },
                   ]}
                 >
@@ -135,7 +143,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   text: {
-    fontSize: RFPercentage(1.8),
+    fontSize: RFValue(12),
+
     color: "cornsilk",
   },
   iconAlertOff: {
@@ -143,5 +152,3 @@ const styles = StyleSheet.create({
     fontSize: 35,
   },
 });
-
-//! TIENE QUE ESTAR ALINEADO TODOS LOS ELEMENTOS DE CADA USUARIO
