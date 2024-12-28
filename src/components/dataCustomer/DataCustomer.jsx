@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { validationDataPerson } from "../../utils/validation/Validation";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 const DataCustomer = ({
   errores,
@@ -41,7 +42,7 @@ const DataCustomer = ({
       </View>
       <View style={styles.containerInput}>
         {/* ------------------- Nombre ------------------ */}
-        <View style={{ width: "49%" }}>
+        <View style={{ width: RFPercentage(23) }}>
           <View>
             <Text style={styles.subTitle}>Nombre</Text>
           </View>
@@ -69,7 +70,7 @@ const DataCustomer = ({
         </View>
 
         {/* ------------------- Apellido ------------------ */}
-        <View style={{ width: "49%" }}>
+        <View style={{ width: RFPercentage(23) }}>
           <View>
             <Text style={styles.subTitle}>Apellidos</Text>
           </View>
@@ -94,7 +95,7 @@ const DataCustomer = ({
         </View>
 
         {/* ------------------- DNI ------------------ */}
-        <View style={{ width: "49%" }}>
+        <View style={{ width: RFPercentage(23) }}>
           <View>
             <Text style={styles.subTitle}>DNI</Text>
           </View>
@@ -126,7 +127,7 @@ const DataCustomer = ({
         </View>
 
         {/* ------------------- Correo ------------------ */}
-        <View style={{ width: "49%" }}>
+        <View style={{ width: RFPercentage(23) }}>
           <View>
             <Text style={styles.subTitle}>Correo</Text>
           </View>
@@ -158,7 +159,7 @@ const DataCustomer = ({
         </View>
 
         {/* ------------------- Dirección ------------------ */}
-        <View style={{ width: "49%" }}>
+        <View style={{ width: RFPercentage(23) }}>
           <View>
             <Text style={styles.subTitle}>Dirección</Text>
           </View>
@@ -183,7 +184,7 @@ const DataCustomer = ({
         </View>
 
         {/* ------------------- Celular ------------------ */}
-        <View style={{ width: "49%" }}>
+        <View style={{ width: RFPercentage(23) }}>
           <View>
             <Text style={styles.subTitle}>Celular</Text>
           </View>
@@ -224,6 +225,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingBottom: 15,
+    //backgroundColor: "red",
   },
   titleDatos: {
     display: "flex",
@@ -241,16 +243,16 @@ const styles = StyleSheet.create({
   },
   containerInput: {
     paddingTop: 10,
-    gap: 7,
+    //gap: RFPercentage(0.8),
     display: "flex",
     flex: 1,
-    paddingHorizontal: 10,
+    paddingHorizontal: 5,
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-between",
   },
   subTitle: {
-    fontSize: 15,
+    fontSize: RFValue(13),
     color: "white",
     fontWeight: "bold",
   },
