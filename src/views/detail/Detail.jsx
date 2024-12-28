@@ -62,9 +62,6 @@ const Detail = (props) => {
     // Cálculo de la mora
 
     let diaRetraso = diffDay(dataSee?.fechaPago);
-    console.log("diass: ", diaRetraso);
-    console.log(diaRetraso < 0);
-
     if (diaRetraso < 0) {
       let resultMora = mora(result, valueProps?.dataConfiguration);
       setIntMora(resultMora);
@@ -82,7 +79,6 @@ const Detail = (props) => {
       //   // console.log(result);
     }
   }, [user, indice, modify, cancelledShare]); //! tener en cuenta, se esta eliminando el dataSee, si algo no funciona puede ser por esto
-  console.log("datasee: ", updatePrestamo);
 
   // Actualiza los valores de valueProps
   useFocusEffect(
@@ -160,7 +156,7 @@ const Detail = (props) => {
       {user.length == 0 ? (
         <Loading />
       ) : (
-        <ScrollView style={styles.container}>
+        <ScrollView>
           <View>
             <Header
               title={"Detalle"}
@@ -263,7 +259,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "rgb(31, 36, 36)",
+    verticalAlign: "middle",
   },
+
   containerData: {
     borderBottomColor: "white",
   },
@@ -316,11 +314,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignContent: "center",
     height: 40,
-    width: 300,
-    //marginLeft: 55,
+    width: RFPercentage(40),
     justifyContent: "center",
     borderRadius: 10,
-    gap: 10,
     elevation: 5,
     borderWidth: 1,
     backgroundColor: "orange",

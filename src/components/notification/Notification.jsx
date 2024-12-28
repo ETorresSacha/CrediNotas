@@ -139,8 +139,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 15,
-    //paddingVertical: RFPercentage(1),
-    backgroundColor: "red",
   },
 
   notificationTitle: {
@@ -151,11 +149,11 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(36, 146, 224, 0.625)",
     paddingHorizontal: 15,
   },
-  //! FALTA CORREGIR LOS ESTILOS, EL TAMAÑO DEL CONTENEDOR DE NOTIFICACIONES EL TAMAÑO DE LA LETRAA Y SINCRONIZAR LA DISTANCIA CON EL BOTON VER CRONOGRAMA
+
   title: {
     paddingVertical: 13,
     color: "cornsilk",
-    fontSize: RFValue(13),
+    fontSize: RFValue(14),
     fontWeight: "bold",
   },
   containerIcons: {
