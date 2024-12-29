@@ -23,6 +23,7 @@ const DatePrestamo = ({
     setShowModal(true);
     setTypeDatePrestamo(element);
   };
+  console.log(errorsPrestamo);
 
   return (
     <View style={styles.container}>

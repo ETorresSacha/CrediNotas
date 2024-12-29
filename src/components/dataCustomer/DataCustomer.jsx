@@ -225,7 +225,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingBottom: 15,
-    //backgroundColor: "red",
   },
   titleDatos: {
     display: "flex",
@@ -243,7 +242,6 @@ const styles = StyleSheet.create({
   },
   containerInput: {
     paddingTop: 10,
-    //gap: RFPercentage(0.8),
     display: "flex",
     flex: 1,
     paddingHorizontal: 5,

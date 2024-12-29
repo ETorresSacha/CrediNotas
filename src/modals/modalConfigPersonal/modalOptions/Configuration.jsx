@@ -12,6 +12,7 @@ import equal from "deep-equal";
 import React from "react";
 import { validationConfiguration } from "../../../utils/validation/Validation";
 import UseStorageConfiguration from "../../../components/hooks/UseHookConfiguration";
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 const Configuration = ({
   enablerConf,
@@ -206,12 +207,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignContent: "center",
     paddingTop: 30,
+    alignItems: "center",
   },
   btnCalcular: {
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#4ecb71",
-    width: 300,
+    width: RFPercentage(32),
     height: 40,
     borderRadius: 15,
   },

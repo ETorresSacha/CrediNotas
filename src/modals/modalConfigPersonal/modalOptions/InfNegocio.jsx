@@ -12,6 +12,7 @@ import {
 import React, { useEffect, useState } from "react";
 import UseStorageBusiness from "../../../components/hooks/UseHookDataNeg";
 import { validationInfNegocios } from "../../../utils/validation/Validation";
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 const InfNegocio = ({ enablerNeg, setEnableNeg, setDataHome, setEnable }) => {
   const { onSaveDataBusiness, onGetBusiness } = UseStorageBusiness();
@@ -152,9 +153,11 @@ const InfNegocio = ({ enablerNeg, setEnableNeg, setDataHome, setEnable }) => {
               keyboardType="numeric"
             />
           </View>
-          <Pressable style={styles.buttonContainer} onPress={handleDataKeep}>
-            <Text style={styles.textGuardar}>Guardar</Text>
-          </Pressable>
+          <View style={{ alignItems: "center" }}>
+            <Pressable style={styles.buttonContainer} onPress={handleDataKeep}>
+              <Text style={styles.textGuardar}>Guardar</Text>
+            </Pressable>
+          </View>
         </View>
       </Modal>
     </ScrollView>
@@ -189,7 +192,7 @@ const styles = StyleSheet.create({
   },
   titleText: {
     paddingLeft: 20,
-    fontSize: 18,
+    fontSize: RFPercentage(2.2),
     color: "black",
   },
   text: {
@@ -207,9 +210,9 @@ const styles = StyleSheet.create({
   buttonContainer: {
     marginVertical: 30,
     alignItems: "center",
-    width: 250,
+    width: RFPercentage(35),
     height: 40,
-    marginLeft: 40,
+
     justifyContent: "center",
     borderRadius: 10,
     elevation: 3,

@@ -171,12 +171,14 @@ const NewForm = (props) => {
           dataConfiguration={dataConfiguration}
           valueProps={props.route.params}
         />
-        <TouchableOpacity
-          style={styles.buttonContainer}
-          onPress={handleDataKeep}
-        >
-          <Text style={styles.text}>Guardar</Text>
-        </TouchableOpacity>
+        <View style={{ alignItems: "center" }}>
+          <TouchableOpacity
+            style={styles.buttonContainer}
+            onPress={handleDataKeep}
+          >
+            <Text style={styles.text}>Guardar</Text>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </View>
   );
@@ -191,14 +193,12 @@ const styles = StyleSheet.create({
     display: "flex",
   },
   buttonContainer: {
-    marginTop: 30,
     alignItems: "center",
     width: 250,
     height: 40,
-    marginLeft: 80,
-    justifyContent: "center",
     borderRadius: 10,
     elevation: 3,
+    justifyContent: "center",
     backgroundColor: "#4ecb71",
   },
   text: {
