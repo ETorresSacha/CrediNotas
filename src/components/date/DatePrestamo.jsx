@@ -55,7 +55,7 @@ const DatePrestamo = ({
 
       <View style={styles.formItem}>
         <View style={styles.legendContainer}>
-          <Text style={styles.legend}>Fecha de la primera cuota: </Text>
+          <Text style={styles.legend}>Fecha de la 1° cuota: </Text>
         </View>
         <View style={styles.inputContainerDate}>
           <Text
@@ -95,7 +95,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     display: "flex",
-    gap: 20,
+    gap: 15,
+    paddingTop: RFPercentage(1),
   },
 
   formItem: {

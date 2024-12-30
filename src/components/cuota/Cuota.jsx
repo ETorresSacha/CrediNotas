@@ -1,6 +1,7 @@
 import React from "react";
 import { View, StyleSheet, Alert, Text, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 const Cuota = ({ cuota, changeValue, dataPerson, valueProps }) => {
   const navigation = useNavigation();
@@ -37,12 +38,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-evenly",
-    paddingTop: 20,
+    paddingBottom: RFPercentage(2),
   },
 
   button: {
     alignItems: "center",
-    width: 120,
+    width: RFPercentage(19),
     height: 40,
     justifyContent: "center",
     paddingHorizontal: 10,
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
     backgroundColor: "orange",
   },
   text: {
-    fontSize: 25,
+    fontSize: RFPercentage(2.5),
     fontWeight: "bold",
     letterSpacing: 0.25,
     color: "white",
@@ -69,7 +70,7 @@ const styles = StyleSheet.create({
   },
 
   textCronograma: {
-    fontSize: 20,
+    fontSize: RFPercentage(2.7),
     fontWeight: "bold",
     letterSpacing: 0.25,
     color: "white",
