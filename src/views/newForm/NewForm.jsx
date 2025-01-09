@@ -39,7 +39,7 @@ const NewForm = (props) => {
   const dataConfiguration = props.route.params?.dataConfiguration; // Datos de la configuración
 
   // ****
-  console.log("propsNEWFROM: ", user);
+  console.log("propsNEWFROM: ", props.route.params);
   const [dataPerson, setDataPerson] = useState({
     uuid: !user ? uuid : user?.uuid,
     nombre: !user ? "" : user?.nombre,
@@ -53,7 +53,7 @@ const NewForm = (props) => {
     capital: !user ? "" : user?.capital,
     cuotas: !user ? "" : user?.cuotas,
     interes: !user ? "" : user?.interes,
-    tipoPago: !user ? "" : user?.tipoPago,
+    //tipoPago: !user ? "" : user?.tipoPago,
     fechaDesembolso: !user ? "" : user?.fechaDesembolso,
     fechaPrimeraCuota: !user ? "" : user?.fechaPrimeraCuota,
     periodo: !user ? "" : user?.periodo,
