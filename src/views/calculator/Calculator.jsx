@@ -44,7 +44,7 @@ const Calculator = ({
   const [resultView, setResultView] = useState(true);
   const [valueTPM, setValueTPM] = useState("");
   const [cuota, setCuota] = useState();
-  const [tipoPago, setTipoPago] = useState("Interes"); // Selecciona la opción del tipo de pago que quiere realizar
+  //const [tipoPago, setTipoPago] = useState("Interes"); // Selecciona la opción del tipo de pago que quiere realizar
 
   const [prestamo, setPrestamo] = useState({
     periodo: !dataPerson ? "" : dataPerson.periodo,
@@ -52,7 +52,7 @@ const Calculator = ({
     //tea: !dataPerson ? "" : dataPerson.tea, //? Es aplicable cuando se trabaja con una entidad financiera
     interes: !dataPerson ? "" : dataPerson.interes,
     cuotas: !dataPerson ? "" : dataPerson.cuotas,
-    tipoPago: !editValue ? tipoPago : dataPerson.tipoPago,
+    //tipoPago: !editValue ? tipoPago : dataPerson.tipoPago,
     fechaDesembolso: !dataPerson ? "" : dataPerson.fechaDesembolso,
     fechaPrimeraCuota: !dataPerson ? "" : dataPerson.fechaPrimeraCuota,
   });
@@ -113,15 +113,10 @@ const Calculator = ({
         setPrestamo({
           capital: "",
           cuotas: "",
-          //tea: "",
           interes: "",
           fechaDesembolso: "",
           fechaPrimeraCuota: "",
           periodo: "",
-          tipoPago: tipoPago,
-          // tasaPrimaMensual: !dataPerson //todo-- Aplicable cuando se trabaja con una entidad financiera
-          //   ? route.params.data?.tpm
-          //   : dataPerson.tasaPrimaMensual,
         });
         setResultView(true);
         setClean ? setClean(false) : setCleanCalculator(false);
@@ -187,13 +182,10 @@ const Calculator = ({
           ...dataPerson,
           capital: prestamo?.capital,
           cuotas: prestamo?.cuotas,
-          //tea: prestamo?.tea,
           interes: prestamo?.interes,
           fechaDesembolso: prestamo?.fechaDesembolso,
           fechaPrimeraCuota: prestamo?.fechaPrimeraCuota,
           periodo: prestamo?.periodo,
-          tipoPago: prestamo?.tipoPago, //! para este tipo de prestamo creo que ya no se esta considerando el tipo de prestamo, evaluar, sino eliminarlo
-          tasaPrimaMensual: changeValue ? valueTPM : dataConfiguration?.tpm, //! ESTA PARTE DEBEMOS YA CORREGIR, SI SE ELIMINA O SE QUEDA
           resultPrestamo: result,
         });
       } else {
@@ -239,7 +231,8 @@ const Calculator = ({
           setCleanCalculator={setCleanCalculator}
           setClean={setClean}
           dataPerson={dataPerson}
-          setTipoPago={setTipoPago}
+          setDataPerson={setDataPerson}
+          valueProps={valueProps}
         />
         <View>
           {/* ------------------ CALCULAR ------------------*/}
@@ -261,6 +254,12 @@ const Calculator = ({
                   cuota={cuota}
                   changeValue={changeValue}
                   dataPerson={dataPerson}
+                  editValue={valueProps?.editValue}
+                  user={dataPerson}
+                  id={valueProps?.id}
+                  typeColor={valueProps?.typeColor}
+                  enable={valueProps?.enable}
+                  dataConfiguration
                   valueProps={valueProps}
                 />
               ) : null
@@ -325,3 +324,8 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
 });
+
+//! EL ERROR ESTA EN QUE CUNDO RETORNAS DEL CRONOGRAMA SE BORRAN LOS DATOS
+//! EL DATAPERSON NO GUARDA LOS DATS QUE SE AÑADEN EN EL NEWFORM PARA QUE CUANDO RETORNA DEBA CALCULAR
+//! PARA ESO SE ESTA PENSANDO QUE DEBEMOS GUARDAR LOS DATOS EN DATAPERSON Y CALCULAR INDEPENDIENTE
+//! VERIFICAR ESTE PUNTOS

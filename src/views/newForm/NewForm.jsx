@@ -25,40 +25,41 @@ const NewForm = (props) => {
   const [clean, setClean] = useState(false);
   const [valuePrest, setValuePrest] = useState(false);
   const [valueError, setValueError] = useState(false);
-  const dataConfiguration = !props.route.params?.dataConfiguration
-    ? props.route.params
-    : props.route.params?.dataConfiguration; // Datos de la configuración
+  // const dataConfiguration = !props.route.params?.dataConfiguration
+  //   ? props.route.params
+  //   : props.route.params?.dataConfiguration; // Datos de la configuración
 
   // TODO --> Editar los datos
   // *** Propiedades que se usan para editar ***
-  const user = props.route.params ? props.route.params?.user : null;
   const editValue = props.route.params ? props.route.params?.editValue : null;
-  const typeColor = props.route.params ? props.route.params?.typeColor : null;
+  const user = props.route.params ? props.route.params?.user : null;
   const id = props.route.params ? props.route.params?.id : null;
+  const typeColor = props.route.params ? props.route.params?.typeColor : null;
   const enable = props.route.params ? props.route.params?.enable : null;
-  // ****
+  const dataConfiguration = props.route.params?.dataConfiguration; // Datos de la configuración
 
+  // ****
+  console.log("propsNEWFROM: ", user);
   const [dataPerson, setDataPerson] = useState({
-    uuid: !user ? uuid : user[0].uuid,
-    nombre: !user ? "" : user[0].nombre,
-    apellido: !user ? "" : user[0].apellido,
-    dni: !user ? "" : user[0].dni,
-    correo: !user ? "" : user[0].correo,
-    direccion: !user ? "" : user[0].direccion,
-    celular: !user ? "" : user[0].celular,
-    cancelled: !user ? false : user[0].cancelled,
+    uuid: !user ? uuid : user?.uuid,
+    nombre: !user ? "" : user?.nombre,
+    apellido: !user ? "" : user?.apellido,
+    dni: !user ? "" : user?.dni,
+    correo: !user ? "" : user?.correo,
+    direccion: !user ? "" : user?.direccion,
+    celular: !user ? "" : user?.celular,
+    cancelled: !user ? false : user?.cancelled,
     // Datos del préstamo
-    capital: !user ? "" : user[0].capital,
-    cuotas: !user ? "" : user[0].cuotas,
-    //tea: !user ? "" : user[0].tea, //? Aplicable para un entidad financiera
-    //tasaPrimaMensual: !user ? dataConfiguration?.tpm : user[0].tasaPrimaMensual, //? Aplicable para un entidad financiera
-    interes: !user ? "" : user[0].interes,
-    tipoPago: !user ? "" : user[0].tipoPago,
-    fechaDesembolso: !user ? "" : user[0].fechaDesembolso,
-    fechaPrimeraCuota: !user ? "" : user[0].fechaPrimeraCuota,
-    periodo: !user ? "" : user[0].periodo,
-    resultPrestamo: !user ? [] : user[0].resultPrestamo,
+    capital: !user ? "" : user?.capital,
+    cuotas: !user ? "" : user?.cuotas,
+    interes: !user ? "" : user?.interes,
+    tipoPago: !user ? "" : user?.tipoPago,
+    fechaDesembolso: !user ? "" : user?.fechaDesembolso,
+    fechaPrimeraCuota: !user ? "" : user?.fechaPrimeraCuota,
+    periodo: !user ? "" : user?.periodo,
+    resultPrestamo: !user ? [] : user?.resultPrestamo,
   });
+  console.log("datapersoon: ", dataPerson);
 
   useEffect(() => {
     // Limpia es estado
@@ -74,14 +75,10 @@ const NewForm = (props) => {
         cancelled: false,
         capital: "",
         cuotas: "",
-        //tea: "",
         interes: "",
         fechaDesembolso: "",
         fechaPrimeraCuota: "",
         periodo: "",
-        // tasaPrimaMensual: !user
-        //   ? dataConfiguration?.tpm
-        //   : user[0].tasaPrimaMensual,
         resultPrestamo: [],
       });
     }

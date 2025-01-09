@@ -3,15 +3,40 @@ import { View, StyleSheet, Alert, Text, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 
-const Cuota = ({ cuota, changeValue, dataPerson, valueProps }) => {
+const Cuota = ({
+  cuota,
+  changeValue,
+  //editValue,
+  dataPerson,
+  user,
+  //id,
+  //typeColor,
+  //enable,
+  //dataConfiguration,
+  valueProps,
+}) => {
   const navigation = useNavigation();
+  console.log("datapersoncuota: ", dataPerson);
 
-  const cuota2 = dataPerson.resultPrestamo[0]?.cuotaNeto;
+  const cuota2 = user.resultPrestamo[0]?.cuotaNeto;
+  // const handleRouteCronograma = () => {
+  //   // navigation.navigate("Cronograma", { user: user, valueProps });
+  //   navigation.navigate("Cronograma", {
+  //     //editValue,
+  //     user: dataPerson,
+  //     // id,
+  //     //typeColor,
+  //     //enable,
+  //     valueProps,
+  //   });
+  // };
 
   const handleRouteCronograma = () => {
-    navigation.navigate("Cronograma", { valueProps, dataPerson });
+    // navigation.navigate("Cronograma", { user: user, valueProps });
+    navigation.navigate("Cronograma", { user: dataPerson });
   };
 
+  //!borramos los log de todos y despues evaluamos el header uno por uno, las props que manda, analizar eso
   return (
     <View style={styles.container}>
       <View>
@@ -53,7 +78,7 @@ const styles = StyleSheet.create({
   },
   buttonCronograma: {
     alignItems: "center",
-    width: 150,
+    width: RFPercentage(19),
     height: 40,
     justifyContent: "center",
     paddingHorizontal: 10,
@@ -70,7 +95,7 @@ const styles = StyleSheet.create({
   },
 
   textCronograma: {
-    fontSize: RFPercentage(2.7),
+    fontSize: RFPercentage(2.5),
     fontWeight: "bold",
     letterSpacing: 0.25,
     color: "white",

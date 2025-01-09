@@ -22,6 +22,8 @@ const Prestamo = ({
   valuePrest,
   cleanCalculator,
   clean,
+  dataPerson,
+  setDataPerson,
   setTipoPago,
 }) => {
   const [value, setValue] = useState("");
@@ -45,6 +47,7 @@ const Prestamo = ({
   // Setea el estado y los errores
   const handleChangeData = (event, type) => {
     setPrestamo({ ...prestamo, [type]: event.nativeEvent.text });
+    //setDataPerson({ ...dataPerson, [type]: event.nativeEvent.text });
     setErrorsPrestamo((errorsPrestamo) => ({
       ...errorsPrestamo,
       [type]: "",
@@ -84,6 +87,7 @@ const Prestamo = ({
             onChange={(item) => {
               setValue(item.value);
               setPrestamo({ ...prestamo, periodo: item.label });
+              //setDataPerson({ ...prestamo, periodo: item.label });
               setPlaceholderNumCuotas(item.label);
               setErrorsPrestamo((errorsPrestamo) => ({
                 ...errorsPrestamo,

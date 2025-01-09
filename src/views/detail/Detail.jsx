@@ -20,6 +20,8 @@ import { diffDay } from "../../utils/thunks/Thunks";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 const Detail = (props) => {
+  console.log(props?.route?.params);
+
   const { onGetCronograma, onDeleteCustomer } = UseStorage();
   const navigation = useNavigation();
   const [user, setUser] = useState([]);
@@ -85,8 +87,8 @@ const Detail = (props) => {
     React.useCallback(() => {
       setValueProps({
         ...valueProps,
-        typeColor: props?.route?.params?.typeColor,
         id: props?.route?.params?.id,
+        typeColor: props?.route?.params?.typeColor,
         enable: props?.route?.params?.enable,
         dataConfiguration: props?.route?.params?.dataConfiguration,
       });
@@ -116,10 +118,10 @@ const Detail = (props) => {
   // Editar
   const edit = (value) => {
     navigation.navigate("Nuevo cliente", {
-      user: value,
       editValue: true,
-      typeColor: valueProps?.typeColor,
+      user: value,
       id: valueProps?.id,
+      typeColor: valueProps?.typeColor,
       enable: valueProps?.enable,
       dataConfiguration: valueProps?.dataConfiguration,
     });
@@ -150,6 +152,7 @@ const Detail = (props) => {
       },
     ]);
   };
+  // //console.log("userEDIT: ", user);
 
   return (
     <View style={styles.container}>
@@ -174,7 +177,7 @@ const Detail = (props) => {
                   {valueProps?.enable ? null : (
                     <TouchableOpacity
                       style={styles.icon}
-                      onPress={() => edit(user)}
+                      onPress={() => edit(user[0])}
                     >
                       <Entypo name="pencil" size={30} color="cornsilk" />
                     </TouchableOpacity>
@@ -235,10 +238,10 @@ const Detail = (props) => {
                 style={styles.verCronograma}
                 onPress={() =>
                   navigation.navigate("Cronograma", {
-                    user: user[0].resultPrestamo,
+                    user: user[0],
                     id: valueProps?.id,
-                    enable: valueProps?.enable,
                     typeColor: valueProps?.typeColor,
+                    enable: valueProps?.enable,
                     dataConfiguration: valueProps?.dataConfiguration,
                   })
                 }

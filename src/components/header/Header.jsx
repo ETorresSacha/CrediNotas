@@ -12,7 +12,7 @@ const Header = ({ title, back, data, setValueImport }) => {
   const backFunction = (value) => {
     switch (value) {
       case "Clientes":
-        navigation.navigate(value, { data: data });
+        navigation.navigate(value, { user: data });
         break;
       case "Detalle":
         navigation.navigate(value, data);
