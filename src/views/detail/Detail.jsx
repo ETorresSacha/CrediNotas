@@ -20,8 +20,6 @@ import { diffDay } from "../../utils/thunks/Thunks";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 const Detail = (props) => {
-  console.log("propsDETALLE: ", props?.route?.params);
-
   const { onGetCronograma, onDeleteCustomer } = UseStorage();
   const navigation = useNavigation();
   const [user, setUser] = useState([]);
@@ -152,7 +150,6 @@ const Detail = (props) => {
       },
     ]);
   };
-  // //console.log("userEDIT: ", user);
 
   return (
     <View style={styles.container}>

@@ -4,18 +4,12 @@ import { StyleSheet, View } from "react-native";
 import Header from "../../components/header/Header";
 
 const VerCronograma = (props) => {
-  const user = props.route.params?.user; //para detalle el segundo
-  //props.route.params?.user?.resultPrestamo || props.route.params?.user; //! comparar con el newform
+  const user = props.route.params?.user;
   const id = props.route.params?.id;
   const enable = props.route.params?.enable;
   const editValue = props.route.params?.editValue;
   const typeColor = props.route.params?.typeColor;
   const dataConfiguration = props.route.params?.dataConfiguration;
-
-  const ccv = props.route.params?.valueProps?.dataConfiguration;
-  console.log("propsconograma: ", props.route.params);
-
-  console.log("userCRONGRAMA: ", user);
 
   return (
     <View style={styles.container}>
@@ -28,8 +22,6 @@ const VerCronograma = (props) => {
             ? "Nuevo cliente"
             : "Detalle"
         }
-        //back={editValue ? "Nuevo cliente" : "Detalle"}
-        //back={"Nuevo cliente"}
         data={{
           editValue,
           user: user,
@@ -38,16 +30,6 @@ const VerCronograma = (props) => {
           enable,
           dataConfiguration,
         }}
-        //data={{ user: user }}
-
-        // data={{
-        //   editValue,
-        //   user,
-        //   id,
-        //   typeColor,
-        //   enable,
-        //   dataConfiguration,
-        // }}
       />
       <Cronograma data={user} />
     </View>

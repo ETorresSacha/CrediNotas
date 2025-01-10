@@ -25,9 +25,6 @@ const NewForm = (props) => {
   const [clean, setClean] = useState(false);
   const [valuePrest, setValuePrest] = useState(false);
   const [valueError, setValueError] = useState(false);
-  // const dataConfiguration = !props.route.params?.dataConfiguration
-  //   ? props.route.params
-  //   : props.route.params?.dataConfiguration; // Datos de la configuración
 
   // TODO --> Editar los datos
   // *** Propiedades que se usan para editar ***
@@ -38,8 +35,7 @@ const NewForm = (props) => {
   const enable = props.route.params ? props.route.params?.enable : null;
   const dataConfiguration = props.route.params?.dataConfiguration; // Datos de la configuración
 
-  // ****
-  console.log("propsNEWFROM: ", props.route.params);
+  // ****s
   const [dataPerson, setDataPerson] = useState({
     uuid: !user ? uuid : user?.uuid,
     nombre: !user ? "" : user?.nombre,
@@ -53,13 +49,11 @@ const NewForm = (props) => {
     capital: !user ? "" : user?.capital,
     cuotas: !user ? "" : user?.cuotas,
     interes: !user ? "" : user?.interes,
-    //tipoPago: !user ? "" : user?.tipoPago,
     fechaDesembolso: !user ? "" : user?.fechaDesembolso,
     fechaPrimeraCuota: !user ? "" : user?.fechaPrimeraCuota,
     periodo: !user ? "" : user?.periodo,
     resultPrestamo: !user ? [] : user?.resultPrestamo,
   });
-  console.log("datapersoon: ", dataPerson);
 
   useEffect(() => {
     // Limpia es estado
@@ -132,7 +126,7 @@ const NewForm = (props) => {
       }
     }
   };
-
+  //! VERIFICAR SI SOLO PASAMOS EL DATAPERSON COMO PROPS Y YA NO USER, VERIFICAR SI ES NECESARIO
   return (
     <View style={styles.container}>
       <Header

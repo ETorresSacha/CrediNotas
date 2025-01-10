@@ -13,26 +13,12 @@ const Cuota = ({
   typeColor,
   enable,
   dataConfiguration,
-  valueProps,
 }) => {
   const navigation = useNavigation();
-  console.log("datapersoncuota: ", dataPerson);
 
   const cuota2 = user.resultPrestamo[0]?.cuotaNeto;
-  // const handleRouteCronograma = () => {
-  //   // navigation.navigate("Cronograma", { user: user, valueProps });
-  //   navigation.navigate("Cronograma", {
-  //     //editValue,
-  //     user: dataPerson,
-  //     // id,
-  //     //typeColor,
-  //     //enable,
-  //     valueProps,
-  //   });
-  // };
 
   const handleRouteCronograma = () => {
-    // navigation.navigate("Cronograma", { user: user, valueProps });
     navigation.navigate("Cronograma", {
       editValue,
       user: dataPerson,
@@ -43,7 +29,6 @@ const Cuota = ({
     });
   };
 
-  //!borramos los log de todos y despues evaluamos el header uno por uno, las props que manda, analizar eso
   return (
     <View style={styles.container}>
       <View>

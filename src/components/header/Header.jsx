@@ -24,7 +24,6 @@ const Header = ({ title, back, data, setValueImport }) => {
         navigation.navigate("Home");
     }
   };
-  console.log("dataHEADER: ", data);
 
   return (
     <View style={styles.conteiner}>

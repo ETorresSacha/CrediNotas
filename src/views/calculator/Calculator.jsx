@@ -33,7 +33,6 @@ const Calculator = ({
   user,
   dataConfiguration,
   valueProps,
-  route,
 }) => {
   const [resultCuota, setResultCuota] = useState(""); // Útil para la vista de la calculadora
   const [enabled, setEnabled] = useState(false); // Habilita el resultado del componente NEWFORM
@@ -44,15 +43,12 @@ const Calculator = ({
   const [resultView, setResultView] = useState(true);
   const [valueTPM, setValueTPM] = useState("");
   const [cuota, setCuota] = useState();
-  //const [tipoPago, setTipoPago] = useState("Interes"); // Selecciona la opción del tipo de pago que quiere realizar
 
   const [prestamo, setPrestamo] = useState({
     periodo: !dataPerson ? "" : dataPerson.periodo,
     capital: !dataPerson ? "" : dataPerson.capital,
-    //tea: !dataPerson ? "" : dataPerson.tea, //? Es aplicable cuando se trabaja con una entidad financiera
     interes: !dataPerson ? "" : dataPerson.interes,
     cuotas: !dataPerson ? "" : dataPerson.cuotas,
-    //tipoPago: !editValue ? tipoPago : dataPerson.tipoPago,
     fechaDesembolso: !dataPerson ? "" : dataPerson.fechaDesembolso,
     fechaPrimeraCuota: !dataPerson ? "" : dataPerson.fechaPrimeraCuota,
   });
@@ -226,13 +222,12 @@ const Calculator = ({
           valuePrest={valuePrest}
           cleanCalculator={cleanCalculator}
           clean={clean}
-          setErrorsP={setErrorsP}
-          errorsP={errorsP}
-          setCleanCalculator={setCleanCalculator}
-          setClean={setClean}
-          dataPerson={dataPerson}
-          setDataPerson={setDataPerson}
-          valueProps={valueProps}
+          // setErrorsP={setErrorsP}
+          // errorsP={errorsP}
+          // setCleanCalculator={setCleanCalculator}
+          // setClean={setClean}
+          // dataPerson={dataPerson}
+          // setDataPerson={setDataPerson}
         />
         <View>
           {/* ------------------ CALCULAR ------------------*/}
@@ -260,7 +255,6 @@ const Calculator = ({
                   typeColor={valueProps?.typeColor}
                   enable={valueProps?.enable}
                   dataConfiguration={dataConfiguration}
-                  valueProps={valueProps}
                 />
               ) : null
             ) : null
@@ -324,8 +318,3 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
 });
-
-//! EL ERROR ESTA EN QUE CUNDO RETORNAS DEL CRONOGRAMA SE BORRAN LOS DATOS
-//! EL DATAPERSON NO GUARDA LOS DATS QUE SE AÑADEN EN EL NEWFORM PARA QUE CUANDO RETORNA DEBA CALCULAR
-//! PARA ESO SE ESTA PENSANDO QUE DEBEMOS GUARDAR LOS DATOS EN DATAPERSON Y CALCULAR INDEPENDIENTE
-//! VERIFICAR ESTE PUNTOS
