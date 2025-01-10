@@ -20,7 +20,7 @@ import { diffDay } from "../../utils/thunks/Thunks";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 const Detail = (props) => {
-  console.log(props?.route?.params);
+  console.log("propsDETALLE: ", props?.route?.params);
 
   const { onGetCronograma, onDeleteCustomer } = UseStorage();
   const navigation = useNavigation();

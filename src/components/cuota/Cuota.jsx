@@ -6,13 +6,13 @@ import { RFPercentage } from "react-native-responsive-fontsize";
 const Cuota = ({
   cuota,
   changeValue,
-  //editValue,
+  editValue,
   dataPerson,
   user,
-  //id,
-  //typeColor,
-  //enable,
-  //dataConfiguration,
+  id,
+  typeColor,
+  enable,
+  dataConfiguration,
   valueProps,
 }) => {
   const navigation = useNavigation();
@@ -33,7 +33,14 @@ const Cuota = ({
 
   const handleRouteCronograma = () => {
     // navigation.navigate("Cronograma", { user: user, valueProps });
-    navigation.navigate("Cronograma", { user: dataPerson });
+    navigation.navigate("Cronograma", {
+      editValue,
+      user: dataPerson,
+      id,
+      typeColor,
+      enable,
+      dataConfiguration,
+    });
   };
 
   //!borramos los log de todos y despues evaluamos el header uno por uno, las props que manda, analizar eso

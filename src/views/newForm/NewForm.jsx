@@ -141,7 +141,7 @@ const NewForm = (props) => {
         data={
           !editValue
             ? dataConfiguration
-            : { typeColor, id, enable, dataConfiguration }
+            : { typeColor, editValue, id, enable, dataConfiguration }
         }
       />
       <ScrollView>
@@ -182,7 +182,7 @@ const NewForm = (props) => {
 };
 
 export default NewForm;
-
+//! esta el erro entre estos tres componentes, tenemos que psar el valor de edit, par que vuelva a editar
 const styles = StyleSheet.create({
   container: {
     flex: 1,

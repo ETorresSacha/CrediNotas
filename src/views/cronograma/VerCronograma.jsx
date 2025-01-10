@@ -6,18 +6,13 @@ import Header from "../../components/header/Header";
 const VerCronograma = (props) => {
   const user = props.route.params?.user; //para detalle el segundo
   //props.route.params?.user?.resultPrestamo || props.route.params?.user; //! comparar con el newform
-  const id = props.route.params?.valueProps?.id || props.route.params?.id;
-  const enable =
-    props.route.params?.valueProps?.enable || props.route.params?.enable;
-  const editValue =
-    props.route.params?.valueProps?.editValue || props.route.params?.editValue;
-  const typeColor =
-    props.route.params?.valueProps?.typeColor || props.route.params?.typeColor;
-  const dataConfiguration =
-    props.route.params?.valueProps?.dataConfiguration ||
-    props.route.params?.dataConfiguration;
+  const id = props.route.params?.id;
+  const enable = props.route.params?.enable;
+  const editValue = props.route.params?.editValue;
+  const typeColor = props.route.params?.typeColor;
+  const dataConfiguration = props.route.params?.dataConfiguration;
 
-  const ccv = props.route.params?.valueProps?.intMoratorio;
+  const ccv = props.route.params?.valueProps?.dataConfiguration;
   console.log("propsconograma: ", props.route.params);
 
   console.log("userCRONGRAMA: ", user);
@@ -26,19 +21,24 @@ const VerCronograma = (props) => {
     <View style={styles.container}>
       <Header
         title={"Cronograma"}
-        back={!ccv ? "Nuevo cliente" : editValue ? "Nuevo cliente" : "Detalle"}
+        back={
+          !dataConfiguration
+            ? "Nuevo cliente"
+            : editValue
+            ? "Nuevo cliente"
+            : "Detalle"
+        }
         //back={editValue ? "Nuevo cliente" : "Detalle"}
         //back={"Nuevo cliente"}
-        // data={
-        //   props.route.params.valueProps || {
-        //     id,
-        //     enable,
-        //     typeColor,
-        //     dataConfiguration,
-        //   }
-        // }
-
-        data={{ user: user }}
+        data={{
+          editValue,
+          user: user,
+          id,
+          typeColor,
+          enable,
+          dataConfiguration,
+        }}
+        //data={{ user: user }}
 
         // data={{
         //   editValue,

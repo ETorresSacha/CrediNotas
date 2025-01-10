@@ -259,7 +259,7 @@ const Calculator = ({
                   id={valueProps?.id}
                   typeColor={valueProps?.typeColor}
                   enable={valueProps?.enable}
-                  dataConfiguration
+                  dataConfiguration={dataConfiguration}
                   valueProps={valueProps}
                 />
               ) : null
