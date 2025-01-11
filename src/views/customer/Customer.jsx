@@ -127,7 +127,7 @@ const Customer = (props) => {
 
       {on == false ? (
         <Loading />
-      ) : (
+      ) : data ? (
         <DataCustomer
           data={data}
           setData={setData}
@@ -136,6 +136,8 @@ const Customer = (props) => {
           dataConfiguration={dataConfiguration}
           day={day}
         />
+      ) : (
+        "NO HAY DATOS"
       )}
     </View>
   );

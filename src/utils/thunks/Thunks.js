@@ -2,6 +2,8 @@ import { compareAsc, format,add,formatDistance, getDate,isFuture,isEqual,differe
 
 //TODO--> ORDENAR
 export const orderData = (type,data,value,enable)=>{
+  console.log("value: ",value);
+  
     let result
     switch (type) {
         case 'dni':
@@ -46,12 +48,12 @@ export const orderData = (type,data,value,enable)=>{
           break;
 
           case 'cuota':
-            if (value) {
+            if (!value) { // En este caso el valor de "value" lo cambiamos porque ya los datos vienen ordenados por la cuota de forma ascendente.
 
-                result = data?.sort((a, b) => a.resultPrestamo[0].montoCuota - b.resultPrestamo[0].montoCuota);
+                result = data?.sort((a, b) => a.resultPrestamo[0].cuotaNeto - b.resultPrestamo[0].cuotaNeto);
              
                } else {
-                 result = data?.sort((a, b) => b.resultPrestamo[0].montoCuota - a.resultPrestamo[0].montoCuota);
+                 result = data?.sort((a, b) => b.resultPrestamo[0].cuotaNeto - a.resultPrestamo[0].cuotaNeto);
                }
           break;
         
