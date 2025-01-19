@@ -1,4 +1,5 @@
 import { StyleSheet, View, ActivityIndicator } from "react-native";
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import React from "react";
 
 const Loading = () => {
@@ -16,10 +17,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
+    height: RFPercentage(60),
+    //width: "70%",
+    // alignItems: "center",
+    // alignContent: "center",
+    // justifyContent: "center",
   },
   horizontal: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    padding: 10,
+    // flexDirection: "row",
+    // justifyContent: "space-around",
   },
 });

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import UseStorage from "../../components/hooks/UseHookStorage";
 import NavBar from "../../components/navBar/NavBar";
@@ -18,21 +18,20 @@ const Customer = (props) => {
   const { onGetCronograma } = UseStorage();
   const [dataConfiguration, setDataConfiguration] = useState({}); // Datos de la configuración
   const [day, setDay] = useState("");
-  const [on, setOn] = useState(false);
+  const [inicio, setInicio] = useState();
   const [data, setData] = useState({
     dataResult: [],
     dataResultCopy: [],
   });
-  const [customer, SetCustomer] = useState({
-    customerCancelled: [],
-    dataResult: [],
-  });
-  const [valueImport, setValueImport] = useState(false); // Necesario para importar la data
+  const [customer, SetCustomer] = useState();
 
+  const [valueImport, setValueImport] = useState(false); // Necesario para importar la data
+  const [visible, setVisible] = useState();
   // Trae los datos del local storage
   const loadCustomer = async () => {
     try {
       let resultCustomer = await onGetCronograma();
+
       resultCustomer = orderData("fecha", resultCustomer, false, enable); // ordena de forma ascendente de acuerdo a la fecha
       setData({
         ...data,
@@ -46,17 +45,37 @@ const Customer = (props) => {
 
   // clasificación de los clientes de acuerdo a la fecha de pago
   const resultCustomer = () => {
+    setInicio(false);
+    console.log("dataRESULTcustomer: ", data);
+
     setDay(format(new Date(), "yyyy-MM-dd"));
     let result = customerData(data.dataResult, day);
 
-    if (result?.resultDataResult) {
-      SetCustomer({
-        ...customer,
-        customerCancelled: result?.resultCustomerCancelled,
-        dataResult: result.resultDataResult,
-      });
+    //Seteamos los datos del customer
+    // SetCustomer({
+    //   ...customer,
+    //   customerCancelled: result?.resultCustomerCancelled,
+    //   dataResult: result.resultDataResult,
+    // });
+    console.log("resultCUSTOMER: ", result);
+    SetCustomer({
+      ...customer,
+      customerCancelled: result?.resultCustomerCancelled,
+      dataResult: result.resultDataResult,
+    });
+    // if (customer != undefined) {
+    if (
+      !enable
+        ? result?.resultDataResult.length == 0
+        : result?.resultCustomerCancelled.length == 0
+    ) {
+      setInicio(true);
+      //setVisible(false);
     }
+    // }
   };
+  console.log("inicio: ", inicio);
+  console.log("enable: ", enable);
 
   // Cargar los datos de la configuración
   const loadCongiguration = async () => {
@@ -79,15 +98,26 @@ const Customer = (props) => {
   useFocusEffect(
     React.useCallback(() => {
       loadCustomer();
-      setTimeout(setOn, 1, true);
+
       loadCongiguration();
+      //resultCustomer();
+      // if (customer?.dataResult) {
+      //   setInicio(true);
+      // }
+      //setOn(on);
 
       //return () => unsubscribe();
-    }, [])
+    }, [setData, SetCustomer, inicio])
   );
+
   useEffect(() => {
+    //setTimeout(resultCustomer, 1000);
     resultCustomer();
-  }, [data]);
+    // if (customer?.dataResult) {
+    //   setInicio(true);
+    // }
+    //setOn(true);
+  }, [data, SetCustomer, inicio]);
 
   // Función para importar data
   useFocusEffect(
@@ -117,28 +147,24 @@ const Customer = (props) => {
       />
 
       {/* Notificaciones de los clientes por cobrar */}
-      {customer.customerYellow?.length != 0 ||
-      customer.customerRed?.length != 0 ? (
+      {customer?.customerYellow?.length != 0 ||
+      customer?.customerRed?.length != 0 ? (
         <Alerta
-          dataRed={customer.customerRed}
-          dataYellow={customer.customerYellow}
+          dataRed={customer?.customerRed}
+          dataYellow={customer?.customerYellow}
         />
       ) : null}
 
-      {on == false ? (
-        <Loading />
-      ) : data ? (
-        <DataCustomer
-          data={data}
-          setData={setData}
-          customer={customer}
-          enable={enable}
-          dataConfiguration={dataConfiguration}
-          day={day}
-        />
-      ) : (
-        "NO HAY DATOS"
-      )}
+      <DataCustomer
+        data={data}
+        setData={setData}
+        customer={customer}
+        enable={enable}
+        dataConfiguration={dataConfiguration}
+        day={day}
+        inicio={inicio}
+        visible={visible}
+      />
     </View>
   );
 };

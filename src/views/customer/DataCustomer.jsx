@@ -11,6 +11,7 @@ import { orderData } from "../../utils/thunks/Thunks";
 import ModalLeyenda from "../../modals/modalLeyenda/ModalLeyenda";
 import Entypo from "react-native-vector-icons/Entypo";
 import Fontisto from "react-native-vector-icons/Fontisto";
+import Loading from "@/src/components/loading/Loading";
 
 const DataCustomer = ({
   data,
@@ -19,6 +20,8 @@ const DataCustomer = ({
   enable,
   dataConfiguration,
   day,
+  inicio,
+  visible,
 }) => {
   const [order, setOrder] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
@@ -36,6 +39,8 @@ const DataCustomer = ({
     setData({ ...data, dataResult: result });
     setOrder(!value);
   };
+  console.log("customer: ", customer);
+  console.log("Estoy");
 
   return (
     <View style={styles.container}>
@@ -88,13 +93,14 @@ const DataCustomer = ({
         ) : null}
       </View>
       {/* Renderiza los datos  */}
-      <ScrollView style={styles.containerCuotas}>
+      {/* <ScrollView style={styles.containerCuotas}>
         {
           // Cuando no existe ningun cliente guardado
-          data.dataResult == undefined ||
-          (enable
-            ? customer?.customerCancelled?.length == 0
-            : customer?.dataResult?.length == 0) ? (
+          (
+            enable
+              ? customer?.customerCancelled?.length == 0
+              : customer?.dataResult?.length == 0
+          ) ? (
             <View style={styles.containerNoCustomers}>
               <Text style={{ color: "cornsilk" }}>
                 {enable
@@ -119,7 +125,57 @@ const DataCustomer = ({
             />
           )
         }
+      </ScrollView> */}
+
+      <ScrollView style={styles.containerCuotas}>
+        {
+          (customer = undefined ? (
+            <Loading />
+          ) : inicio == true ? (
+            <Text style={{ color: "cornsilk" }}>
+              No hay clientes {enable ? "cancelados" : "guardados"}
+            </Text>
+          ) : !enable ? (
+            // Cuando no existe ningun cliente guardado
+            //  clienteS guardados
+
+            <View>
+              <Users
+                data={customer?.dataResult}
+                dataConfiguration={dataConfiguration}
+                day={day}
+                inicio={inicio}
+              />
+            </View>
+          ) : (
+            <View>
+              <Users
+                data={customer?.customerCancelled}
+                dataConfiguration={dataConfiguration}
+                enable={enable}
+              />
+            </View>
+          ))
+        }
       </ScrollView>
+
+      {/* <ScrollView style={styles.containerCuotas}>
+        {data.dataResult.length == 0 ? (
+          <Loading />
+        ) : (
+           clienteS guardados
+          (
+            <View>
+              <Users
+                data={customer?.dataResult}
+                dataConfiguration={dataConfiguration}
+                day={day}
+              />
+            </View>
+          ) || <Text> NO HAY CLIENTES GUARDADOS</Text>
+        )}
+      </ScrollView>  */}
+
       <View style={[styles.piePagina]}>
         <View style={styles.iconoAllUser}>
           <Entypo
@@ -129,8 +185,8 @@ const DataCustomer = ({
           <View style={{ display: "flex", alignItems: "center" }}>
             <Text style={styles.piePaginaText}>
               {!enable
-                ? customer.dataResult.length
-                : customer.customerCancelled.length}
+                ? customer?.dataResult?.length
+                : customer?.customerCancelled?.length}
             </Text>
             <Text style={styles.textPiePagina}>Clientes</Text>
           </View>
