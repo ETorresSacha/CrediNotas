@@ -133,7 +133,6 @@ return resultDia
 //TODO--> CLASIFICACIÓN DE LOS CLIENTES POR SU ESTADO DE PAGO
 
 export const customerData =(data)=>{
-  console.log("data: ",data);
   
   let customerCancelled =[]
   let dataResult = []

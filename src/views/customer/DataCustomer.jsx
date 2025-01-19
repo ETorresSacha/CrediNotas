@@ -21,15 +21,12 @@ const DataCustomer = ({
   dataConfiguration,
   day,
   inicio,
-  visible,
 }) => {
   const [order, setOrder] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
 
   // Ordenar
   const handleSort = (type, value) => {
-    console.log("type: ", type);
-
     // dataFilter toma los valores dependiendo de que componente es llamado la función, "clientes" o "clientes cancelados"
     let dataFilter = !enable
       ? customer?.dataResult
@@ -39,8 +36,7 @@ const DataCustomer = ({
     setData({ ...data, dataResult: result });
     setOrder(!value);
   };
-  console.log("customer: ", customer);
-  console.log("Estoy");
+  console.log("inicio: ", inicio);
 
   return (
     <View style={styles.container}>
@@ -93,39 +89,6 @@ const DataCustomer = ({
         ) : null}
       </View>
       {/* Renderiza los datos  */}
-      {/* <ScrollView style={styles.containerCuotas}>
-        {
-          // Cuando no existe ningun cliente guardado
-          (
-            enable
-              ? customer?.customerCancelled?.length == 0
-              : customer?.dataResult?.length == 0
-          ) ? (
-            <View style={styles.containerNoCustomers}>
-              <Text style={{ color: "cornsilk" }}>
-                {enable
-                  ? "No hay clientes cancelados"
-                  : "No hay clientes guardados"}
-              </Text>
-            </View>
-          ) : !enable ? (
-            //  clienteS guardados
-            <View>
-              <Users
-                data={customer?.dataResult}
-                dataConfiguration={dataConfiguration}
-                day={day}
-              />
-            </View>
-          ) : (
-            <Users
-              data={customer?.customerCancelled}
-              dataConfiguration={dataConfiguration}
-              enable={enable}
-            />
-          )
-        }
-      </ScrollView> */}
 
       <ScrollView style={styles.containerCuotas}>
         {
@@ -136,9 +99,7 @@ const DataCustomer = ({
               No hay clientes {enable ? "cancelados" : "guardados"}
             </Text>
           ) : !enable ? (
-            // Cuando no existe ningun cliente guardado
-            //  clienteS guardados
-
+            //  clientes guardados
             <View>
               <Users
                 data={customer?.dataResult}
@@ -148,6 +109,7 @@ const DataCustomer = ({
               />
             </View>
           ) : (
+            // Cuando no existe ningun cliente guardado
             <View>
               <Users
                 data={customer?.customerCancelled}
@@ -158,23 +120,6 @@ const DataCustomer = ({
           ))
         }
       </ScrollView>
-
-      {/* <ScrollView style={styles.containerCuotas}>
-        {data.dataResult.length == 0 ? (
-          <Loading />
-        ) : (
-           clienteS guardados
-          (
-            <View>
-              <Users
-                data={customer?.dataResult}
-                dataConfiguration={dataConfiguration}
-                day={day}
-              />
-            </View>
-          ) || <Text> NO HAY CLIENTES GUARDADOS</Text>
-        )}
-      </ScrollView>  */}
 
       <View style={[styles.piePagina]}>
         <View style={styles.iconoAllUser}>

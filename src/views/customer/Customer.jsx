@@ -6,7 +6,6 @@ import NavBar from "../../components/navBar/NavBar";
 import { customerData, orderData } from "../../utils/thunks/Thunks";
 import { format } from "date-fns";
 import Header from "../../components/header/Header";
-import Loading from "../../components/loading/Loading";
 import DataCustomer from "./DataCustomer";
 import Alerta from "../alert/Alerta";
 import { renderImportData } from "./renderImportData";
@@ -17,16 +16,15 @@ const Customer = (props) => {
 
   const { onGetCronograma } = UseStorage();
   const [dataConfiguration, setDataConfiguration] = useState({}); // Datos de la configuración
+  const [valueImport, setValueImport] = useState(false); // Necesario para importar la data
   const [day, setDay] = useState("");
   const [inicio, setInicio] = useState();
+  const [customer, SetCustomer] = useState();
   const [data, setData] = useState({
     dataResult: [],
     dataResultCopy: [],
   });
-  const [customer, SetCustomer] = useState();
 
-  const [valueImport, setValueImport] = useState(false); // Necesario para importar la data
-  const [visible, setVisible] = useState();
   // Trae los datos del local storage
   const loadCustomer = async () => {
     try {
@@ -46,36 +44,26 @@ const Customer = (props) => {
   // clasificación de los clientes de acuerdo a la fecha de pago
   const resultCustomer = () => {
     setInicio(false);
-    console.log("dataRESULTcustomer: ", data);
 
     setDay(format(new Date(), "yyyy-MM-dd"));
     let result = customerData(data.dataResult, day);
 
-    //Seteamos los datos del customer
-    // SetCustomer({
-    //   ...customer,
-    //   customerCancelled: result?.resultCustomerCancelled,
-    //   dataResult: result.resultDataResult,
-    // });
-    console.log("resultCUSTOMER: ", result);
-    SetCustomer({
-      ...customer,
-      customerCancelled: result?.resultCustomerCancelled,
-      dataResult: result.resultDataResult,
-    });
-    // if (customer != undefined) {
+    // Habilitamos el texto si no existe datos guardados
     if (
       !enable
         ? result?.resultDataResult.length == 0
         : result?.resultCustomerCancelled.length == 0
     ) {
       setInicio(true);
-      //setVisible(false);
     }
-    // }
+
+    //Seteamos los datos del customer
+    SetCustomer({
+      ...customer,
+      customerCancelled: result?.resultCustomerCancelled,
+      dataResult: result.resultDataResult,
+    });
   };
-  console.log("inicio: ", inicio);
-  console.log("enable: ", enable);
 
   // Cargar los datos de la configuración
   const loadCongiguration = async () => {
@@ -98,26 +86,16 @@ const Customer = (props) => {
   useFocusEffect(
     React.useCallback(() => {
       loadCustomer();
-
       loadCongiguration();
-      //resultCustomer();
-      // if (customer?.dataResult) {
-      //   setInicio(true);
-      // }
-      //setOn(on);
 
       //return () => unsubscribe();
-    }, [setData, SetCustomer, inicio])
+    }, [setData])
   );
 
   useEffect(() => {
     //setTimeout(resultCustomer, 1000);
     resultCustomer();
-    // if (customer?.dataResult) {
-    //   setInicio(true);
-    // }
-    //setOn(true);
-  }, [data, SetCustomer, inicio]);
+  }, [data]); //! esta para evluar si se agrega en esta parte setCustomer e inicio
 
   // Función para importar data
   useFocusEffect(
@@ -163,7 +141,6 @@ const Customer = (props) => {
         dataConfiguration={dataConfiguration}
         day={day}
         inicio={inicio}
-        visible={visible}
       />
     </View>
   );
