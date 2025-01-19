@@ -11,15 +11,16 @@ import PieChart from "./PieChart";
 import { filterCustomer } from "../../utils/thunks/Thunks";
 import { RFPercentage } from "react-native-responsive-fontsize";
 
-const ModalLeyenda = ({ isVisible, setIsVisible, customer, day }) => {
+const ModalLeyenda = ({ isVisible, setIsVisible, clientes, day }) => {
   const data = [
-    customer?.dataResult ? filterCustomer(customer, day).red : 0,
-    customer?.dataResult ? filterCustomer(customer, day).yellow : 0,
-    customer?.dataResult ? filterCustomer(customer, day).green : 0,
-    customer?.dataResult ? filterCustomer(customer, day).white : 0,
+    clientes?.dataResult ? filterCustomer(clientes, day).red : 0,
+    clientes?.dataResult ? filterCustomer(clientes, day).yellow : 0,
+    clientes?.dataResult ? filterCustomer(clientes, day).green : 0,
+    clientes?.dataResult ? filterCustomer(clientes, day).white : 0,
   ];
 
   const colors = ["#FF0000", "#FFFF00", "rgb(66, 242, 46)", "#FFF8DC"]; // Colores para cada segmento
+  console.log("customerLEYENDA: ", clientes);
 
   return (
     <Modal

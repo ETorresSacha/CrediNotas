@@ -17,9 +17,9 @@ const Customer = (props) => {
   const { onGetCronograma } = UseStorage();
   const [dataConfiguration, setDataConfiguration] = useState({}); // Datos de la configuración
   const [valueImport, setValueImport] = useState(false); // Necesario para importar la data
-  const [day, setDay] = useState("");
-  const [inicio, setInicio] = useState();
-  const [customer, SetCustomer] = useState();
+  //const [day, setDay] = useState("");
+  //const [inicio, setInicio] = useState();
+  //const [dataCustomer, setDataCustomer] = useState();
   const [data, setData] = useState({
     dataResult: [],
     dataResultCopy: [],
@@ -41,29 +41,29 @@ const Customer = (props) => {
     }
   };
 
-  // clasificación de los clientes de acuerdo a la fecha de pago
-  const resultCustomer = () => {
-    setInicio(false);
+  // // clasificación de los clientes de acuerdo a la fecha de pago
+  // const resultCustomer = () => {
+  //   setInicio(false);
 
-    setDay(format(new Date(), "yyyy-MM-dd"));
-    let result = customerData(data.dataResult, day);
+  //   setDay(format(new Date(), "yyyy-MM-dd"));
+  //   let result = customerData(data.dataResult, day);
 
-    // Habilitamos el texto si no existe datos guardados
-    if (
-      !enable
-        ? result?.resultDataResult.length == 0
-        : result?.resultCustomerCancelled.length == 0
-    ) {
-      setInicio(true);
-    }
+  //   // Habilitamos el texto si no existe datos guardados
+  //   if (
+  //     !enable
+  //       ? result?.resultDataResult.length == 0
+  //       : result?.resultCustomerCancelled.length == 0
+  //   ) {
+  //     setInicio(true);
+  //   }
 
-    //Seteamos los datos del customer
-    SetCustomer({
-      ...customer,
-      customerCancelled: result?.resultCustomerCancelled,
-      dataResult: result.resultDataResult,
-    });
-  };
+  //   //Seteamos los datos del dataCustomer
+  //   setDataCustomer({
+  //     ...dataCustomer,
+  //     customerCancelled: result?.resultCustomerCancelled,
+  //     dataResult: result.resultDataResult,
+  //   });
+  // };
 
   // Cargar los datos de la configuración
   const loadCongiguration = async () => {
@@ -92,10 +92,10 @@ const Customer = (props) => {
     }, [setData])
   );
 
-  useEffect(() => {
-    //setTimeout(resultCustomer, 1000);
-    resultCustomer();
-  }, [data]); //! esta para evluar si se agrega en esta parte setCustomer e inicio
+  // useEffect(() => {
+  //   setTimeout(resultCustomer, 1000);
+  //   //resultCustomer();
+  // }, [data, setDataCustomer, inicio]); //! esta para evluar si se agrega en esta parte setCustomer e inicio
 
   // Función para importar data
   useFocusEffect(
@@ -105,8 +105,8 @@ const Customer = (props) => {
         valueImport,
         setValueImport,
         data,
-        setData,
-        customer?.dataResult
+        setData
+        //dataCustomer?.dataResult //! este dato es importante, asi que veamos donde hacemos que funcione la funcion
       );
     }, [valueImport])
   );
@@ -124,23 +124,14 @@ const Customer = (props) => {
         dataConfiguration={dataConfiguration}
       />
 
-      {/* Notificaciones de los clientes por cobrar */}
-      {customer?.customerYellow?.length != 0 ||
-      customer?.customerRed?.length != 0 ? (
-        <Alerta
-          dataRed={customer?.customerRed}
-          dataYellow={customer?.customerYellow}
-        />
-      ) : null}
-
       <DataCustomer
         data={data}
         setData={setData}
-        customer={customer}
+        //dataCustomer={dataCustomer}
         enable={enable}
         dataConfiguration={dataConfiguration}
-        day={day}
-        inicio={inicio}
+        // day={day}
+        //inicio={inicio}
       />
     </View>
   );
@@ -158,3 +149,11 @@ const styles = StyleSheet.create({
 
 //! MORATORIO INGRESE A ESTA PARTE Y DE AHI AL COMPONENTE NECESARIO PARA CALCULAR EL INTERS MORATORIO
 //! PARA QUE SE VISUALICE LA CUOTA CON LA MORA
+// {/* Notificaciones de los clientes por cobrar */}
+// {dataCustomer?.customerYellow?.length != 0 ||
+//   dataCustomer?.customerRed?.length != 0 ? (
+//     <Alerta
+//       dataRed={dataCustomer?.customerRed}
+//       dataYellow={dataCustomer?.customerYellow}
+//     />
+//   ) : null}
