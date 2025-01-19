@@ -12,6 +12,7 @@ import ModalLeyenda from "../../modals/modalLeyenda/ModalLeyenda";
 import Entypo from "react-native-vector-icons/Entypo";
 import Fontisto from "react-native-vector-icons/Fontisto";
 import Loading from "@/src/components/loading/Loading";
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 const DataCustomer = ({
   data,
@@ -36,7 +37,6 @@ const DataCustomer = ({
     setData({ ...data, dataResult: result });
     setOrder(!value);
   };
-  console.log("inicio: ", inicio);
 
   return (
     <View style={styles.container}>
@@ -95,9 +95,16 @@ const DataCustomer = ({
           (customer = undefined ? (
             <Loading />
           ) : inicio == true ? (
-            <Text style={{ color: "cornsilk" }}>
-              No hay clientes {enable ? "cancelados" : "guardados"}
-            </Text>
+            <View
+              style={{
+                alignItems: "center",
+                top: RFPercentage(30),
+              }}
+            >
+              <Text style={{ color: "cornsilk" }}>
+                No hay clientes {enable ? "cancelados" : "guardados"}
+              </Text>
+            </View>
           ) : !enable ? (
             //  clientes guardados
             <View>

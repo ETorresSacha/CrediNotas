@@ -24,9 +24,6 @@ const Users = ({ data, enable, dataConfiguration, day }) => {
   //   if (color) cambiarColor(color);
   // }, [color]);
   //todo--> se guardará este código, como para recordar la funcionalida, puede ser útil en otra aplicación
-  // : (
-  //           <Text style={{ color: "cornsilk" }}>No hay clientes cancelados</Text>
-  //         )}
   return (
     <View>
       {data?.map((element, index) => {
