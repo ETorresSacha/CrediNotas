@@ -15,14 +15,18 @@ import Loading from "@/src/components/loading/Loading";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { format } from "date-fns";
 import { customerData, orderData } from "../../utils/thunks/Thunks";
+import { renderImportData } from "./renderImportData";
+import Alerta from "../alert/Alerta";
 const DataCustomer = ({
   data,
   setData,
   //dataCustomer,
   enable,
   dataConfiguration,
-  //day,
-  //inicio,
+  // day,
+  // inicio,
+  valueImport,
+  setValueImport,
 }) => {
   const [order, setOrder] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
@@ -56,7 +60,7 @@ const DataCustomer = ({
 
   // Renderiza
   useEffect(() => {
-    //setTimeout(resultCustomer, 300);
+    // setTimeout(resultCustomer, 1000);
     resultCustomer();
   }, [data, setDataCustomer, inicio]); //! esta para evluar si se agrega en esta parte setCustomer e inicio
 
@@ -75,7 +79,21 @@ const DataCustomer = ({
   //   "dataCustomer?.dataResult?.length: ",
   //   dataCustomer?.dataResult?.length
   // );
-  console.log("dataCustomer: ", dataCustomer);
+  useFocusEffect(
+    React.useCallback(() => {
+      //Función
+      renderImportData(
+        valueImport,
+        setValueImport,
+        data,
+        setData
+        //dataCustomer?.dataResult //! este dato es importante, asi que veamos donde hacemos que funcione la funcion
+      );
+    }, [valueImport])
+  );
+  // console.log("******************************");
+  // console.log("inicio: ", inicio);
+  console.log("customer: ", dataCustomer);
 
   return (
     <View style={styles.container}>
@@ -132,7 +150,6 @@ const DataCustomer = ({
             ) : null}
           </View>
           {/* Renderiza los datos  */}
-
           <ScrollView style={styles.containerCuotas}>
             {inicio == true ? (
               <View
@@ -166,7 +183,6 @@ const DataCustomer = ({
               </View>
             )}
           </ScrollView>
-
           <View style={[styles.piePagina]}>
             <View style={styles.iconoAllUser}>
               <Entypo
@@ -197,6 +213,7 @@ const DataCustomer = ({
               </TouchableOpacity>
             ) : null}
           </View>
+
           {/* Modal de la leyenda */}
           <ModalLeyenda
             isVisible={isVisible}
@@ -204,6 +221,17 @@ const DataCustomer = ({
             clientes={dataCustomer}
             day={day}
           />
+
+          {/* Notificaciones de los clientes por cobrar */}
+          {!inicio ? (
+            dataCustomer?.customerYellow?.length != 0 ||
+            dataCustomer?.customerRed?.length != 0 ? (
+              <Alerta
+                dataRed={dataCustomer?.dataResult}
+                dataYellow={dataCustomer?.customerCancelled}
+              />
+            ) : null
+          ) : null}
         </View>
       )}
     </View>
@@ -219,7 +247,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     borderWidth: 1,
     borderColor: "rgba(36, 146, 224, 0.625)",
-    marginHorizontal: 8,
+    marginHorizontal: 7,
     marginTop: 15,
     marginBottom: 5,
   },

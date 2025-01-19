@@ -20,7 +20,6 @@ const ModalLeyenda = ({ isVisible, setIsVisible, clientes, day }) => {
   ];
 
   const colors = ["#FF0000", "#FFFF00", "rgb(66, 242, 46)", "#FFF8DC"]; // Colores para cada segmento
-  console.log("customerLEYENDA: ", clientes);
 
   return (
     <Modal

@@ -17,9 +17,9 @@ const Customer = (props) => {
   const { onGetCronograma } = UseStorage();
   const [dataConfiguration, setDataConfiguration] = useState({}); // Datos de la configuración
   const [valueImport, setValueImport] = useState(false); // Necesario para importar la data
-  //const [day, setDay] = useState("");
-  //const [inicio, setInicio] = useState();
-  //const [dataCustomer, setDataCustomer] = useState();
+  // const [day, setDay] = useState("");
+  // const [inicio, setInicio] = useState();
+  // const [dataCustomer, setDataCustomer] = useState();
   const [data, setData] = useState({
     dataResult: [],
     dataResultCopy: [],
@@ -31,6 +31,7 @@ const Customer = (props) => {
       let resultCustomer = await onGetCronograma();
 
       resultCustomer = orderData("fecha", resultCustomer, false, enable); // ordena de forma ascendente de acuerdo a la fecha
+
       setData({
         ...data,
         dataResult: resultCustomer,
@@ -41,7 +42,7 @@ const Customer = (props) => {
     }
   };
 
-  // // clasificación de los clientes de acuerdo a la fecha de pago
+  // clasificación de los clientes de acuerdo a la fecha de pago
   // const resultCustomer = () => {
   //   setInicio(false);
 
@@ -93,23 +94,23 @@ const Customer = (props) => {
   );
 
   // useEffect(() => {
-  //   setTimeout(resultCustomer, 1000);
-  //   //resultCustomer();
+  //   //setTimeout(resultCustomer, 1000);
+  //   resultCustomer();
   // }, [data, setDataCustomer, inicio]); //! esta para evluar si se agrega en esta parte setCustomer e inicio
 
   // Función para importar data
-  useFocusEffect(
-    React.useCallback(() => {
-      //Función
-      renderImportData(
-        valueImport,
-        setValueImport,
-        data,
-        setData
-        //dataCustomer?.dataResult //! este dato es importante, asi que veamos donde hacemos que funcione la funcion
-      );
-    }, [valueImport])
-  );
+  // useFocusEffect(
+  //   React.useCallback(() => {
+  //     //Función
+  //     renderImportData(
+  //       valueImport,
+  //       setValueImport,
+  //       data,
+  //       setData
+  //       //dataCustomer?.dataResult //! este dato es importante, asi que veamos donde hacemos que funcione la funcion
+  //     );
+  //   }, [valueImport])
+  // );
 
   return (
     <View style={styles.container}>
@@ -131,7 +132,9 @@ const Customer = (props) => {
         enable={enable}
         dataConfiguration={dataConfiguration}
         // day={day}
-        //inicio={inicio}
+        // inicio={inicio}
+        valueImport={valueImport}
+        setValueImport={setValueImport}
       />
     </View>
   );
