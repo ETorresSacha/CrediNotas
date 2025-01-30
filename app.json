@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "CrediNotas",
-    "slug": "CrediNotas",
+    "slug": "credinotas",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -36,6 +36,15 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "f83a2b0c-24ce-4eae-8643-5fa8644dc93f"
+      }
+    },
+    "owner": "erikk31"
   }
 }

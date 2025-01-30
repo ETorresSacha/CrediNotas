@@ -93,7 +93,6 @@ const DataCustomer = ({
   );
   // console.log("******************************");
   // console.log("inicio: ", inicio);
-  console.log("customer: ", dataCustomer);
 
   return (
     <View style={styles.container}>
@@ -223,7 +222,7 @@ const DataCustomer = ({
           />
 
           {/* Notificaciones de los clientes por cobrar */}
-          {!inicio ? (
+          {/* {!inicio ? (
             dataCustomer?.customerYellow?.length != 0 ||
             dataCustomer?.customerRed?.length != 0 ? (
               <Alerta
@@ -231,7 +230,7 @@ const DataCustomer = ({
                 dataYellow={dataCustomer?.customerCancelled}
               />
             ) : null
-          ) : null}
+          ) : null} */}
         </View>
       )}
     </View>

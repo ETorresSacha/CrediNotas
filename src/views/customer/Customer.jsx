@@ -9,6 +9,7 @@ import Header from "../../components/header/Header";
 import DataCustomer from "./DataCustomer";
 import Alerta from "../alert/Alerta";
 import { renderImportData } from "./renderImportData";
+import MessageNotification from "../notificacionExpo/MessageNotification";
 
 const Customer = (props) => {
   let enable = props?.route?.params?.data?.enable; // Habilita el componente de los clientes cancelados
@@ -136,6 +137,10 @@ const Customer = (props) => {
         valueImport={valueImport}
         setValueImport={setValueImport}
       />
+
+      {/* Notificaciones de los clientes por cobrar */}
+      {/* <Alerta dataRed={8} dataYellow={5} /> */}
+      <MessageNotification />
     </View>
   );
 };

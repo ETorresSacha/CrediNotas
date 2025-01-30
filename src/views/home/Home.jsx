@@ -16,6 +16,7 @@ import UseStorageConfiguration from "../../components/hooks/UseHookConfiguration
 import UseStorageBusiness from "../../components/hooks/UseHookDataNeg";
 import fondoHome from "../.././../assets/fondoHome.jpg";
 import logo from "../../../assets/icon.png";
+import MessageNotification from "../notificacionExpo/MessageNotification";
 
 const Home = () => {
   const { onGetBusiness } = UseStorageBusiness();
@@ -83,7 +84,7 @@ const Home = () => {
         </View>
         <Pressable
           style={styles.leftConteiner}
-          onPress={() => setIsVisible(true)}
+          // onPress={() => setIsVisible(true)}
         >
           <SimpleLineIcons
             name="options-vertical"
