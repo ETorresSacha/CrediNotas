@@ -11,8 +11,9 @@ Notifications.setNotificationHandler({
   }),
 });
 
-const Alerta = ({ dataYellow, dataRed }) => {
+const MessageNotification = ({ data }) => {
   const [expoPushToken, setExpoPushToken] = useState("");
+  console.log("dataRed: ", data);
 
   // Redirigido al componente cuando la notificacion es llamado
   const navigation = useNavigation();
@@ -36,18 +37,17 @@ const Alerta = ({ dataYellow, dataRed }) => {
 
       if (status === "granted") {
         // Configuramos la notificación para que se repita diariamente a las 9:00 AM
-        console.log("entra a guardar");
 
         await Notifications.scheduleNotificationAsync({
           content: {
             title: "Clientes por cobrar",
-            // body: ` Para hoy  ${dataYellow?.length}, vencidos ${dataRed?.length}`,
-            // data: { screen: "Clientes" }, // Vista a la que dirigirse
+            body: ` Para hoy  ${data?.length}, vencidos ${0}`,
+            data: { screen: "Clientes" }, // Vista a la que dirigirse
           },
           trigger: {
             type: Notifications.SchedulableTriggerInputTypes.DAILY,
-            hour: 14,
-            minute: 16,
+            hour: 15,
+            minute: 27,
             repeats: true, // Se repetirá todos los días a las 8 AM
           },
 
@@ -86,4 +86,4 @@ const Alerta = ({ dataYellow, dataRed }) => {
   }, []);
 };
 
-export default Alerta;
+export default MessageNotification;

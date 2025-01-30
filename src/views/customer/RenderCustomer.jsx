@@ -16,15 +16,12 @@ import { RFPercentage } from "react-native-responsive-fontsize";
 import { format } from "date-fns";
 import { customerData, orderData } from "../../utils/thunks/Thunks";
 import { renderImportData } from "./renderImportData";
-import Alerta from "../alert/Alerta";
-const DataCustomer = ({
+import MessageNotification from "../notificacionExpo/MessageNotification";
+const RenderCustomer = ({
   data,
   setData,
-  //dataCustomer,
   enable,
   dataConfiguration,
-  // day,
-  // inicio,
   valueImport,
   setValueImport,
 }) => {
@@ -75,10 +72,7 @@ const DataCustomer = ({
     setData({ ...data, dataResult: result });
     setOrder(!value);
   };
-  // console.log(
-  //   "dataCustomer?.dataResult?.length: ",
-  //   dataCustomer?.dataResult?.length
-  // );
+
   useFocusEffect(
     React.useCallback(() => {
       //Función
@@ -91,8 +85,6 @@ const DataCustomer = ({
       );
     }, [valueImport])
   );
-  // console.log("******************************");
-  // console.log("inicio: ", inicio);
 
   return (
     <View style={styles.container}>
@@ -222,22 +214,16 @@ const DataCustomer = ({
           />
 
           {/* Notificaciones de los clientes por cobrar */}
-          {/* {!inicio ? (
-            dataCustomer?.customerYellow?.length != 0 ||
-            dataCustomer?.customerRed?.length != 0 ? (
-              <Alerta
-                dataRed={dataCustomer?.dataResult}
-                dataYellow={dataCustomer?.customerCancelled}
-              />
-            ) : null
-          ) : null} */}
+          {!inicio ? (
+            <MessageNotification data={dataCustomer?.dataResult} />
+          ) : null}
         </View>
       )}
     </View>
   );
 };
 
-export default DataCustomer;
+export default RenderCustomer;
 
 const styles = StyleSheet.create({
   container: {

@@ -7,7 +7,6 @@ import NewForm from "../views/newForm/NewForm";
 import VerCronograma from "../views/cronograma/VerCronograma";
 import Customer from "../views/customer/Customer";
 import Calculator from "../views/calculator/Calculator";
-import Alerta from "../views/alert/Alerta";
 import CanceledCustomer from "../views/canceledCustomer/CanceledCustomer";
 
 const optionsStack = {
@@ -62,7 +61,6 @@ const Routes = () => {
         component={VerCronograma}
         options={{ optionsStack, statusBarColor: "rgb(31, 36, 36)" }}
       />
-      <Stack.Screen name="Alerta" component={Alerta} options={optionsStack} />
     </Stack.Navigator>
   );
 };

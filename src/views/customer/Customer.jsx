@@ -6,10 +6,9 @@ import NavBar from "../../components/navBar/NavBar";
 import { customerData, orderData } from "../../utils/thunks/Thunks";
 import { format } from "date-fns";
 import Header from "../../components/header/Header";
-import DataCustomer from "./DataCustomer";
-import Alerta from "../alert/Alerta";
 import { renderImportData } from "./renderImportData";
 import MessageNotification from "../notificacionExpo/MessageNotification";
+import RenderCustomer from "./RenderCustomer";
 
 const Customer = (props) => {
   let enable = props?.route?.params?.data?.enable; // Habilita el componente de los clientes cancelados
@@ -18,9 +17,6 @@ const Customer = (props) => {
   const { onGetCronograma } = UseStorage();
   const [dataConfiguration, setDataConfiguration] = useState({}); // Datos de la configuración
   const [valueImport, setValueImport] = useState(false); // Necesario para importar la data
-  // const [day, setDay] = useState("");
-  // const [inicio, setInicio] = useState();
-  // const [dataCustomer, setDataCustomer] = useState();
   const [data, setData] = useState({
     dataResult: [],
     dataResultCopy: [],
@@ -42,30 +38,6 @@ const Customer = (props) => {
       console.error(error);
     }
   };
-
-  // clasificación de los clientes de acuerdo a la fecha de pago
-  // const resultCustomer = () => {
-  //   setInicio(false);
-
-  //   setDay(format(new Date(), "yyyy-MM-dd"));
-  //   let result = customerData(data.dataResult, day);
-
-  //   // Habilitamos el texto si no existe datos guardados
-  //   if (
-  //     !enable
-  //       ? result?.resultDataResult.length == 0
-  //       : result?.resultCustomerCancelled.length == 0
-  //   ) {
-  //     setInicio(true);
-  //   }
-
-  //   //Seteamos los datos del dataCustomer
-  //   setDataCustomer({
-  //     ...dataCustomer,
-  //     customerCancelled: result?.resultCustomerCancelled,
-  //     dataResult: result.resultDataResult,
-  //   });
-  // };
 
   // Cargar los datos de la configuración
   const loadCongiguration = async () => {
@@ -94,25 +66,6 @@ const Customer = (props) => {
     }, [setData])
   );
 
-  // useEffect(() => {
-  //   //setTimeout(resultCustomer, 1000);
-  //   resultCustomer();
-  // }, [data, setDataCustomer, inicio]); //! esta para evluar si se agrega en esta parte setCustomer e inicio
-
-  // Función para importar data
-  // useFocusEffect(
-  //   React.useCallback(() => {
-  //     //Función
-  //     renderImportData(
-  //       valueImport,
-  //       setValueImport,
-  //       data,
-  //       setData
-  //       //dataCustomer?.dataResult //! este dato es importante, asi que veamos donde hacemos que funcione la funcion
-  //     );
-  //   }, [valueImport])
-  // );
-
   return (
     <View style={styles.container}>
       <Header
@@ -126,21 +79,17 @@ const Customer = (props) => {
         dataConfiguration={dataConfiguration}
       />
 
-      <DataCustomer
+      <RenderCustomer
         data={data}
         setData={setData}
-        //dataCustomer={dataCustomer}
         enable={enable}
         dataConfiguration={dataConfiguration}
-        // day={day}
-        // inicio={inicio}
         valueImport={valueImport}
         setValueImport={setValueImport}
       />
 
       {/* Notificaciones de los clientes por cobrar */}
-      {/* <Alerta dataRed={8} dataYellow={5} /> */}
-      <MessageNotification />
+      {/* <MessageNotification /> */}
     </View>
   );
 };
