@@ -54,7 +54,6 @@ const RenderCustomer = ({
       dataResult: result.resultDataResult,
     });
   };
-
   // Renderiza
   useEffect(() => {
     // setTimeout(resultCustomer, 1000);
@@ -81,7 +80,7 @@ const RenderCustomer = ({
         setValueImport,
         data,
         setData
-        //dataCustomer?.dataResult //! este dato es importante, asi que veamos donde hacemos que funcione la funcion
+        //dataCustomer?.dataResult //! este dato es importante, asi que veamos donde hacemos que funcione la funcion( esta parte verifica el funcionamiento de la funcion import)
       );
     }, [valueImport])
   );
@@ -215,7 +214,7 @@ const RenderCustomer = ({
 
           {/* Notificaciones de los clientes por cobrar */}
           {!inicio ? (
-            <MessageNotification data={dataCustomer?.dataResult} />
+            <MessageNotification data={dataCustomer} day={day} />
           ) : null}
         </View>
       )}

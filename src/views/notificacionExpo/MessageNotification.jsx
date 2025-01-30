@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import * as Notifications from "expo-notifications";
 import registerForPushNotificationsAsync from "./getToken";
 import { useNavigation } from "@react-navigation/native";
+import { filterCustomer } from "@/src/utils/thunks/Thunks";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -11,9 +12,10 @@ Notifications.setNotificationHandler({
   }),
 });
 
-const MessageNotification = ({ data }) => {
+const MessageNotification = ({ data, day }) => {
+  const dataRed = data?.dataResult ? filterCustomer(data, day).red : 0;
+  const dataYellow = data?.dataResult ? filterCustomer(data, day).yellow : 0;
   const [expoPushToken, setExpoPushToken] = useState("");
-  console.log("dataRed: ", data);
 
   // Redirigido al componente cuando la notificacion es llamado
   const navigation = useNavigation();
@@ -41,13 +43,13 @@ const MessageNotification = ({ data }) => {
         await Notifications.scheduleNotificationAsync({
           content: {
             title: "Clientes por cobrar",
-            body: ` Para hoy  ${data?.length}, vencidos ${0}`,
+            body: ` Para hoy  ${dataYellow}, vencidos ${dataRed}`,
             data: { screen: "Clientes" }, // Vista a la que dirigirse
           },
           trigger: {
             type: Notifications.SchedulableTriggerInputTypes.DAILY,
-            hour: 15,
-            minute: 27,
+            hour: 9,
+            minute: 0,
             repeats: true, // Se repetirá todos los días a las 8 AM
           },
 
@@ -71,14 +73,10 @@ const MessageNotification = ({ data }) => {
 
   // LLamado a la función
   useEffect(() => {
-    // setTimeout(async () => {
-    //   await scheduleTodoNotification();
-    // }, 0);
     scheduleTodoNotification();
   }, []);
 
   //! Obtención del token
-
   useEffect(() => {
     registerForPushNotificationsAsync().then((token) =>
       setExpoPushToken(token)
