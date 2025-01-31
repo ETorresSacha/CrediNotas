@@ -56,7 +56,6 @@ const RenderCustomer = ({
   };
   // Renderiza
   useEffect(() => {
-    // setTimeout(resultCustomer, 1000);
     resultCustomer();
   }, [data, setDataCustomer, inicio]); //! esta para evluar si se agrega en esta parte setCustomer e inicio
 

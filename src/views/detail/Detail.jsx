@@ -60,6 +60,7 @@ const Detail = (props) => {
     }
 
     // Cálculo de la mora
+    console.log("dataSee: ", dataSee);
 
     let diaRetraso = diffDay(dataSee?.fechaPago);
     if (diaRetraso < 0) {

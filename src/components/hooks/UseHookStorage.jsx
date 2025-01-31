@@ -54,7 +54,6 @@ const UseStorage = () => {
           return Promise.resolve();
         }
       }
-
       // Nuevo cliente
       await saveInfoStorage(MY_DATA_KEY, dataPerson);
       return Promise.resolve();

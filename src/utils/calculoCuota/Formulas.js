@@ -92,7 +92,10 @@ export const montCap=(capital,tiempo)=>{
 }
 
 // Cálculo de la mora
-
+export const mora = (intMoratorio,montoCapital,diasRetraso)=>{
+    const result = (intMoratorio*montoCapital*diasRetraso)/100
+    return Number.parseFloat(result).toFixed(2)
+}
 // Cálculo del interés neto
 
 

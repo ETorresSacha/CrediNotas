@@ -7,7 +7,6 @@ import { customerData, orderData } from "../../utils/thunks/Thunks";
 import { format } from "date-fns";
 import Header from "../../components/header/Header";
 import { renderImportData } from "./renderImportData";
-import MessageNotification from "../notificacionExpo/MessageNotification";
 import RenderCustomer from "./RenderCustomer";
 
 const Customer = (props) => {
@@ -21,6 +20,7 @@ const Customer = (props) => {
     dataResult: [],
     dataResultCopy: [],
   });
+  console.log("valueProps: ", valueProps);
 
   // Trae los datos del local storage
   const loadCustomer = async () => {
@@ -87,9 +87,6 @@ const Customer = (props) => {
         valueImport={valueImport}
         setValueImport={setValueImport}
       />
-
-      {/* Notificaciones de los clientes por cobrar */}
-      {/* <MessageNotification /> */}
     </View>
   );
 };
@@ -106,11 +103,3 @@ const styles = StyleSheet.create({
 
 //! MORATORIO INGRESE A ESTA PARTE Y DE AHI AL COMPONENTE NECESARIO PARA CALCULAR EL INTERS MORATORIO
 //! PARA QUE SE VISUALICE LA CUOTA CON LA MORA
-// {/* Notificaciones de los clientes por cobrar */}
-// {dataCustomer?.customerYellow?.length != 0 ||
-//   dataCustomer?.customerRed?.length != 0 ? (
-//     <Alerta
-//       dataRed={dataCustomer?.customerRed}
-//       dataYellow={dataCustomer?.customerYellow}
-//     />
-//   ) : null}

@@ -50,8 +50,6 @@ const Home = () => {
 
       setDataConfiguration({
         ...dataConfiguration,
-        // tpm: !result ? "0.08" : result[0]?.tpm, //? Usar con una financiera
-        // ccv: !result ? "2" : result[0]?.ccv, //? Usar con una financiera
         intMoratorio: !result ? "0" : result[0]?.intMoratorio,
       });
     } catch (error) {
@@ -74,6 +72,9 @@ const Home = () => {
     }, [enable, setDataConfiguration])
   );
 
+  //! PRIMERO, DESPUES DE QUE SE CARGUE LOS DATOS TENEMOS QUE VERIFICAR QUE NO TENGA MORA, CASO CONTRARIO, PODEMOS RENDERIZAR.
+  //! EN CASO EXISTE LA MORA, TENEMOS CALCULAR LA MORA Y GUARDARLO EN EL STORAGE (SE TIENE QUE AÑADIR EN UN ITEM PARA EL RESULTADO DE LA MORA, EN DONDE DESDE UN PRINCIPIO SERA CERO).
+  //!  VAMOS A PROBAR EN ESTA PARTE, SI NO FUNCIONA PUEDE SER EN EL COMPONENTE DE CUSTOMER
   return (
     <ImageBackground source={fondoHome} style={styles.background}>
       {/* HEADER */}

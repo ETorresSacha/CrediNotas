@@ -15,6 +15,8 @@ Notifications.setNotificationHandler({
 const MessageNotification = ({ data, day }) => {
   const dataRed = data?.dataResult ? filterCustomer(data, day).red : 0;
   const dataYellow = data?.dataResult ? filterCustomer(data, day).yellow : 0;
+  const dataGreen = data?.dataResult ? filterCustomer(data, day).green : 0;
+  //! tenemos que hacer una logica para que los clientes que son amarillos sean correctos y mandado a la notificacion de manera correcta
   const [expoPushToken, setExpoPushToken] = useState("");
 
   // Redirigido al componente cuando la notificacion es llamado
@@ -50,7 +52,7 @@ const MessageNotification = ({ data, day }) => {
             type: Notifications.SchedulableTriggerInputTypes.DAILY,
             hour: 9,
             minute: 0,
-            repeats: true, // Se repetirá todos los días a las 8 AM
+            repeats: true, // Se repetirá todos los días a las 9 AM
           },
 
           ios: {
