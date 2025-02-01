@@ -20,7 +20,6 @@ const Customer = (props) => {
     dataResult: [],
     dataResultCopy: [],
   });
-  console.log("valueProps: ", valueProps);
 
   // Trae los datos del local storage
   const loadCustomer = async () => {

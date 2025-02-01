@@ -2,7 +2,6 @@ import { compareAsc, format,add,formatDistance, getDate,isFuture,isEqual,differe
 
 //TODO--> ORDENAR
 export const orderData = (type,data,value,enable)=>{
-  console.log("value: ",value);
   
     let result
     switch (type) {

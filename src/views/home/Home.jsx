@@ -16,6 +16,19 @@ import UseStorageConfiguration from "../../components/hooks/UseHookConfiguration
 import UseStorageBusiness from "../../components/hooks/UseHookDataNeg";
 import fondoHome from "../.././../assets/fondoHome.jpg";
 import logo from "../../../assets/icon.png";
+import UseStorage from "../../components/hooks/UseHookStorage";
+import { orderData } from "@/src/utils/thunks/Thunks";
+import { verifMora } from "./ThunksMora";
+import {
+  compareAsc,
+  format,
+  add,
+  formatDistance,
+  getDate,
+  isFuture,
+  isEqual,
+  differenceInDays,
+} from "date-fns";
 
 const Home = () => {
   const { onGetBusiness } = UseStorageBusiness();
@@ -75,6 +88,43 @@ const Home = () => {
   //! PRIMERO, DESPUES DE QUE SE CARGUE LOS DATOS TENEMOS QUE VERIFICAR QUE NO TENGA MORA, CASO CONTRARIO, PODEMOS RENDERIZAR.
   //! EN CASO EXISTE LA MORA, TENEMOS CALCULAR LA MORA Y GUARDARLO EN EL STORAGE (SE TIENE QUE AÑADIR EN UN ITEM PARA EL RESULTADO DE LA MORA, EN DONDE DESDE UN PRINCIPIO SERA CERO).
   //!  VAMOS A PROBAR EN ESTA PARTE, SI NO FUNCIONA PUEDE SER EN EL COMPONENTE DE CUSTOMER
+
+  //************************************************ */
+
+  // Trae los datos del local storage
+  const [data, setData] = useState();
+
+  const { onGetCronograma } = UseStorage();
+
+  const loadCustomer = async () => {
+    try {
+      let resultCustomer = await onGetCronograma();
+      let toDay = format(new Date(), "MM-dd-yyyy");
+
+      resultCustomer = orderData("fecha", resultCustomer, false, enable); // ordena de forma ascendente de acuerdo a la fecha
+      //console.log("resultCustomer: ", resultCustomer);
+
+      let newResult = verifMora(resultCustomer, dataConfiguration, toDay); //todo--> este es para verificar la mora
+
+      setData({
+        ...data,
+        resultCustomer,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // Renderiza
+  useFocusEffect(
+    React.useCallback(() => {
+      loadCustomer();
+      loadCongiguration();
+
+      //return () => unsubscribe();
+    }, [setData])
+  );
+
   return (
     <ImageBackground source={fondoHome} style={styles.background}>
       {/* HEADER */}
