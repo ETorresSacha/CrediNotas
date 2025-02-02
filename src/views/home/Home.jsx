@@ -94,23 +94,28 @@ const Home = () => {
   // Trae los datos del local storage
   const [data, setData] = useState();
 
-  const { onGetCronograma } = UseStorage();
+  const { onGetCronograma, onSaveCronograma } = UseStorage();
 
   const loadCustomer = async () => {
     try {
       let resultCustomer = await onGetCronograma();
-      let toDay = format(new Date(), "MM-dd-yyyy");
 
       resultCustomer = orderData("fecha", resultCustomer, false, enable); // ordena de forma ascendente de acuerdo a la fecha
-      //console.log("resultCustomer: ", resultCustomer);
 
-      let newResult = verifMora(resultCustomer, dataConfiguration, toDay); //todo--> este es para verificar la mora
-      console.log("newResult: ", newResult[1]);
+      let newResult = verifMora(resultCustomer, dataConfiguration); //todo--> este es para verificar la mora
+      console.log("newResult: ", newResult);
 
+      //! LA IDEA DE ESTA FUNCION ES QUE SOLO SE EJECUTE UNA VEZ AL DIA, PARA ESO TENEMOS QUE HACER UNA FUNCION EL CUAL
+      //! VERIFIQUE QUE SI YA ESTA EJECUTADO YA NO LO VUELVA A HACER. ESTO PARA OPTIMIZAR EL RENDIMIENTO DEL APLICATIVO.
+      //TODO--> PERO PODEMOS PROBAR ANTES EJECUTANDO PARA VER SI LA MORA SE REFLEA EN DETALLES Y EN CUSTOMER
+      // TODO --> PRIMERO HAREMOS QUE FUNCIONE, SALIO ERROR, SOLUCIONAMOS ESO PARA HACER LO DE ROJO
       setData({
         ...data,
-        resultCustomer,
+        newResult,
       });
+
+      // Guardamos los datos en el storage
+      await onSaveCronograma(data);
     } catch (error) {
       console.error(error);
     }
@@ -119,7 +124,7 @@ const Home = () => {
   // Renderiza
   useFocusEffect(
     React.useCallback(() => {
-      loadCustomer();
+      //loadCustomer();
       loadCongiguration();
 
       //return () => unsubscribe();
