@@ -105,6 +105,7 @@ const Home = () => {
       //console.log("resultCustomer: ", resultCustomer);
 
       let newResult = verifMora(resultCustomer, dataConfiguration, toDay); //todo--> este es para verificar la mora
+      console.log("newResult: ", newResult[1]);
 
       setData({
         ...data,

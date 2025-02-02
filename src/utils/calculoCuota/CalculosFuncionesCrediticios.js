@@ -342,7 +342,9 @@ export const mora =(data, dataConfiguration)=>{
 
 export const calculoMoraSimple = (data, dataConfiguration)=>{
 
-    let intMoratorio =parseFloat(dataConfiguration?.intMoratorio)  // % --> Diario
+    let intMoratorio =parseFloat(dataConfiguration?.intMoratorio)/100  // % --> Diario
+    console.log("dataConfiguration: ",dataConfiguration?.intMoratorio);
+    
     
    // let ccv = parseFloat(dataConfiguration?.ccv) // % (Comisión de Cobranza Variable) --> Se aplica al monto de la cuota
 
@@ -350,8 +352,9 @@ export const calculoMoraSimple = (data, dataConfiguration)=>{
     // intMoratorio = (Math.pow(1 +intMoratorio / 100, 1 / 360) - 1) * 100;
 
     // Cálculo de los dias de mora
-    let today = format(new Date(),"yyyy-MM-dd")
-     let fechaInicio = new Date(today).getTime()
+    
+    let toDay = format(new Date(),"yyyy-MM-dd")
+     let fechaInicio = new Date(toDay).getTime()
      let fechaFin = new Date(data?.fechaPago).getTime()
 
      let diff = fechaInicio-fechaFin ;
