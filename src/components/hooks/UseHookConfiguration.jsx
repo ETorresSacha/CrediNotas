@@ -32,6 +32,7 @@ const UseStorageConfiguration = () => {
   const handleGetConfiguration = async () => {
     try {
       let result = await AsyncStorage.getItem(TASA_PRIMA_KEY);
+      console.log("resultresult: ", result);
 
       if (result != null) {
         const parseCronograma = JSON.parse(result);

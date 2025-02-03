@@ -69,6 +69,7 @@ const Home = () => {
       console.error(error);
     }
   };
+  console.log("dataConfiguration: ", dataConfiguration);
 
   // Cerrar el modal
   const handleModalClose = async (shouldUpdate) => {
@@ -99,28 +100,40 @@ const Home = () => {
   const loadCustomer = async () => {
     try {
       let resultCustomer = await onGetCronograma();
+      console.log("resultCustomer: ", resultCustomer);
+      if (resultCustomer != null) {
+        console.log("true");
+        //resultCustomer = orderData("fecha", resultCustomer, false, enable); // ordena de forma ascendente de acuerdo a la fecha
+        let newResult = verifMora(resultCustomer, dataConfiguration); //todo--> este es para verificar la mora
+        // console.log("newResult:", newResult?.length);
 
-      resultCustomer = orderData("fecha", resultCustomer, false, enable); // ordena de forma ascendente de acuerdo a la fecha
+        // setData({
+        //   ...data,
+        //   newResult,
+        // });
 
-      let newResult = verifMora(resultCustomer, dataConfiguration); //todo--> este es para verificar la mora
-      console.log("newResult: ", newResult);
-
+        // //Guardamos los datos en el storage
+        //await onSaveCronograma(newResult);
+        //! no esta guardando correctamente, verifica eso-solucionar primero esto
+      }
+      //
       //! LA IDEA DE ESTA FUNCION ES QUE SOLO SE EJECUTE UNA VEZ AL DIA, PARA ESO TENEMOS QUE HACER UNA FUNCION EL CUAL
       //! VERIFIQUE QUE SI YA ESTA EJECUTADO YA NO LO VUELVA A HACER. ESTO PARA OPTIMIZAR EL RENDIMIENTO DEL APLICATIVO.
       //TODO--> PERO PODEMOS PROBAR ANTES EJECUTANDO PARA VER SI LA MORA SE REFLEA EN DETALLES Y EN CUSTOMER
       // TODO --> PRIMERO HAREMOS QUE FUNCIONE, SALIO ERROR, SOLUCIONAMOS ESO PARA HACER LO DE ROJO
-      setData({
-        ...data,
-        newResult,
-      });
-
-      // Guardamos los datos en el storage
-      await onSaveCronograma(data);
     } catch (error) {
       console.error(error);
     }
   };
+  // Renderiza
+  useFocusEffect(
+    React.useCallback(() => {
+      loadCustomer();
+      //loadCongiguration();
 
+      //return () => unsubscribe();
+    }, [])
+  );
   // Renderiza
   useFocusEffect(
     React.useCallback(() => {

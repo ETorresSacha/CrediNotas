@@ -67,6 +67,7 @@ const UseStorage = () => {
     //await AsyncStorage.clear();
     try {
       let result = await AsyncStorage.getItem(MY_DATA_KEY);
+      console.log("result: ", result);
 
       if (result !== null) {
         const parseCronograma = JSON.parse(result);

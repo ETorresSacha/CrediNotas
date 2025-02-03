@@ -45,6 +45,7 @@ const Configuration = ({
           text: "Si",
           onPress: async () => {
             handleKeep(dataConfiguration);
+            setDataConfiguration(dataConfiguration);
             //setEnableConf(false);
           },
           style: "destructive",
