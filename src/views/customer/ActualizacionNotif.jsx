@@ -10,62 +10,83 @@ import registerForPushNotificationsAsync from "../notificacionExpo/getToken";
 import { useNavigation } from "@react-navigation/native";
 //import { filterCustomer } from "@/src/utils/thunks/Thunks";
 
+//todo
+
 // Nombre de la tarea en segundo plano
-const BACKGROUND_TASK = "daily-update-task";
+const TASK_NAME = "guardar2am";
+
+// Función que queremos ejecutar en segundo plano
 
 // Definir la tarea en segundo plano
-TaskManager.defineTask(BACKGROUND_TASK, async () => {
+TaskManager.defineTask(TASK_NAME, async () => {
   try {
-    // Aquí puedes ejecutar la lógica que necesitas
-    const suma = () => {
-      return 8 + 5;
-    };
+    MessageNotification();
 
-    // Actualizar AsyncStorage con la fecha y hora actual
-    const fecha = new Date(2025, 1, 5, 0, 0, 0, 0); // 2025, mes 1 (febrero), día 5, 00:00:00.000
-
-    await AsyncStorage.setItem(
-      MessageNotification().toString(),
-      fecha.toLocaleString()
-    );
-
-    // Indicar que la tarea se completó correctamente
     return BackgroundFetch.Result.NewData;
   } catch (error) {
-    console.error("Error en la tarea en segundo plano:", error);
+    console.error("Error en la tarea de segundo plano:", error);
     return BackgroundFetch.Result.Failed;
   }
 });
 
-// Registrar la tarea en segundo plano
+// Función para registrar la tarea a las 2 AM
 const registerBackgroundTask = async () => {
   try {
-    await BackgroundFetch.registerTaskAsync(BACKGROUND_TASK, {
-      minimumInterval: 24 * 60 * 60, // Intervalo de 24 horas (en segundos)
-      stopOnTerminate: false, // Continuar ejecutando la tarea incluso si la app se cierra
-      startOnBoot: true, // Iniciar la tarea cuando el dispositivo se reinicie
-    });
-    console.log("Tarea en segundo plano registrada con éxito.");
-  } catch (error) {
-    console.error("Error al registrar la tarea en segundo plano:", error);
-  }
-};
+    const status = await BackgroundFetch.getStatusAsync();
+    if (
+      status === BackgroundFetch.Status.Restricted ||
+      status === BackgroundFetch.Status.Denied
+    ) {
+      console.log("Permiso denegado para ejecutar en segundo plano.");
+      return;
+    }
 
-// Verificar el estado de la tarea
-const checkStatus = async () => {
-  const status = await BackgroundFetch.getStatusAsync();
-  const isRegistered = await TaskManager.isTaskRegisteredAsync(BACKGROUND_TASK);
-  console.log("Estado de la tarea:", status);
-  console.log("¿Tarea registrada?:", isRegistered);
+    //todo progrmando la hora de ejecucion
+    const now = new Date();
+    const twoAMTomorrow = new Date();
+    twoAMTomorrow.setHours(2, 0, 0, 0);
+    // Calcular los milisegundos hasta las 2 AM del día siguiente
+    const timeToTwoAM = twoAMTomorrow - now;
+
+    // await BackgroundFetch.registerTaskAsync(TASK_NAME, {
+    //   minimumInterval: 24 * 60 * 60, // Ejecutar cada 24 horas (en segundos)
+    //   stopOnTerminate: false,
+    //   startOnBoot: true,
+    // });
+
+    // Luego usar este valor para el registro de la tarea
+    await BackgroundFetch.registerTaskAsync(TASK_NAME, {
+      minimumInterval: timeToTwoAM / 1000, // Convertir de milisegundos a segundos
+      stopOnTerminate: false,
+      startOnBoot: true,
+    });
+    console.log(
+      "Tarea en segundo plano registrada correctamente para las 2 AM."
+    );
+  } catch (error) {
+    console.error("Error al registrar la tarea:", error);
+  }
 };
 
 const App = () => {
   useEffect(() => {
-    // Registrar la tarea al cargar la aplicación
     registerBackgroundTask();
-    checkStatus();
   }, []);
+
+  return (
+    <View style={styles.container}>
+      <Text>Tarea programada a las 2 AM en segundo plano</Text>
+    </View>
+  );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
 
 export default App;
 
@@ -79,7 +100,7 @@ Notifications.setNotificationHandler({
   }),
 });
 
-const MessageNotification = ({ data, day }) => {
+const MessageNotification = () => {
   //   const dataRed = data?.dataResult ? filterCustomer(data, day).red : 0;
   //   const dataYellow = data?.dataResult ? filterCustomer(data, day).yellow : 0;
   //   const dataGreen = data?.dataResult ? filterCustomer(data, day).green : 0;
@@ -115,12 +136,12 @@ const MessageNotification = ({ data, day }) => {
             body: `STORAGE `,
             //data: { screen: "Clientes" }, // Vista a la que dirigirse
           },
-          //   trigger: {
-          //     type: Notifications.SchedulableTriggerInputTypes.DAILY,
-          //     hour: 0,
-          //     minute: 0,
-          //     repeats: true, // Se repetirá todos los días a las 9 AM
-          //   },
+          trigger: {
+            type: Notifications.SchedulableTriggerInputTypes.DAILY,
+            hour: 8,
+            minute: 0,
+            repeats: true, // Se repetirá todos los días a las 9 AM
+          },
           trigger: null,
 
           ios: {
