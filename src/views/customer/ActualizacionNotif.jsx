@@ -33,9 +33,10 @@ TaskManager.defineTask(TASK_NAME, async () => {
 const registerBackgroundTask = async () => {
   try {
     const status = await BackgroundFetch.getStatusAsync();
+
     if (
-      status === BackgroundFetch.Status.Restricted ||
-      status === BackgroundFetch.Status.Denied
+      status == BackgroundFetch.BackgroundFetchStatus.Restricted ||
+      status == BackgroundFetch.BackgroundFetchStatus.Denied
     ) {
       console.log("Permiso denegado para ejecutar en segundo plano.");
       return;
@@ -73,11 +74,7 @@ const App = () => {
     registerBackgroundTask();
   }, []);
 
-  return (
-    <View style={styles.container}>
-      <Text>Tarea programada a las 2 AM en segundo plano</Text>
-    </View>
-  );
+  return null;
 };
 
 const styles = StyleSheet.create({

@@ -69,7 +69,6 @@ const Home = () => {
       console.error(error);
     }
   };
-  console.log("dataConfiguration: ", dataConfiguration);
 
   // Cerrar el modal
   const handleModalClose = async (shouldUpdate) => {
@@ -100,9 +99,7 @@ const Home = () => {
   const loadCustomer = async () => {
     try {
       let resultCustomer = await onGetCronograma();
-      console.log("resultCustomer: ", resultCustomer);
       if (resultCustomer != null) {
-        console.log("true");
         //resultCustomer = orderData("fecha", resultCustomer, false, enable); // ordena de forma ascendente de acuerdo a la fecha
         let newResult = verifMora(resultCustomer, dataConfiguration); //todo--> este es para verificar la mora
         // console.log("newResult:", newResult?.length);
