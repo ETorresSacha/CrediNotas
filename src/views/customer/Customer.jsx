@@ -37,7 +37,6 @@ const Customer = (props) => {
       console.error(error);
     }
   };
-  console.log("data: ", data?.dataResult[0]);
 
   // Cargar los datos de la configuración
   const loadCongiguration = async () => {

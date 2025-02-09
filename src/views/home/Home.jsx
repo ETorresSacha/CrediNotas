@@ -17,18 +17,7 @@ import UseStorageBusiness from "../../components/hooks/UseHookDataNeg";
 import fondoHome from "../.././../assets/fondoHome.jpg";
 import logo from "../../../assets/icon.png";
 import UseStorage from "../../components/hooks/UseHookStorage";
-import { orderData } from "@/src/utils/thunks/Thunks";
 import { verifMora } from "./ThunksMora";
-import {
-  compareAsc,
-  format,
-  add,
-  formatDistance,
-  getDate,
-  isFuture,
-  isEqual,
-  differenceInDays,
-} from "date-fns";
 
 const Home = () => {
   const { onGetBusiness } = UseStorageBusiness();
@@ -69,7 +58,6 @@ const Home = () => {
       console.error(error);
     }
   };
-  console.log("dataConfigurationdataConfiguration:", dataConfiguration);
 
   // Cerrar el modal
   const handleModalClose = async (shouldUpdate) => {
@@ -86,10 +74,6 @@ const Home = () => {
     }, [enable, setDataConfiguration])
   );
 
-  //! PRIMERO, DESPUES DE QUE SE CARGUE LOS DATOS TENEMOS QUE VERIFICAR QUE NO TENGA MORA, CASO CONTRARIO, PODEMOS RENDERIZAR.
-  //! EN CASO EXISTE LA MORA, TENEMOS CALCULAR LA MORA Y GUARDARLO EN EL STORAGE (SE TIENE QUE AÑADIR EN UN ITEM PARA EL RESULTADO DE LA MORA, EN DONDE DESDE UN PRINCIPIO SERA CERO).
-  //!  VAMOS A PROBAR EN ESTA PARTE, SI NO FUNCIONA PUEDE SER EN EL COMPONENTE DE CUSTOMER
-
   //************************************************ */
 
   // Trae los datos del local storage
@@ -101,46 +85,33 @@ const Home = () => {
     try {
       let resultCustomer = await onGetCronograma();
       if (resultCustomer != null) {
-        //resultCustomer = orderData("fecha", resultCustomer, false, enable); // ordena de forma ascendente de acuerdo a la fecha
         let newResult = verifMora(resultCustomer, dataConfiguration); //todo--> este es para verificar la mora
-
-        // setData({
-        //   ...data,
-        //   newResult,
-        // });
-
-        // //Guardamos los datos en el storage
         await onSaveCronograma(newResult, "saveMora");
-        //! no esta guardando correctamente, verifica eso-solucionar primero esto
       }
-      //
-      //! LA IDEA DE ESTA FUNCION ES QUE SOLO SE EJECUTE UNA VEZ AL DIA, PARA ESO TENEMOS QUE HACER UNA FUNCION EL CUAL
-      //! VERIFIQUE QUE SI YA ESTA EJECUTADO YA NO LO VUELVA A HACER. ESTO PARA OPTIMIZAR EL RENDIMIENTO DEL APLICATIVO.
-      //TODO--> PERO PODEMOS PROBAR ANTES EJECUTANDO PARA VER SI LA MORA SE REFLEA EN DETALLES Y EN CUSTOMER
-      // TODO --> PRIMERO HAREMOS QUE FUNCIONE, SALIO ERROR, SOLUCIONAMOS ESO PARA HACER LO DE ROJO
+      //todo--> ya esta funcionando, el detalle es que cuando se sgrega un nuevo cliente que esta en mora, en la visualizacion de customer sale en rojo
+      //todo--> pero no se actualiza el dato, tenemos que verificar si esta funcion va aqui o en customer, DETERMIAR EN QUE COMPONENTE IRÁ
     } catch (error) {
       console.error(error);
     }
   };
-  // Renderiza
+  // Cargamos los datos y actualizamos las moras
   useFocusEffect(
     React.useCallback(() => {
       loadCustomer();
-      //loadCongiguration();
-
       //return () => unsubscribe();
     }, [dataConfiguration])
   );
-  // Renderiza
+
+  // Trae el valor del interes moratorio
   useFocusEffect(
     React.useCallback(() => {
-      //loadCustomer();
       loadCongiguration();
 
       //return () => unsubscribe();
     }, [setData])
   );
-
+  //todo--> estamos quedando en la prueba de la funcion que se realiza en forma automatica,
+  // todo -->cuando funciona probar con los datos de mora y que mande la notificacion correcta
   return (
     <ImageBackground source={fondoHome} style={styles.background}>
       {/* HEADER */}

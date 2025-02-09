@@ -6,10 +6,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import { formatDate } from "../../utils/thunks/Thunks";
 import UseStorageBusiness from "../hooks/UseHookDataNeg";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
-import {
-  calculoMora,
-  mora,
-} from "../../utils/calculoCuota/CalculosFuncionesCrediticios";
+import { calculoMoraSimple } from "../../utils/calculoCuota/CalculosFuncionesCrediticios";
 
 const Notification = ({
   data,
@@ -94,7 +91,7 @@ const Notification = ({
       //! TENEMOS QUE CREAR UNA NUEVA FUNCION PARA EL CALCULO DE LA MORA PERO SOLO PARA EL PRESTAMO INDEPENDIENTE
       //! YA ESTA LA MORA, ESTE SERA SUMADO A AL CUOTA PARA CALCULAR LA NUEVA CUOTA.
       //! ES NECESARIO QUE CUANDO EXISTE MORA SE CAMBIE LA NUEVA CUOTA. ASI COMO LA FECHA CANBIA TAMHIEN EL MONTO DE LA DEUDA DEJE CAMHIAR
-      let result = mora(dataNotification, dataConfiguration);
+      let result = calculoMoraSimple(dataNotification, dataConfiguration);
 
       setCuot(result);
     }

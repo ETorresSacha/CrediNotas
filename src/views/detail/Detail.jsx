@@ -15,8 +15,6 @@ import Notification from "../../components/notification/Notification";
 import Header from "../../components/header/Header";
 import Loading from "../../components/loading/Loading";
 import Entypo from "@expo/vector-icons/Entypo";
-import { mora } from "../../utils/calculoCuota/CalculosFuncionesCrediticios";
-import { diffDay } from "../../utils/thunks/Thunks";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 const Detail = (props) => {
@@ -57,26 +55,6 @@ const Detail = (props) => {
       setIndice(user[0]?.resultPrestamo.length);
       setDataSee(user[0]?.resultPrestamo[user[0]?.resultPrestamo.length - 1]);
       setCancelledShare(true);
-    }
-
-    // Cálculo de la mora
-
-    let diaRetraso = diffDay(dataSee?.fechaPago);
-    if (diaRetraso < 0) {
-      let resultMora = mora(result, valueProps?.dataConfiguration);
-      setIntMora(resultMora);
-      //! primero hacer que el color de rojo cuando existe la mora y no se habilid¿te dependiendo de su valor
-      //! cuando se quiere guardar la mora como parte del array, sale error en el monto de la mora
-      //! se hace una resta suceciva de la mora, por lo que tenemos que ver como cambiaar eso
-      // let objeto = {
-      //   ...dataSee,
-      //   cuotaNeto: (
-      //     parseFloat(dataSee?.cuotaNeto) + parseFloat(resultMora)
-      //   ).toFixed(2),
-      // };
-      // console.log("objeto: ", objeto);
-      // updatePrestamo?.splice(indice, 1, objeto);
-      //   // console.log(result);
     }
   }, [user, indice, modify, cancelledShare]); //! tener en cuenta, se esta eliminando el dataSee, si algo no funciona puede ser por esto
 
