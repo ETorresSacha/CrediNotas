@@ -343,13 +343,8 @@ export const mora =(data, dataConfiguration)=>{
 export const calculoMoraSimple = (data, dataConfiguration)=>{
 
     let intMoratorio =parseFloat(dataConfiguration?.intMoratorio)/100  // % --> Diario
+    let mora
     
-    
-   // let ccv = parseFloat(dataConfiguration?.ccv) // % (Comisión de Cobranza Variable) --> Se aplica al monto de la cuota
-
-    // % de interes moratorio diario
-    // intMoratorio = (Math.pow(1 +intMoratorio / 100, 1 / 360) - 1) * 100;
-
     // Cálculo de los dias de mora
     
     let toDay = format(new Date(),"yyyy-MM-dd")
@@ -360,17 +355,9 @@ export const calculoMoraSimple = (data, dataConfiguration)=>{
         diff = diff/(1000*60*60*24)
 
     // Cálculo del interes
-    let int = (intMoratorio*data?.capital*diff)/100
-
-    // Cálculo de la comisión de cobranza variable
-    //ccv = (ccv*data?.montoCuota)/100
-
-     // Cálculo de ITF
-     //let itf =0.00005*data?.capital
-
-     // Cálculo de la cuota neto a pagar
-    // let result = parseFloat(data?.montoCuota) +  parseFloat(int) + parseFloat(ccv) + parseFloat(itf)
+    if(diff > 0){ mora = (intMoratorio*data?.capital*diff)/100}
+    else{mora=0}
      
-     return int.toFixed(2)
+     return mora.toFixed(2)
 
 }

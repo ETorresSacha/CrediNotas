@@ -133,6 +133,7 @@ export const calculoFRCA = (data) =>{
             cuotaCapital:cuotInterSimple(capital,interes,tiempo,i-1,newCapital).resultCuo,
             saldoCapital:cuotInterSimple(capital,interes,tiempo,i-1,newCapital).resultCap,
             cuotaNeto:cuotInterSimple(capital,interes,tiempo,i-1,newCapital).resultCuoNeto,
+            mora:0
         })
     }
             
