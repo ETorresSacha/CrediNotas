@@ -106,6 +106,7 @@ const Pay = ({
   //! VER TAMBIEN VAMOS A VER SI LA MORA VA SER VISIBLE CUANDO EXISTA O NO EXISTA LA MORA, ESO ESTA PARA VER, OTRO TAMBIEN AÑADIREMOS LOS DIAS DE MORA
   //! CREO QUE TAMBIEN VAMOS A QUITAR ALGUNOS ELEMENTOS, TENEMOS QUE VER SI SON O NO NECESARIOS
   //! POR ULTIMO Y NO MENOS IMPORTANTE, VAMOS A VER SI AÑADIMOS EL COLOR ROJO COMO SIMBOLO DE QUE ESTE CLIENTE SE ENCUENTRA EN MORA, ESTO SERA EN LOS PAGOS DEL DETALLE.
+  console.log("dataseePAY: ", dataSee?.mora);
 
   return (
     <View style={styles.container}>
@@ -206,7 +207,10 @@ const Pay = ({
                 >
                   S/{" "}
                   {!cancelledShare
-                    ? parseFloat(dataSee?.cuotaNeto) + parseFloat(intMora)
+                    ? (
+                        parseFloat(dataSee?.cuotaNeto) +
+                        parseFloat(dataSee?.mora)
+                      ).toFixed(2)
                     : "0"}
                 </Text>
               </View>
@@ -304,7 +308,7 @@ const Pay = ({
                     fontSize: RFValue(14),
                   }}
                 >
-                  S/ {parseFloat(intMora).toFixed(2)}
+                  S/ {parseFloat(dataSee?.mora).toFixed(2)}
                 </Text>
               </View>
             </View>
