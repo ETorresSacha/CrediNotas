@@ -42,6 +42,11 @@ const UseStorage = () => {
           await AsyncStorage.setItem(MY_DATA_KEY, JSON.stringify(dataPerson));
           return Promise.resolve();
         }
+        // Guardar mora
+        if (editValue == "saveMora") {
+          await AsyncStorage.setItem(MY_DATA_KEY, JSON.stringify(dataPerson));
+          return Promise.resolve();
+        }
         // Editar
         else {
           resultGet?.find((element, index) => {
@@ -67,7 +72,6 @@ const UseStorage = () => {
     //await AsyncStorage.clear();
     try {
       let result = await AsyncStorage.getItem(MY_DATA_KEY);
-      console.log("result: ", result);
 
       if (result !== null) {
         const parseCronograma = JSON.parse(result);

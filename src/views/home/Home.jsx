@@ -69,6 +69,7 @@ const Home = () => {
       console.error(error);
     }
   };
+  console.log("dataConfigurationdataConfiguration:", dataConfiguration);
 
   // Cerrar el modal
   const handleModalClose = async (shouldUpdate) => {
@@ -102,7 +103,6 @@ const Home = () => {
       if (resultCustomer != null) {
         //resultCustomer = orderData("fecha", resultCustomer, false, enable); // ordena de forma ascendente de acuerdo a la fecha
         let newResult = verifMora(resultCustomer, dataConfiguration); //todo--> este es para verificar la mora
-        // console.log("newResult:", newResult?.length);
 
         // setData({
         //   ...data,
@@ -110,7 +110,7 @@ const Home = () => {
         // });
 
         // //Guardamos los datos en el storage
-        //await onSaveCronograma(newResult);
+        await onSaveCronograma(newResult, "saveMora");
         //! no esta guardando correctamente, verifica eso-solucionar primero esto
       }
       //
@@ -129,7 +129,7 @@ const Home = () => {
       //loadCongiguration();
 
       //return () => unsubscribe();
-    }, [])
+    }, [dataConfiguration])
   );
   // Renderiza
   useFocusEffect(

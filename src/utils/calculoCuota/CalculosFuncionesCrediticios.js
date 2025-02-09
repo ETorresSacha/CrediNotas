@@ -343,7 +343,6 @@ export const mora =(data, dataConfiguration)=>{
 export const calculoMoraSimple = (data, dataConfiguration)=>{
 
     let intMoratorio =parseFloat(dataConfiguration?.intMoratorio)/100  // % --> Diario
-    console.log("dataConfiguration: ",dataConfiguration?.intMoratorio);
     
     
    // let ccv = parseFloat(dataConfiguration?.ccv) // % (Comisión de Cobranza Variable) --> Se aplica al monto de la cuota

@@ -24,6 +24,7 @@ const Users = ({ data, enable, dataConfiguration, day }) => {
   //   if (color) cambiarColor(color);
   // }, [color]);
   //todo--> se guardará este código, como para recordar la funcionalida, puede ser útil en otra aplicación
+  console.log("userData: ", data[0]);
 
   return (
     <View>
@@ -100,7 +101,10 @@ const Users = ({ data, enable, dataConfiguration, day }) => {
                 >
                   {enable
                     ? element?.capital
-                    : element?.resultPrestamo[0]?.cuotaNeto}
+                    : (
+                        parseFloat(element?.resultPrestamo[0]?.cuotaNeto) +
+                        parseFloat(element?.resultPrestamo[0]?.mora)
+                      ).toFixed(2)}
                 </Text>
               </View>
 

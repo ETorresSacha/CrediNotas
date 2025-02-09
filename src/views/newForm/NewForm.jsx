@@ -35,7 +35,7 @@ const NewForm = (props) => {
   const enable = props.route.params ? props.route.params?.enable : null;
   const dataConfiguration = props.route.params?.dataConfiguration; // Datos de la configuración
 
-  // ****s
+  // ****
   const [dataPerson, setDataPerson] = useState({
     uuid: !user ? uuid : user?.uuid,
     nombre: !user ? "" : user?.nombre,
