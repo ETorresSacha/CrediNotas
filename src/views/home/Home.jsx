@@ -84,10 +84,12 @@ const Home = () => {
   const loadCustomer = async () => {
     try {
       let resultCustomer = await onGetCronograma();
+
       if (resultCustomer != null) {
         let newResult = verifMora(resultCustomer, dataConfiguration); //todo--> este es para verificar la mora
         await onSaveCronograma(newResult, "saveMora");
       }
+
       //todo--> ya esta funcionando, el detalle es que cuando se sgrega un nuevo cliente que esta en mora, en la visualizacion de customer sale en rojo
       //todo--> pero no se actualiza el dato, tenemos que verificar si esta funcion va aqui o en customer, DETERMIAR EN QUE COMPONENTE IRÁ
     } catch (error) {

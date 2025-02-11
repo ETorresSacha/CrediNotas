@@ -58,7 +58,7 @@ const RenderCustomer = ({
   // Renderiza
   useEffect(() => {
     resultCustomer();
-  }, [data, setDataCustomer, inicio]); //! esta para evluar si se agrega en esta parte setCustomer e inicio
+  }, [data, setDataCustomer, inicio, day]); //! esta para evluar si se agrega en esta parte setCustomer e inicio
 
   // Ordenar
   const handleSort = (type, value) => {
@@ -152,8 +152,7 @@ const RenderCustomer = ({
                   No hay clientes {enable ? "cancelados" : "guardados"}
                 </Text>
               </View>
-            ) : !enable ? (
-              //  clientes guardados
+            ) : !enable ? ( //  clientes guardados
               <View>
                 <Users
                   data={dataCustomer?.dataResult}
@@ -213,9 +212,9 @@ const RenderCustomer = ({
           />
 
           {/* Notificaciones de los clientes por cobrar */}
-          {!inicio ? (
+          {/* {!inicio ? (
             <MessageNotification data={dataCustomer} day={day} />
-          ) : null}
+          ) : null} */}
 
           {/* Actualizacion de las notificaciones, cada dia */}
           <ActualizacionNotif />

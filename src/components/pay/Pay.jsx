@@ -189,7 +189,7 @@ const Pay = ({
                   style={[
                     styles.subTitle,
                     {
-                      color: color == "red" ? color : "orange",
+                      color: dataSee?.mora ? "red" : "orange",
                       fontSize:
                         dataSee?.cuotaNeto?.length >= 8
                           ? RFValue(12)
@@ -296,7 +296,7 @@ const Pay = ({
                 <Text style={styles.subTitle}>Mora</Text>
                 <Text
                   style={{
-                    color: color == "red" ? color : "white",
+                    color: dataSee?.mora ? "red" : "white",
                     fontSize: RFValue(14),
                   }}
                 >

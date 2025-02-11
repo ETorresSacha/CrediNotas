@@ -160,15 +160,15 @@ export const datePay = (data,day)=>{
 
   let result;
   let color
-  let [anioToDay, mesToDay, diaToDay] = day.split("-");
- 
-
+  
+  let [anioToDay, mesToDay, diaToDay] = day?.split("-");
+  
     if (data != undefined) { // Calcula la fecha de pago
       result = data.resultPrestamo?.find(
         (element) => element.statusPay == false
       );
 
-      let [anio, mes, dia] = result.fechaPago.split("-");
+      let [anio, mes, dia] = result?.fechaPago?.split("-");
       
       // Clasifica el color de las alertas, de acuerdo a la fecha de pago
       if (differenceInDays(new Date(anio, mes - 1, dia),new Date(anioToDay, mesToDay - 1, diaToDay)) < 0) {color = "red"} 
@@ -178,6 +178,7 @@ export const datePay = (data,day)=>{
     }
     
     return result == undefined ? null : {fecha:formatDate(result.fechaPago),color:color};
+    
 }
 
 //TODO--> FILTRAR LOS CLIENTES DE ACUERDO A SU ESTADO DE PAGO
