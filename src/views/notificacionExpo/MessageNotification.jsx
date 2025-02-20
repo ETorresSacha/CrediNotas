@@ -13,9 +13,22 @@ Notifications.setNotificationHandler({
 });
 
 const MessageNotification = ({ data, day }) => {
-  const dataRed = data?.dataResult ? filterCustomer(data, day).red : 0;
-  const dataYellow = data?.dataResult ? filterCustomer(data, day).yellow : 0;
-  const dataGreen = data?.dataResult ? filterCustomer(data, day).green : 0;
+  let dataRed = data?.dataResult ? filterCustomer(data, day).red : 0;
+  let dataYellow = data?.dataResult ? filterCustomer(data, day).yellow : 0;
+  let dataGreen = data?.dataResult ? filterCustomer(data, day).green : 0;
+
+  // fecha actual
+  let date = new Date();
+
+  // la hora en tu zona horaria actual
+  let hour = date.getHours();
+
+  // actualizamos los datos de dataRed y dataYellow para la notificación diaria, cumpliendo esta restricción
+  if (hour > 9) {
+    dataRed = dataRed + dataYellow;
+    dataYellow = dataGreen;
+  }
+
   //! tenemos que hacer una logica para que los clientes que son amarillos sean correctos y mandado a la notificacion de manera correcta
   const [expoPushToken, setExpoPushToken] = useState("");
 

@@ -65,6 +65,9 @@ const Pay = ({
       setCancelledShare(true);
     }
   };
+  //console.log("dataSee: ", dataSee);
+
+  //console.log("modify: ", modify);
 
   //todo--> Cancelar el pago de la cuota
   const HandleCancelPay = async () => {
@@ -79,9 +82,11 @@ const Pay = ({
 
     //! Cuando la deuda esta completamente cancelado
     if (indice == data[0]?.resultPrestamo.length) {
-      let indiceCambiar = data[0]?.resultPrestamo.length - 1; //  seleccionamos el ultimo indice del objeto "resultPrestamo"
+      let indiceCambiar = data[0]?.resultPrestamo?.length - 1; //  seleccionamos el ultimo indice del objeto "resultPrestamo"
 
       let result = data[0]?.resultPrestamo[indiceCambiar]; // buscamos el último pago realizado
+      //console.log("result: ", result);
+
       let objeto = { ...result, statusPay: false }; // modificamos el statusPay del último pago de "true" a "false"
       updatePrestamo.splice(indiceCambiar, 1, objeto); // modificamos el array del "resultPrestamo"
 
@@ -98,6 +103,7 @@ const Pay = ({
       setCancelledShare(false);
     }
   };
+  console.log("dataSee: ", dataSee);
 
   //! OJO: PODRIAMOS CONSIDERAR EN AUMENTAR LOS DIAS DE MORA, SERIA OPTIMO O VISIBLE SOLO CUANDO EXISTE LA MORA
   return (
@@ -189,7 +195,7 @@ const Pay = ({
                   style={[
                     styles.subTitle,
                     {
-                      color: dataSee?.mora ? "red" : "orange",
+                      color: color == "red" ? color : "orange",
                       fontSize:
                         dataSee?.cuotaNeto?.length >= 8
                           ? RFValue(12)
@@ -296,7 +302,7 @@ const Pay = ({
                 <Text style={styles.subTitle}>Mora</Text>
                 <Text
                   style={{
-                    color: dataSee?.mora ? "red" : "white",
+                    color: color == "red" ? color : "white",
                     fontSize: RFValue(14),
                   }}
                 >

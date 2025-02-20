@@ -17,7 +17,6 @@ import { format } from "date-fns";
 import { customerData, orderData } from "../../utils/thunks/Thunks";
 import { renderImportData } from "./renderImportData";
 import MessageNotification from "../notificacionExpo/MessageNotification";
-import ActualizacionNotif from "./ActualizacionNotif";
 const RenderCustomer = ({
   data,
   setData,
@@ -212,12 +211,9 @@ const RenderCustomer = ({
           />
 
           {/* Notificaciones de los clientes por cobrar */}
-          {/* {!inicio ? (
+          {!inicio ? (
             <MessageNotification data={dataCustomer} day={day} />
-          ) : null} */}
-
-          {/* Actualizacion de las notificaciones, cada dia */}
-          <ActualizacionNotif />
+          ) : null}
         </View>
       )}
     </View>
