@@ -4,15 +4,14 @@ import Customer from "../customer/Customer";
 
 const CanceledCustomer = (props) => {
   const [enable, setEnable] = useState(true); //  Habilita el componente de los clientes cancelados
+  console.log("holalaal");
 
   useEffect(() => {
     setEnable(props.route?.params?.data?.enable);
   }, []);
 
   return (
-    <View style={styles.container}>
-      <Customer props={props} />
-    </View>
+    <View style={styles.container}>{/* <Customer props={props} /> */}</View>
   );
 };
 

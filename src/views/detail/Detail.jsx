@@ -72,6 +72,7 @@ const Detail = (props) => {
       //return () => unsubscribe();
     }, [])
   );
+  console.log("enable: ", valueProps);
 
   // Trae los datos guardados del local storage
   const loadCustomerId = async (id) => {
@@ -106,7 +107,7 @@ const Detail = (props) => {
   // Eliminar
   const handleDelete = async (data) => {
     try {
-      const result = await onDeleteCustomer(data);
+      await onDeleteCustomer(data);
       navigation.navigate(
         !valueProps?.enable ? "Clientes" : "Clientes cancelados"
       );
@@ -138,7 +139,7 @@ const Detail = (props) => {
           <View>
             <Header
               title={"Detalle"}
-              back="Clientes"
+              back={"Clientes"}
               data={
                 !valueProps?.enable
                   ? valueProps?.dataConfiguration

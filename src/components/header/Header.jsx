@@ -12,7 +12,7 @@ const Header = ({ title, back, data, setValueImport }) => {
   const backFunction = (value) => {
     switch (value) {
       case "Clientes":
-        navigation.navigate(value, { user: data });
+        navigation.navigate(value, { data: data ? data : true }); // hace el caambio de acuerdo del valor de anable "clientes/clientes cancelados"
         break;
       case "Detalle":
         navigation.navigate(value, data);

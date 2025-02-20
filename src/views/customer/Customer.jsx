@@ -10,6 +10,8 @@ import { renderImportData } from "./renderImportData";
 import RenderCustomer from "./RenderCustomer";
 
 const Customer = (props) => {
+  console.log("props?.route?.params: ", props?.route?.params);
+
   let enable = props?.route?.params?.data?.enable; // Habilita el componente de los clientes cancelados
   let valueProps = props?.route?.params?.data; // Valores para la configuración del prestamo
 
