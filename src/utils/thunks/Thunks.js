@@ -180,6 +180,10 @@ export const datePay = (data,day)=>{
     return result == undefined ? null : {fecha:formatDate(result.fechaPago),color:color};
     
 }
+export const montoPay = (data)=>{
+  let result =data?.find((element) => element.statusPay == false)
+  return parseFloat(result?.cuotaNeto) +  parseFloat(result?.mora)
+}
 
 //TODO--> FILTRAR LOS CLIENTES DE ACUERDO A SU ESTADO DE PAGO
 export const filterCustomer = (data, day) => {

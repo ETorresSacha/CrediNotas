@@ -1,7 +1,7 @@
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { datePay } from "../../utils/thunks/Thunks";
+import { datePay, montoPay } from "../../utils/thunks/Thunks";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
@@ -100,10 +100,7 @@ const Users = ({ data, enable, dataConfiguration, day }) => {
                 >
                   {enable
                     ? element?.capital
-                    : (
-                        parseFloat(element?.resultPrestamo[0]?.cuotaNeto) +
-                        parseFloat(element?.resultPrestamo[0]?.mora)
-                      ).toFixed(2)}
+                    : montoPay(element?.resultPrestamo).toFixed(2)}
                 </Text>
               </View>
 

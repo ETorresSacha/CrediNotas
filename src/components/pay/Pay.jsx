@@ -103,7 +103,6 @@ const Pay = ({
       setCancelledShare(false);
     }
   };
-  console.log("dataSee: ", dataSee);
 
   //! OJO: PODRIAMOS CONSIDERAR EN AUMENTAR LOS DIAS DE MORA, SERIA OPTIMO O VISIBLE SOLO CUANDO EXISTE LA MORA
   return (
