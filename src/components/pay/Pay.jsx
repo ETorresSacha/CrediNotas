@@ -16,7 +16,7 @@ const Pay = ({
   cancelledShare,
   setCancelledShare,
   updatePrestamo,
-  intMora,
+  //intMora,
   color,
   valueProps,
   setValueProps,
@@ -24,6 +24,7 @@ const Pay = ({
   const { onUpdateStatusPay } = UseStorage();
   const [payShare, setPayShere] = useState([]); // Guardar el pago
   const [enable, setEnable] = useState(false); // Boton de cancelar pago (ON OFF)
+  console.log("valueProps: ", valueProps);
 
   useEffect(() => {
     // Buscamos la última cuota pagado (útil cuando la cuenta esta cancelado)
@@ -103,6 +104,7 @@ const Pay = ({
       setCancelledShare(false);
     }
   };
+  console.log("dataSeeMORA: ", dataSee);
 
   //! OJO: PODRIAMOS CONSIDERAR EN AUMENTAR LOS DIAS DE MORA, SERIA OPTIMO O VISIBLE SOLO CUANDO EXISTE LA MORA
   return (
@@ -194,7 +196,9 @@ const Pay = ({
                   style={[
                     styles.subTitle,
                     {
-                      color: color == "red" ? color : "orange",
+                      //color: color == "red" ? color : "orange",
+                      color:
+                        color == "red" || dataSee?.mora != 0 ? "red" : "orange",
                       fontSize:
                         dataSee?.cuotaNeto?.length >= 8
                           ? RFValue(12)
@@ -301,7 +305,8 @@ const Pay = ({
                 <Text style={styles.subTitle}>Mora</Text>
                 <Text
                   style={{
-                    color: color == "red" ? color : "white",
+                    //color: color == "red" ? color : "white",
+                    color: dataSee?.mora != 0 ? "red" : "white",
                     fontSize: RFValue(14),
                   }}
                 >

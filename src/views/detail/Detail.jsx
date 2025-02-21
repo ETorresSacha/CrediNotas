@@ -27,7 +27,7 @@ const Detail = (props) => {
     enable: "",
     dataConfiguration: "",
   });
-  const [intMora, setIntMora] = useState(0);
+  //const [intMora, setIntMora] = useState(0);
   const [indice, setIndice] = useState(0); // Para modificar el índice correcto cuando se realiza un pago
   const [updatePrestamo, setUpdatePrestamo] = useState([]); // ResultPrestamo
   const [modify, setModify] = useState([]); // Para editar el status del pago
@@ -35,7 +35,7 @@ const Detail = (props) => {
   const [cancelledShare, setCancelledShare] = useState(false); // Cuota cancelada
 
   useEffect(() => {
-    setIntMora(0);
+    //setIntMora(0);
     setModify(user);
     setUpdatePrestamo(user[0]?.resultPrestamo);
 
@@ -129,7 +129,7 @@ const Detail = (props) => {
       },
     ]);
   };
-
+  //! EN EL DETALLE QUE EL COLOR CAMBIE DE ACUERDO A LA FECHA DE VENCIMIETO
   return (
     <View style={styles.container}>
       {user.length == 0 ? (
@@ -198,7 +198,7 @@ const Detail = (props) => {
               cancelledShare={cancelledShare}
               setCancelledShare={setCancelledShare}
               updatePrestamo={updatePrestamo}
-              intMora={intMora}
+              //intMora={intMora}
               color={valueProps?.typeColor}
               valueProps={valueProps}
               setValueProps={setValueProps}
