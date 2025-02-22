@@ -72,7 +72,6 @@ const Detail = (props) => {
       //return () => unsubscribe();
     }, [])
   );
-  console.log("enable: ", valueProps);
 
   // Trae los datos guardados del local storage
   const loadCustomerId = async (id) => {
@@ -130,6 +129,7 @@ const Detail = (props) => {
     ]);
   };
   //! EN EL DETALLE QUE EL COLOR CAMBIE DE ACUERDO A LA FECHA DE VENCIMIETO
+
   return (
     <View style={styles.container}>
       {user.length == 0 ? (

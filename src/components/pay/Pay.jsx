@@ -3,10 +3,11 @@ import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import UseStorage from "../hooks/UseHookStorage";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import { formatDate } from "../../utils/thunks/Thunks";
+import { diffDay, formatDate } from "../../utils/thunks/Thunks";
 import Loading from "../loading/Loading";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
-
+import { useFocusEffect } from "@react-navigation/native";
+import { verifMora } from "@/src/views/home/ThunksMora";
 const Pay = ({
   data,
   indice,
@@ -21,10 +22,9 @@ const Pay = ({
   valueProps,
   setValueProps,
 }) => {
-  const { onUpdateStatusPay } = UseStorage();
+  const { onUpdateStatusPay, onGetCronograma, onSaveCronograma } = UseStorage();
   const [payShare, setPayShere] = useState([]); // Guardar el pago
   const [enable, setEnable] = useState(false); // Boton de cancelar pago (ON OFF)
-  console.log("valueProps: ", valueProps);
 
   useEffect(() => {
     // Buscamos la última cuota pagado (útil cuando la cuenta esta cancelado)
@@ -42,6 +42,8 @@ const Pay = ({
   //todo-->  Pagar la cuota
   const handlePayShare = async () => {
     let objeto = { ...dataSee, statusPay: true };
+    console.log("objeto: ", objeto);
+
     updatePrestamo.splice(indice, 1, objeto);
 
     if (
@@ -50,7 +52,10 @@ const Pay = ({
       // Pago de la cuenta
       setIndice(indice + 1);
       await onUpdateStatusPay(modify);
-      setValueProps({ ...valueProps, typeColor: "cornsilk" });
+      setValueProps({
+        ...valueProps,
+        typeColor: "cornsilk",
+      });
       setEnable(false); // Habilita el boton de cancelar el pago
     } else {
       // Cancelación de la deuda
@@ -68,14 +73,25 @@ const Pay = ({
   };
   //console.log("dataSee: ", dataSee);
 
-  //console.log("modify: ", modify);
-
+  // console.log("dataSeeMORA: ", dataSee);
   //todo--> Cancelar el pago de la cuota
+  const [newColor, setNewColor] = useState("");
   const HandleCancelPay = async () => {
     //! Cuando tiene cuotas pendientes
     if (indice > 0 && indice < updatePrestamo?.length) {
       let objeto = { ...payShare, statusPay: false };
+      console.log("diffDay: ", diffDay(payShare?.fechaPago));
 
+      if (diffDay(payShare?.fechaPago) < 0) {
+        setNewColor("red");
+      } else {
+        setNewColor("cornsilk");
+      }
+      // setValueProps({
+      //   ...valueProps,
+      //   typeColor: diffDay(dataSee?.fechaPago) < 0 ? "red" : "cornsilk",
+      //   //typeColor: "red",
+      // });
       updatePrestamo.splice(indice - 1, 1, objeto); // Modificamos los pagos
       await onUpdateStatusPay(modify); // Guardamos los datos
       setIndice(indice - 1);
@@ -104,9 +120,38 @@ const Pay = ({
       setCancelledShare(false);
     }
   };
-  console.log("dataSeeMORA: ", dataSee);
 
   //! OJO: PODRIAMOS CONSIDERAR EN AUMENTAR LOS DIAS DE MORA, SERIA OPTIMO O VISIBLE SOLO CUANDO EXISTE LA MORA
+  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+
+  const loadCustomer = async () => {
+    try {
+      let resultCustomer = await onGetCronograma();
+
+      if (resultCustomer != null) {
+        let newResult = verifMora(
+          resultCustomer,
+          valueProps?.dataConfiguration
+        ); //todo--> este es para verificar la mora
+        await onSaveCronograma(newResult, "saveMora");
+      }
+
+      //TODO--> OJO: CUANDO HACEMOS EL PAGO SE TIENE QUE VERIFICAR SI TIENE MORA O NO ANTES DE GUARDAR EEN EL STORAGE,
+      // TODO-->      UNA VEZ VERIFICADO DEBEMOS GUARDAR COMO UNO SOLO, EN OTRAS PALABRAS TENEMOS QUE UNIFICAR LA FUNCION DE MORA CON EL PAGO,
+      // TODO-->      DE LA MISMA MANERA CUANDO SE HACE LA CANCELACION DE LA MORA, TODO ESTO PARA CALCULAR LA MORA Y LA VISUALIZACION DEL COLOR SI EXITE MORA Y SEA DE MANERA DINAMICA,
+      //  TODO ---> TIENEMOS QUE HACER UN CODIGO MUY LIMPIO Y ENTENDIBLE FACIL DE SEGUIR
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  // Cargamos los datos y actualizamos las moras
+  useFocusEffect(
+    React.useCallback(() => {
+      //loadCustomer();
+      //return () => unsubscribe();
+    }, [])
+  );
+  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11
   return (
     <View style={styles.container}>
       {updatePrestamo == undefined ? (
@@ -196,9 +241,9 @@ const Pay = ({
                   style={[
                     styles.subTitle,
                     {
-                      //color: color == "red" ? color : "orange",
-                      color:
-                        color == "red" || dataSee?.mora != 0 ? "red" : "orange",
+                      //color: (color && newColor) == "red" ? "red" : "orange",
+                      color: dataSee?.mora != 0 ? "red" : "orange",
+
                       fontSize:
                         dataSee?.cuotaNeto?.length >= 8
                           ? RFValue(12)

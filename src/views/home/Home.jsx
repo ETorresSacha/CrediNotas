@@ -47,12 +47,12 @@ const Home = () => {
       //copia
       setCopy({
         ...dataConfiguration,
-        intMoratorio: !result ? "0" : result[0]?.intMoratorio,
+        intMoratorio: !result ? "0.00" : result[0]?.intMoratorio,
       });
 
       setDataConfiguration({
         ...dataConfiguration,
-        intMoratorio: !result ? "0" : result[0]?.intMoratorio,
+        intMoratorio: !result ? "0.00" : result[0]?.intMoratorio,
       });
     } catch (error) {
       console.error(error);

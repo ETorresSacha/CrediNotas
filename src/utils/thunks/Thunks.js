@@ -197,7 +197,7 @@ export const filterCustomer = (data, day) => {
 
 //TODO--> DIFERENCIA DE DIAS, ÚTIL PARA EL CÁLCULO DE LA MORA
 export const diffDay = (data)=>{
-
+  
   let result;
   
   if (data != undefined) { 
