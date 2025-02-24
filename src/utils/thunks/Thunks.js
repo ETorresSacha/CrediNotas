@@ -181,7 +181,9 @@ export const datePay = (data,day)=>{
     
 }
 export const montoPay = (data)=>{
+  
   let result =data?.find((element) => element.statusPay == false)
+
   return parseFloat(result?.cuotaNeto) +  parseFloat(result?.mora)
 }
 

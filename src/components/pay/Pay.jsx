@@ -25,6 +25,8 @@ const Pay = ({
   const { onUpdateStatusPay, onGetCronograma, onSaveCronograma } = UseStorage();
   const [payShare, setPayShere] = useState([]); // Guardar el pago
   const [enable, setEnable] = useState(false); // Boton de cancelar pago (ON OFF)
+  console.log("dataSee: ", dataSee);
+  console.log("modify: ", modify);
 
   useEffect(() => {
     // Buscamos la última cuota pagado (útil cuando la cuenta esta cancelado)
@@ -42,7 +44,6 @@ const Pay = ({
   //todo-->  Pagar la cuota
   const handlePayShare = async () => {
     let objeto = { ...dataSee, statusPay: true };
-    console.log("objeto: ", objeto);
 
     updatePrestamo.splice(indice, 1, objeto);
 
@@ -71,16 +72,14 @@ const Pay = ({
       setCancelledShare(true);
     }
   };
-  //console.log("dataSee: ", dataSee);
+  console.log("updatePrestamo: ", updatePrestamo);
 
-  // console.log("dataSeeMORA: ", dataSee);
   //todo--> Cancelar el pago de la cuota
   const [newColor, setNewColor] = useState("");
   const HandleCancelPay = async () => {
     //! Cuando tiene cuotas pendientes
     if (indice > 0 && indice < updatePrestamo?.length) {
       let objeto = { ...payShare, statusPay: false };
-      console.log("diffDay: ", diffDay(payShare?.fechaPago));
 
       if (diffDay(payShare?.fechaPago) < 0) {
         setNewColor("red");

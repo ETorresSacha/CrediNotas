@@ -42,6 +42,7 @@ const Detail = (props) => {
     let result = user[0]?.resultPrestamo.find(
       (element) => element.statusPay == false
     );
+
     // Para pagar la cuota
     if (result != undefined) {
       setDataSee(result);
@@ -78,6 +79,8 @@ const Detail = (props) => {
     try {
       const resultCustomer = await onGetCronograma();
       const result = resultCustomer.filter((element) => element.uuid == id);
+      console.log("userRESULT:", result[0]);
+
       setUser(result);
     } catch (error) {
       console.error(error);

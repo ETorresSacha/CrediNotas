@@ -87,6 +87,7 @@ const Home = () => {
 
       if (resultCustomer != null) {
         let newResult = verifMora(resultCustomer, dataConfiguration); //todo--> este es para verificar la mora
+
         await onSaveCronograma(newResult, "saveMora");
       }
 
