@@ -16,7 +16,7 @@ import UseStorageBusiness from "../../components/hooks/UseHookDataNeg";
 import fondoHome from "../.././../assets/fondoHome.jpg";
 import logo from "../../../assets/icon.png";
 import UseStorage from "../../components/hooks/UseHookStorage";
-import { verifMora } from "./ThunksMora";
+import { loadCustomer, verifMora } from "./ThunksMora";
 
 const Home = () => {
   const { onGetBusiness } = UseStorageBusiness();
@@ -75,24 +75,24 @@ const Home = () => {
 
   //************************************************ */
 
-  // Trae los datos del local storage
-  const [data, setData] = useState();
+  // // Trae los datos del local storage
+  // const [data, setData] = useState();
 
-  const { onGetCronograma, onSaveCronograma } = UseStorage();
+  // const { onGetCronograma, onSaveCronograma } = UseStorage();
 
-  const loadCustomer = async () => {
-    try {
-      let resultCustomer = await onGetCronograma();
+  // const loadCustomer = async () => {
+  //   try {
+  //     let resultCustomer = await onGetCronograma();
 
-      if (resultCustomer != null) {
-        let newResult = verifMora(resultCustomer, dataConfiguration); //todo--> este es para verificar la mora
+  //     if (resultCustomer != null) {
+  //       let newResult = verifMora(resultCustomer, dataConfiguration); //todo--> este es para verificar la mora
 
-        await onSaveCronograma(newResult, "saveMora");
-      } else return;
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  //       await onSaveCronograma(newResult, "saveMora");
+  //     } else return;
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
   // Cargamos los datos y actualizamos las moras
   useFocusEffect(
     React.useCallback(() => {
