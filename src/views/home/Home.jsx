@@ -11,7 +11,6 @@ import { useFocusEffect } from "@react-navigation/native";
 import ItemsHome from "../../components/itemsHome/ItemsHome";
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
 import ModalConfigPersonal from "../../modals/modalConfigPersonal/ModalConfigPersonal";
-
 import UseStorageConfiguration from "../../components/hooks/UseHookConfiguration";
 import UseStorageBusiness from "../../components/hooks/UseHookDataNeg";
 import fondoHome from "../.././../assets/fondoHome.jpg";
@@ -89,10 +88,7 @@ const Home = () => {
         let newResult = verifMora(resultCustomer, dataConfiguration); //todo--> este es para verificar la mora
 
         await onSaveCronograma(newResult, "saveMora");
-      }
-
-      //todo--> ya esta funcionando, el detalle es que cuando se sgrega un nuevo cliente que esta en mora, en la visualizacion de customer sale en rojo
-      //todo--> pero no se actualiza el dato, tenemos que verificar si esta funcion va aqui o en customer, DETERMIAR EN QUE COMPONENTE IRÁ
+      } else return;
     } catch (error) {
       console.error(error);
     }
@@ -100,7 +96,7 @@ const Home = () => {
   // Cargamos los datos y actualizamos las moras
   useFocusEffect(
     React.useCallback(() => {
-      loadCustomer();
+      loadCustomer(dataConfiguration);
       //return () => unsubscribe();
     }, [dataConfiguration])
   );
@@ -111,7 +107,7 @@ const Home = () => {
       loadCongiguration();
 
       //return () => unsubscribe();
-    }, [setData])
+    }, [])
   );
   //todo--> estamos quedando en la prueba de la funcion que se realiza en forma automatica,
   // todo -->cuando funciona probar con los datos de mora y que mande la notificacion correcta

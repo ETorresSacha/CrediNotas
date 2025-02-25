@@ -329,10 +329,11 @@ export const calculoMoraSimple = (data, dataConfiguration)=>{
      let fechaFin = new Date(data?.fechaPago).getTime()
      let diff = fechaInicio-fechaFin ;
         diff = diff/(1000*60*60*24)
+console.log("intMoratorio: ",intMoratorio);
 
     // Cálculo del interes
     if(diff > 0){ mora = (intMoratorio*data?.capital*diff)/100}
-    else{mora=data?.mora} // si no funciona colocamos la mora = 0
+    else{mora="0.00"} // si no funciona colocamos la mora = 0
      
      return mora
 

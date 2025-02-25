@@ -26,7 +26,6 @@ const Pay = ({
   const [payShare, setPayShere] = useState([]); // Guardar el pago
   const [enable, setEnable] = useState(false); // Boton de cancelar pago (ON OFF)
   console.log("dataSee: ", dataSee);
-  console.log("modify: ", modify);
 
   useEffect(() => {
     // Buscamos la última cuota pagado (útil cuando la cuenta esta cancelado)
@@ -72,7 +71,6 @@ const Pay = ({
       setCancelledShare(true);
     }
   };
-  console.log("updatePrestamo: ", updatePrestamo);
 
   //todo--> Cancelar el pago de la cuota
   const [newColor, setNewColor] = useState("");

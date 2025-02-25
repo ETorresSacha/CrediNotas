@@ -79,7 +79,6 @@ const Detail = (props) => {
     try {
       const resultCustomer = await onGetCronograma();
       const result = resultCustomer.filter((element) => element.uuid == id);
-      console.log("userRESULT:", result[0]);
 
       setUser(result);
     } catch (error) {
