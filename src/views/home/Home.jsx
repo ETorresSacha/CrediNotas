@@ -73,44 +73,25 @@ const Home = () => {
     }, [enable, setDataConfiguration])
   );
 
-  //************************************************ */
-
-  // // Trae los datos del local storage
-  // const [data, setData] = useState();
-
-  // const { onGetCronograma, onSaveCronograma } = UseStorage();
-
-  // const loadCustomer = async () => {
-  //   try {
-  //     let resultCustomer = await onGetCronograma();
-
-  //     if (resultCustomer != null) {
-  //       let newResult = verifMora(resultCustomer, dataConfiguration); //todo--> este es para verificar la mora
-
-  //       await onSaveCronograma(newResult, "saveMora");
-  //     } else return;
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-  // Cargamos los datos y actualizamos las moras
+  // actualizamos las moras
   useFocusEffect(
     React.useCallback(() => {
       loadCustomer(dataConfiguration);
       //return () => unsubscribe();
     }, [dataConfiguration])
   );
+  //! AL PARECER LA MORA YA FUNCIONA, PERO LO QUE ME FALTA ES VERIFICAR
+  //!TENEMOS QUE CORROBORAR CAMBIANDO EL VALOR DE LA MORA, DESPUES VOLVIENDO A CARGAR LOS VALORES DESDE UN INICIO
+  //! VWRIFICAR SI EN EL COMPONENTE PAY LAS CUOTAS SE ACTUALIZAN CORRECTAMENTE, NO SE POR QUE ESTA FUNCIONANDO BIEN,ESO TENEMOS QUEVERIFICAR
+  // // Trae el valor del interes moratorio
+  // useFocusEffect(
+  //   React.useCallback(() => {
+  //     loadCongiguration();
 
-  // Trae el valor del interes moratorio
-  useFocusEffect(
-    React.useCallback(() => {
-      loadCongiguration();
+  //     //return () => unsubscribe();
+  //   }, [])
+  // );
 
-      //return () => unsubscribe();
-    }, [])
-  );
-  //todo--> estamos quedando en la prueba de la funcion que se realiza en forma automatica,
-  // todo -->cuando funciona probar con los datos de mora y que mande la notificacion correcta
   return (
     <ImageBackground source={fondoHome} style={styles.background}>
       {/* HEADER */}

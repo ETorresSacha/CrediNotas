@@ -42,6 +42,7 @@ const Detail = (props) => {
     let result = user[0]?.resultPrestamo.find(
       (element) => element.statusPay == false
     );
+    console.log("updatePrestamoHDHDHD:", updatePrestamo);
 
     // Para pagar la cuota
     if (result != undefined) {

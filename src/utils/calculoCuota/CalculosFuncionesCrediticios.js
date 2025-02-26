@@ -321,7 +321,9 @@ export const calculoMoraSimple = (data, dataConfiguration)=>{
     let intMoratorio =parseFloat(dataConfiguration?.intMoratorio)/100  // % --> Diario
     intMoratorio = intMoratorio == 0 ? 0.00000001 :intMoratorio
     let mora
-    console.log("lalal: ",data?.mora);
+    console.log("datamora: ",data);
+    console.log("dataConfiguration: ",dataConfiguration);
+    
     
     // Cálculo de los dias de mora
     

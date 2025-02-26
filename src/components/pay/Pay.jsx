@@ -8,6 +8,7 @@ import Loading from "../loading/Loading";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { useFocusEffect } from "@react-navigation/native";
 import { verifMora } from "@/src/views/home/ThunksMora";
+import { calculoMoraSimple } from "@/src/utils/calculoCuota/CalculosFuncionesCrediticios";
 const Pay = ({
   data,
   indice,
@@ -42,8 +43,21 @@ const Pay = ({
 
   //todo-->  Pagar la cuota
   const handlePayShare = async () => {
-    let objeto = { ...dataSee, statusPay: true };
+    let objeto = {
+      ...dataSee,
+      statusPay: true,
+    };
+    console.log("setValueProps: ", valueProps);
 
+    // let objeto = {
+    //   ...dataSee,
+    //   mora: calculoMoraSimple(dataSee, valueProps?.dataConfiguration),
+    //   statusPay: true,
+    // };
+    //console.log("updatePrestamo: ", updatePrestamo);
+    console.log("objeto: ", objeto);
+    //! AL PARECER SE ESTA GUARDANDO EN ESTADO LOCAL PERO NO EN EL STORAGE,
+    //! VERIFICAR ESO(POR ESO CUANDO CANCELAMOS SALE ERROR EN LA MORA, PUEDE SER UNA POSIBILIDAD,ESTA PARA VERIFICAR)
     updatePrestamo.splice(indice, 1, objeto);
 
     if (
@@ -51,6 +65,8 @@ const Pay = ({
     ) {
       // Pago de la cuenta
       setIndice(indice + 1);
+      console.log("modify: ", modify);
+
       await onUpdateStatusPay(modify);
       setValueProps({
         ...valueProps,
