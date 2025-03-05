@@ -15,8 +15,6 @@ import UseStorageConfiguration from "../../components/hooks/UseHookConfiguration
 import UseStorageBusiness from "../../components/hooks/UseHookDataNeg";
 import fondoHome from "../.././../assets/fondoHome.jpg";
 import logo from "../../../assets/icon.png";
-import UseStorage from "../../components/hooks/UseHookStorage";
-import { loadCustomer, verifMora } from "./ThunksMora";
 
 const Home = () => {
   const { onGetBusiness } = UseStorageBusiness();
@@ -76,21 +74,10 @@ const Home = () => {
   // actualizamos las moras
   useFocusEffect(
     React.useCallback(() => {
-      loadCustomer(dataConfiguration);
+      //loadCustomer(dataConfiguration);
       //return () => unsubscribe();
     }, [dataConfiguration])
   );
-  //! AL PARECER LA MORA YA FUNCIONA, PERO LO QUE ME FALTA ES VERIFICAR
-  //!TENEMOS QUE CORROBORAR CAMBIANDO EL VALOR DE LA MORA, DESPUES VOLVIENDO A CARGAR LOS VALORES DESDE UN INICIO
-  //! VWRIFICAR SI EN EL COMPONENTE PAY LAS CUOTAS SE ACTUALIZAN CORRECTAMENTE, NO SE POR QUE ESTA FUNCIONANDO BIEN,ESO TENEMOS QUEVERIFICAR
-  // // Trae el valor del interes moratorio
-  // useFocusEffect(
-  //   React.useCallback(() => {
-  //     loadCongiguration();
-
-  //     //return () => unsubscribe();
-  //   }, [])
-  // );
 
   return (
     <ImageBackground source={fondoHome} style={styles.background}>

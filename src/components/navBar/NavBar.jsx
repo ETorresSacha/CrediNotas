@@ -15,12 +15,10 @@ const NavBar = ({ data, setData, enable, dataConfiguration }) => {
   const [textSearch, setText] = useState("");
 
   // Direcciona para crear un nuevo cliente
-  // const handleAddPress = () => {
-  //   navigation.navigate("Nuevo cliente", dataConfiguration);
-  // };
-
   const handleAddPress = () => {
-    navigation.navigate("Nuevo cliente");
+    navigation.navigate("Nuevo cliente", {
+      dataConfiguration: dataConfiguration,
+    });
   };
 
   //BUSCAR

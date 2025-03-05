@@ -25,6 +25,7 @@ export const verifMora = (data, mora)=>{
       
   }
 
+  //!esta función es par calcular la mora, sin embargo esta para evaluar si sera necesrio o no, esta función se usaba en el componente HOME
   export const loadCustomer = async (dataConfiguration) => {
     
       try {

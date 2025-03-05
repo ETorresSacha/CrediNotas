@@ -83,7 +83,6 @@ const RenderCustomer = ({
       );
     }, [valueImport])
   );
-
   return (
     <View style={styles.container}>
       {dataCustomer == undefined ? (

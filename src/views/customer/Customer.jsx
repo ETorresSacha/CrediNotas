@@ -46,10 +46,11 @@ const Customer = (props) => {
       //!todo--> NOTA: VERIFICAR SI CUANDO SE BORRA TODO LOS VALORES EN EL STORAGE DE LA CONFICGURACION Y NO HAY DATOS
       //TODO--> SALE ERROR, DE LO CONTRARIO YA NO SERIA NECESARIO CREAR UNA VARIABLE CON USE STATE, SOLO SERIA CONFIGURAR A PARTIR DE LAS
       // TODOS--> PROPS
-      setDataConfiguration({
-        ...dataConfiguration,
-        intMoratorio: valueProps?.intMoratorio,
-      });
+      // setDataConfiguration({
+      //   ...dataConfiguration,
+      //   intMoratorio: valueProps?.intMoratorio,
+      // });
+      setDataConfiguration({ intMoratorio: valueProps?.intMoratorio });
     } catch (error) {
       console.error(error);
     }

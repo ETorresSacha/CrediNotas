@@ -100,7 +100,10 @@ const Users = ({ data, enable, dataConfiguration, day }) => {
                 >
                   {enable
                     ? element?.capital
-                    : montoPay(element?.resultPrestamo).toFixed(2)}
+                    : montoPay(
+                        element?.resultPrestamo,
+                        dataConfiguration
+                      ).toFixed(2)}
                 </Text>
               </View>
 
