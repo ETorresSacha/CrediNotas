@@ -16,7 +16,6 @@ import Header from "../../components/header/Header";
 import Loading from "../../components/loading/Loading";
 import Entypo from "@expo/vector-icons/Entypo";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
-import { mora } from "@/src/utils/calculoCuota/Formulas";
 import { calculoMoraSimple } from "@/src/utils/calculoCuota/CalculosFuncionesCrediticios";
 
 const Detail = (props) => {
@@ -58,7 +57,6 @@ const Detail = (props) => {
   //
 
   useEffect(() => {
-    //setIntMora(0);
     setModify(user);
     setUpdatePrestamo(user[0]?.resultPrestamo);
 
@@ -68,7 +66,6 @@ const Detail = (props) => {
 
     // Para pagar la cuota
     if (result != undefined) {
-      console.log("result: ", result);
       result = {
         ...result,
         mora: calculoMoraSimple(result, valueProps?.dataConfiguration),
@@ -140,7 +137,6 @@ const Detail = (props) => {
       },
     ]);
   };
-  //! EN EL DETALLE QUE EL COLOR CAMBIE DE ACUERDO A LA FECHA DE VENCIMIETO
 
   return (
     <View style={styles.container}>
