@@ -16,6 +16,8 @@ import Header from "../../components/header/Header";
 import Loading from "../../components/loading/Loading";
 import Entypo from "@expo/vector-icons/Entypo";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import { mora } from "@/src/utils/calculoCuota/Formulas";
+import { calculoMoraSimple } from "@/src/utils/calculoCuota/CalculosFuncionesCrediticios";
 
 const Detail = (props) => {
   const { onGetCronograma, onDeleteCustomer } = UseStorage();
@@ -34,6 +36,27 @@ const Detail = (props) => {
   const [dataSee, setDataSee] = useState([]); // Datos que se renderizará
   const [cancelledShare, setCancelledShare] = useState(false); // Cuota cancelada
 
+  // Trae los datos guardados del local storage
+  const loadCustomerId = async (id) => {
+    try {
+      const resultCustomer = await onGetCronograma();
+      const result = resultCustomer.filter((element) => element.uuid == id);
+
+      setUser(result);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useFocusEffect(
+    React.useCallback(() => {
+      loadCustomerId(valueProps?.id);
+      //return () => unsubscribe();
+    }, [valueProps])
+  );
+
+  //
+
   useEffect(() => {
     //setIntMora(0);
     setModify(user);
@@ -42,10 +65,15 @@ const Detail = (props) => {
     let result = user[0]?.resultPrestamo.find(
       (element) => element.statusPay == false
     );
-    console.log("updatePrestamoHDHDHD:", updatePrestamo);
 
     // Para pagar la cuota
     if (result != undefined) {
+      console.log("result: ", result);
+      result = {
+        ...result,
+        mora: calculoMoraSimple(result, valueProps?.dataConfiguration),
+      };
+
       setDataSee(result);
 
       setIndice(dataSee?.cuota == undefined ? null : dataSee?.cuota - 1);
@@ -73,25 +101,6 @@ const Detail = (props) => {
 
       //return () => unsubscribe();
     }, [])
-  );
-
-  // Trae los datos guardados del local storage
-  const loadCustomerId = async (id) => {
-    try {
-      const resultCustomer = await onGetCronograma();
-      const result = resultCustomer.filter((element) => element.uuid == id);
-
-      setUser(result);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useFocusEffect(
-    React.useCallback(() => {
-      loadCustomerId(valueProps?.id);
-      //return () => unsubscribe();
-    }, [valueProps])
   );
 
   // Editar

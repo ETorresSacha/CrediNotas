@@ -40,6 +40,7 @@ const Pay = ({
       setEnable(false);
     }
   }, [indice]);
+  console.log("modify: ", modify[0]);
 
   //todo-->  Pagar la cuota
   const handlePayShare = async () => {
@@ -54,7 +55,7 @@ const Pay = ({
     //   mora: calculoMoraSimple(dataSee, valueProps?.dataConfiguration),
     //   statusPay: true,
     // };
-    //console.log("updatePrestamo: ", updatePrestamo);
+    //console.log("objeto: ", objeto);
     //! AL PARECER SE ESTA GUARDANDO EN ESTADO LOCAL PERO NO EN EL STORAGE,
     //! VERIFICAR ESO(POR ESO CUANDO CANCELAMOS SALE ERROR EN LA MORA, PUEDE SER UNA POSIBILIDAD,ESTA PARA VERIFICAR)
     updatePrestamo.splice(indice, 1, objeto);
