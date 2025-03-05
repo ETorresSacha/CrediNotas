@@ -3,12 +3,9 @@ import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import UseStorage from "../hooks/UseHookStorage";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import { diffDay, formatDate } from "../../utils/thunks/Thunks";
+import { formatDate } from "../../utils/thunks/Thunks";
 import Loading from "../loading/Loading";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
-import { useFocusEffect } from "@react-navigation/native";
-import { verifMora } from "@/src/views/home/ThunksMora";
-import { calculoMoraSimple } from "@/src/utils/calculoCuota/CalculosFuncionesCrediticios";
 const Pay = ({
   data,
   indice,
@@ -77,19 +74,12 @@ const Pay = ({
   };
 
   //todo--> Cancelar el pago de la cuota
-  const [newColor, setNewColor] = useState("");
   const HandleCancelPay = async () => {
     //! Cuando tiene cuotas pendientes
     if (indice > 0 && indice < updatePrestamo?.length) {
       let objeto = { ...payShare, statusPay: false };
-
-      if (diffDay(payShare?.fechaPago) < 0) {
-        setNewColor("red");
-      } else {
-        setNewColor("cornsilk");
-      }
-
       updatePrestamo.splice(indice - 1, 1, objeto); // Modificamos los pagos
+
       await onUpdateStatusPay(modify); // Guardamos los datos
       setIndice(indice - 1);
     }
@@ -97,9 +87,7 @@ const Pay = ({
     //! Cuando la deuda esta completamente cancelado
     if (indice == data[0]?.resultPrestamo.length) {
       let indiceCambiar = data[0]?.resultPrestamo?.length - 1; //  seleccionamos el ultimo indice del objeto "resultPrestamo"
-
       let result = data[0]?.resultPrestamo[indiceCambiar]; // buscamos el último pago realizado
-      //console.log("result: ", result);
 
       let objeto = { ...result, statusPay: false }; // modificamos el statusPay del último pago de "true" a "false"
       updatePrestamo.splice(indiceCambiar, 1, objeto); // modificamos el array del "resultPrestamo"
@@ -119,36 +107,7 @@ const Pay = ({
   };
 
   //! OJO: PODRIAMOS CONSIDERAR EN AUMENTAR LOS DIAS DE MORA, SERIA OPTIMO O VISIBLE SOLO CUANDO EXISTE LA MORA
-  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
 
-  const loadCustomer = async () => {
-    try {
-      let resultCustomer = await onGetCronograma();
-
-      if (resultCustomer != null) {
-        let newResult = verifMora(
-          resultCustomer,
-          valueProps?.dataConfiguration
-        ); //todo--> este es para verificar la mora
-        await onSaveCronograma(newResult, "saveMora");
-      }
-
-      //TODO--> OJO: CUANDO HACEMOS EL PAGO SE TIENE QUE VERIFICAR SI TIENE MORA O NO ANTES DE GUARDAR EEN EL STORAGE,
-      // TODO-->      UNA VEZ VERIFICADO DEBEMOS GUARDAR COMO UNO SOLO, EN OTRAS PALABRAS TENEMOS QUE UNIFICAR LA FUNCION DE MORA CON EL PAGO,
-      // TODO-->      DE LA MISMA MANERA CUANDO SE HACE LA CANCELACION DE LA MORA, TODO ESTO PARA CALCULAR LA MORA Y LA VISUALIZACION DEL COLOR SI EXITE MORA Y SEA DE MANERA DINAMICA,
-      //  TODO ---> TIENEMOS QUE HACER UN CODIGO MUY LIMPIO Y ENTENDIBLE FACIL DE SEGUIR
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  // Cargamos los datos y actualizamos las moras
-  useFocusEffect(
-    React.useCallback(() => {
-      //loadCustomer();
-      //return () => unsubscribe();
-    }, [])
-  );
-  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11
   return (
     <View style={styles.container}>
       {updatePrestamo == undefined ? (
@@ -238,7 +197,6 @@ const Pay = ({
                   style={[
                     styles.subTitle,
                     {
-                      //color: (color && newColor) == "red" ? "red" : "orange",
                       color: dataSee?.mora != 0 ? "red" : "orange",
 
                       fontSize:
@@ -347,7 +305,6 @@ const Pay = ({
                 <Text style={styles.subTitle}>Mora</Text>
                 <Text
                   style={{
-                    //color: color == "red" ? color : "white",
                     color: dataSee?.mora != 0 ? "red" : "white",
                     fontSize: RFValue(14),
                   }}

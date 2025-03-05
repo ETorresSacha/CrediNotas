@@ -8,12 +8,14 @@ import { format } from "date-fns";
 import Header from "../../components/header/Header";
 import { renderImportData } from "./renderImportData";
 import RenderCustomer from "./RenderCustomer";
+import UseStorageConfiguration from "@/src/components/hooks/UseHookConfiguration";
 
 const Customer = (props) => {
   let enable = props?.route?.params?.data?.enable; // Habilita el componente de los clientes cancelados
   let valueProps = props?.route?.params?.data; // Valores para la configuración del prestamo
 
   const { onGetCronograma } = UseStorage();
+  const { onGetConfiguration } = UseStorageConfiguration();
   const [dataConfiguration, setDataConfiguration] = useState({}); // Datos de la configuración
   const [valueImport, setValueImport] = useState(false); // Necesario para importar la data
   const [data, setData] = useState({
@@ -41,16 +43,24 @@ const Customer = (props) => {
   // Cargar los datos de la configuración
   const loadCongiguration = async () => {
     try {
-      // let result = await onGetConfiguration();
-      //!!!!! QUEDA PENDIENTE
-      //!todo--> NOTA: VERIFICAR SI CUANDO SE BORRA TODO LOS VALORES EN EL STORAGE DE LA CONFICGURACION Y NO HAY DATOS
-      //TODO--> SALE ERROR, DE LO CONTRARIO YA NO SERIA NECESARIO CREAR UNA VARIABLE CON USE STATE, SOLO SERIA CONFIGURAR A PARTIR DE LAS
-      // TODOS--> PROPS
+      //let result = await onGetConfiguration();
+      //console.log("result: ", result[0]);
+      console.log("valueProps?.intMoratorio:", valueProps?.intMoratorio);
+
+      //!!!!! QUEDA PENDIENTE: CUANDO SE EXPORTA EL VALOR DE DATACONFIGURE NO EXISTE, SOLUCIONAR ESE TEMA
+      //! OJO: ESTA CARGANDOSE MUY LENTO LOS DATOS, VERIFICAR POR QUE MOTIVO ES ESO
       // setDataConfiguration({
       //   ...dataConfiguration,
       //   intMoratorio: valueProps?.intMoratorio,
       // });
-      setDataConfiguration({ intMoratorio: valueProps?.intMoratorio });
+      setDataConfiguration({
+        intMoratorio: valueProps?.intMoratorio,
+      });
+      // setDataConfiguration({
+      //   intMoratorio: !valueProps?.intMoratorio
+      //     ? result[0]
+      //     : valueProps?.intMoratorio,
+      // });
     } catch (error) {
       console.error(error);
     }

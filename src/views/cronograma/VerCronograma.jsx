@@ -15,13 +15,7 @@ const VerCronograma = (props) => {
     <View style={styles.container}>
       <Header
         title={"Cronograma"}
-        back={
-          !dataConfiguration
-            ? "Nuevo cliente"
-            : editValue
-            ? "Nuevo cliente"
-            : "Detalle"
-        }
+        back={!id ? "Nuevo cliente" : editValue ? "Nuevo cliente" : "Detalle"}
         data={{
           editValue,
           user: user,

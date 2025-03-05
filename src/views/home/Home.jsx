@@ -72,12 +72,12 @@ const Home = () => {
   );
 
   // actualizamos las moras
-  useFocusEffect(
-    React.useCallback(() => {
-      //loadCustomer(dataConfiguration);
-      //return () => unsubscribe();
-    }, [dataConfiguration])
-  );
+  // useFocusEffect(
+  //   React.useCallback(() => {
+  //     //loadCustomer(dataConfiguration);
+  //     //return () => unsubscribe();
+  //   }, [dataConfiguration])
+  // );
 
   return (
     <ImageBackground source={fondoHome} style={styles.background}>
