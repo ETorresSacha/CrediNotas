@@ -12,7 +12,6 @@ import UseStorageConfiguration from "@/src/components/hooks/UseHookConfiguration
 
 const Customer = (props) => {
   let enable = props?.route?.params?.data?.enable; // Habilita el componente de los clientes cancelados
-  let valueProps = props?.route?.params?.data; // Valores para la configuración del prestamo
 
   const { onGetCronograma } = UseStorage();
   const { onGetConfiguration } = UseStorageConfiguration();
@@ -43,24 +42,8 @@ const Customer = (props) => {
   // Cargar los datos de la configuración
   const loadCongiguration = async () => {
     try {
-      //let result = await onGetConfiguration();
-      //console.log("result: ", result[0]);
-      console.log("valueProps?.intMoratorio:", valueProps?.intMoratorio);
-
-      //!!!!! QUEDA PENDIENTE: CUANDO SE EXPORTA EL VALOR DE DATACONFIGURE NO EXISTE, SOLUCIONAR ESE TEMA
-      //! OJO: ESTA CARGANDOSE MUY LENTO LOS DATOS, VERIFICAR POR QUE MOTIVO ES ESO
-      // setDataConfiguration({
-      //   ...dataConfiguration,
-      //   intMoratorio: valueProps?.intMoratorio,
-      // });
-      setDataConfiguration({
-        intMoratorio: valueProps?.intMoratorio,
-      });
-      // setDataConfiguration({
-      //   intMoratorio: !valueProps?.intMoratorio
-      //     ? result[0]
-      //     : valueProps?.intMoratorio,
-      // });
+      let result = await onGetConfiguration();
+      setDataConfiguration(result[0]);
     } catch (error) {
       console.error(error);
     }
