@@ -3,6 +3,7 @@ import * as XLSX from 'xlsx';
 import { editImportData } from '../../views/customer/editImportData';
 import { Alert } from "react-native";
 import UseStorage from '../../components/hooks/UseHookStorage';
+import { orderData } from '@/src/utils/thunks/Thunks';
 const {  onSaveCronograma } = UseStorage();
 
 export const importExcel = async (data,setData) => {
@@ -42,8 +43,8 @@ export const importExcel = async (data,setData) => {
 
           setData({                                    // Setea el estado
             ...data,
-            dataResult: resultData,
-            dataResultCopy: resultData,
+            dataResult: orderData("fecha",resultData,false) ,
+            dataResultCopy: orderData("fecha",resultData,false),
           });
       };
 
