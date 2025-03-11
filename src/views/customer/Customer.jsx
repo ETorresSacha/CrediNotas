@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import React, { useState } from "react";
+import { View, StyleSheet } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import UseStorage from "../../components/hooks/UseHookStorage";
 import NavBar from "../../components/navBar/NavBar";
-import { customerData, orderData } from "../../utils/thunks/Thunks";
+import { orderData } from "../../utils/thunks/Thunks";
 import { format } from "date-fns";
 import Header from "../../components/header/Header";
-import { renderImportData } from "./renderImportData";
 import RenderCustomer from "./RenderCustomer";
 import UseStorageConfiguration from "@/src/components/hooks/UseHookConfiguration";
 
 const Customer = (props) => {
   let enable = props?.route?.params?.data?.enable; // Habilita el componente de los clientes cancelados
+  let valueConfigure = props?.route?.params?.data;
 
   const { onGetCronograma } = UseStorage();
   const { onGetConfiguration } = UseStorageConfiguration();
@@ -43,7 +43,9 @@ const Customer = (props) => {
   const loadCongiguration = async () => {
     try {
       let result = await onGetConfiguration();
-      setDataConfiguration(result[0]);
+      setDataConfiguration(
+        result == undefined ? { intMoratorio: "0.00" } : result[0] // "undefined" ocurre solo cuando no se guarda el interes en el storage
+      );
     } catch (error) {
       console.error(error);
     }
@@ -56,7 +58,7 @@ const Customer = (props) => {
       loadCongiguration();
 
       //return () => unsubscribe();
-    }, [setData])
+    }, [setData, setDataConfiguration])
   );
 
   return (

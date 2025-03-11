@@ -55,6 +55,7 @@ const Home = () => {
       console.error(error);
     }
   };
+  console.log("dataConfigurationHOME: ", dataConfiguration);
 
   // Cerrar el modal
   const handleModalClose = async (shouldUpdate) => {
@@ -70,14 +71,6 @@ const Home = () => {
       loadCongiguration();
     }, [enable, setDataConfiguration])
   );
-
-  // actualizamos las moras
-  // useFocusEffect(
-  //   React.useCallback(() => {
-  //     //loadCustomer(dataConfiguration);
-  //     //return () => unsubscribe();
-  //   }, [dataConfiguration])
-  // );
 
   return (
     <ImageBackground source={fondoHome} style={styles.background}>
