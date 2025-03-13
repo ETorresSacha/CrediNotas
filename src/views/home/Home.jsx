@@ -55,7 +55,6 @@ const Home = () => {
       console.error(error);
     }
   };
-  console.log("dataConfigurationHOME: ", dataConfiguration);
 
   // Cerrar el modal
   const handleModalClose = async (shouldUpdate) => {

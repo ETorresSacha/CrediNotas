@@ -4,14 +4,12 @@ import { useFocusEffect } from "@react-navigation/native";
 import UseStorage from "../../components/hooks/UseHookStorage";
 import NavBar from "../../components/navBar/NavBar";
 import { orderData } from "../../utils/thunks/Thunks";
-import { format } from "date-fns";
 import Header from "../../components/header/Header";
 import RenderCustomer from "./RenderCustomer";
 import UseStorageConfiguration from "@/src/components/hooks/UseHookConfiguration";
 
 const Customer = (props) => {
   let enable = props?.route?.params?.data?.enable; // Habilita el componente de los clientes cancelados
-  let valueConfigure = props?.route?.params?.data;
 
   const { onGetCronograma } = UseStorage();
   const { onGetConfiguration } = UseStorageConfiguration();

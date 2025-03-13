@@ -3,13 +3,15 @@ import { View, StyleSheet, ScrollView, Text } from "react-native";
 import { formatDate } from "../../utils/thunks/Thunks";
 import Checkbox from "expo-checkbox";
 import Loading from "../loading/Loading";
+import { calculoMoraSimple } from "@/src/utils/calculoCuota/CalculosFuncionesCrediticios";
 
-const Cronograma = ({ data }) => {
+const Cronograma = ({ data, dataConfiguration }) => {
   const [updatePrestamo, setUpdatePrestamo] = useState([]); // ResultPrestamo
 
   useEffect(() => {
     setUpdatePrestamo(data?.resultPrestamo);
   }, [data]);
+  //console.log("data cronograma: ", data);
 
   return (
     <View style={styles.containerContainer}>
@@ -54,7 +56,17 @@ const Cronograma = ({ data }) => {
                   <Text style={styles.dataText}>
                     {formatDate(element.fechaPago)}
                   </Text>
-                  <Text style={styles.dataText}>{element.cuotaNeto}</Text>
+                  <Text
+                    style={[
+                      styles.dataText,
+                      {
+                        color: element?.mora ? "red" : null,
+                      },
+                    ]}
+                  >
+                    {parseFloat(element?.cuotaNeto) +
+                      parseFloat(calculoMoraSimple(element, dataConfiguration))}
+                  </Text>
                   <Checkbox
                     style={styles.checkbox}
                     value={element.statusPay}

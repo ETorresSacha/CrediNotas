@@ -99,6 +99,7 @@ const Detail = (props) => {
       //return () => unsubscribe();
     }, [])
   );
+  console.log("valueProps: ", props?.route?.params);
 
   // Editar
   const edit = (value) => {
@@ -137,6 +138,7 @@ const Detail = (props) => {
       },
     ]);
   };
+  console.log("updatePrestamo: ", updatePrestamo);
 
   return (
     <View style={styles.container}>
