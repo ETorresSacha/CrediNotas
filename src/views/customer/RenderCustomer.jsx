@@ -85,7 +85,7 @@ const RenderCustomer = ({
   );
   return (
     <View style={styles.container}>
-      {dataCustomer == undefined ? (
+      {dataCustomer != undefined ? (
         <Loading />
       ) : (
         <View style={{ flex: 1 }}>
