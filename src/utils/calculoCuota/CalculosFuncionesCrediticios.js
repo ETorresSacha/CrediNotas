@@ -333,6 +333,7 @@ export const calculoMoraSimple = (data, dataConfiguration)=>{
     // Cálculo del interes
     if(diff > 0){ mora = (intMoratorio*data?.capital*diff)/100}
     else{mora=data?.mora} // si no funciona colocamos la mora = 0
+     console.log("moramora: ",  mora);
      
      return mora
 

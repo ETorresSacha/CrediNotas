@@ -11,7 +11,7 @@ const Cronograma = ({ data, dataConfiguration }) => {
   useEffect(() => {
     setUpdatePrestamo(data?.resultPrestamo);
   }, [data]);
-  //console.log("data cronograma: ", data);
+  console.log("updatePrestamorr: ", updatePrestamo);
 
   return (
     <View style={styles.containerContainer}>
@@ -60,7 +60,11 @@ const Cronograma = ({ data, dataConfiguration }) => {
                     style={[
                       styles.dataText,
                       {
-                        color: element?.mora ? "red" : null,
+                        color:
+                          `${calculoMoraSimple(element, dataConfiguration)}` !=
+                          0
+                            ? "red"
+                            : null,
                       },
                     ]}
                   >
