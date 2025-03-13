@@ -36,7 +36,6 @@ const Pay = ({
       setEnable(false);
     }
   }, [indice]);
-  console.log("dataseeee: ", dataSee);
 
   //todo-->  Pagar la cuota
   const handlePayShare = async () => {

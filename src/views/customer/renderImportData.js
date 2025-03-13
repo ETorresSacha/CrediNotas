@@ -3,7 +3,6 @@
 import { Alert } from "react-native";
 import { importExcel } from "../../modals/modalOptionsCustomer/importExcel";
 
-import { Text, View, StyleSheet } from 'react-native';
 export const renderImportData =(valueImport,setValueImport, data,setData,customer)=>{
 
     if (valueImport) {

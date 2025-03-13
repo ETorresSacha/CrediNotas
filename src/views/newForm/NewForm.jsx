@@ -126,7 +126,6 @@ const NewForm = (props) => {
       }
     }
   };
-  //! VERIFICAR SI SOLO PASAMOS EL DATAPERSON COMO PROPS Y YA NO USER, VERIFICAR SI ES NECESARIO
   return (
     <View style={styles.container}>
       <Header
