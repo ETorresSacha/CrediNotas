@@ -3,18 +3,21 @@ import {
   View,
   ActivityIndicator,
   ImageBackground,
+  Image,
 } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import React from "react";
-import fondoLoagin from "../../../assets/images/fondoLoagin.png";
-
+import logo from "../../../assets/icon.png";
 const Loading = () => {
   const getContent = () => {
     return <ActivityIndicator size="large" color="#00ff00" />;
   };
   return (
-    <ImageBackground source={fondoLoagin} style={styles.background}>
+    <ImageBackground style={styles.background}>
       <View style={[styles.container, styles.horizontal]}>{getContent()}</View>
+      <View style={styles.rightConteiner}>
+        <Image source={logo} style={styles.profileImage}></Image>
+      </View>
     </ImageBackground>
   );
 };
@@ -26,7 +29,12 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: "cover", // o 'contain' según tu preferencia
     padding: 12,
-    backgroundColor: "red",
+    backgroundColor: "#541e50",
+  },
+  profileImage: {
+    width: 40,
+    height: 40,
+    borderRadius: 24,
   },
   container: {
     flex: 1,
