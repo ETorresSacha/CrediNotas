@@ -17,6 +17,8 @@ const Loading = () => {
     <View style={styles.background}>
       <Image source={logo} style={styles.profileImage}></Image>
       <View style={styles.container}>{getContent()}</View>
+
+      {/* <Text style={{ color: "white" }}>CREDI CHECK</Text> */}
     </View>
   );
 };
