@@ -9,6 +9,7 @@ import RenderCustomer from "./RenderCustomer";
 import UseStorageConfiguration from "@/src/components/hooks/UseHookConfiguration";
 import Loading from "@/src/components/loading/Loading";
 import { format } from "date-fns";
+
 const Customer = (props) => {
   let enable = props?.route?.params?.data?.enable; // Habilita el componente de los clientes cancelados
 
@@ -16,10 +17,7 @@ const Customer = (props) => {
   const { onGetConfiguration } = UseStorageConfiguration();
   const [dataConfiguration, setDataConfiguration] = useState({}); // Datos de la configuración
   const [valueImport, setValueImport] = useState(false); // Necesario para importar la data
-  const [data, setData] = useState({
-    dataResult: [],
-    dataResultCopy: [],
-  });
+  const [data, setData] = useState();
 
   const [dataCustomer, setDataCustomer] = useState();
   const [day, setDay] = useState("");
@@ -28,7 +26,7 @@ const Customer = (props) => {
   const loadCustomer = async () => {
     try {
       let resultCustomer = await onGetCronograma();
-
+      console.log("resultt: ", resultCustomer);
       resultCustomer = orderData("fecha", resultCustomer, false, enable); // ordena de forma ascendente de acuerdo a la fecha
 
       setData({
@@ -69,13 +67,13 @@ const Customer = (props) => {
     setInicio(false);
 
     setDay(format(new Date(), "yyyy-MM-dd"));
-    let result = customerData(data.dataResult, day);
+    let result = customerData(data?.dataResult, day);
 
-    // Habilitamos el texto si no existe datos guardados
+    // Para habilitar la notificaión
     if (
       !enable
-        ? result?.resultDataResult.length == 0
-        : result?.resultCustomerCancelled.length == 0
+        ? result.resultDataResult.length == 0
+        : result.resultCustomerCancelled.length == 0
     ) {
       setInicio(true);
     }
@@ -94,7 +92,7 @@ const Customer = (props) => {
 
   return (
     <View style={styles.container}>
-      {inicio == true ? (
+      {dataCustomer == undefined ? (
         <Loading />
       ) : (
         <View style={styles.container}>

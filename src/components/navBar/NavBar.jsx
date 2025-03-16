@@ -28,14 +28,14 @@ const NavBar = ({ data, setData, enable, dataConfiguration }) => {
 
     // DNI
     if (busqueda / busqueda === 1) {
-      let resulSearch = data.dataResultCopy.filter((element) =>
+      let resulSearch = data?.dataResultCopy.filter((element) =>
         element.dni.includes(text)
       );
       setData({ ...data, dataResult: resulSearch });
     }
     // NOMBRE
     else {
-      let resulSearch = data.dataResultCopy.filter((element) =>
+      let resulSearch = data?.dataResultCopy.filter((element) =>
         element.nombre.includes(text)
       );
       setData({ ...data, dataResult: resulSearch });

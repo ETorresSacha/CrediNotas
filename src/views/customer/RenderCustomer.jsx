@@ -86,8 +86,6 @@ const RenderCustomer = ({
       );
     }, [valueImport])
   );
-  console.log("enablppe: ", dataCustomer?.customerCancelled?.length != 0);
-  console.log(dataCustomer);
 
   return (
     <View style={styles.container}>
@@ -141,35 +139,22 @@ const RenderCustomer = ({
       </View>
       {/* Renderiza los datos  */}
       <ScrollView style={styles.containerCuotas}>
-        {dataCustomer != undefined ? (
-          !enable ? ( //  clientes guardados
-            <View>
-              <Users
-                data={dataCustomer?.dataResult}
-                dataConfiguration={dataConfiguration}
-                day={day}
-              />
-            </View>
-          ) : (
-            // Cuando no existe ningun cliente guardado
-            <View>
-              <Users
-                data={dataCustomer?.customerCancelled}
-                dataConfiguration={dataConfiguration}
-                enable={enable}
-              />
-            </View>
-          )
+        {!enable ? ( //  clientes guardados
+          <View>
+            <Users
+              data={dataCustomer?.dataResult}
+              dataConfiguration={dataConfiguration}
+              day={day}
+            />
+          </View>
         ) : (
-          <View
-            style={{
-              alignItems: "center",
-              top: RFPercentage(30),
-            }}
-          >
-            <Text style={{ color: "cornsilk" }}>
-              No hay clientes {enable ? "cancelados" : "guardados"}
-            </Text>
+          // Cuando no existe ningun cliente guardado
+          <View>
+            <Users
+              data={dataCustomer?.customerCancelled}
+              dataConfiguration={dataConfiguration}
+              enable={enable}
+            />
           </View>
         )}
       </ScrollView>
