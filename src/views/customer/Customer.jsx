@@ -17,27 +17,10 @@ const Customer = (props) => {
   const { onGetConfiguration } = UseStorageConfiguration();
   const [dataConfiguration, setDataConfiguration] = useState({}); // Datos de la configuración
   const [valueImport, setValueImport] = useState(false); // Necesario para importar la data
-  const [data, setData] = useState();
-
-  const [dataCustomer, setDataCustomer] = useState();
   const [day, setDay] = useState("");
-  const [inicio, setInicio] = useState();
-  // Trae los datos del local storage
-  const loadCustomer = async () => {
-    try {
-      let resultCustomer = await onGetCronograma();
-      console.log("resultt: ", resultCustomer);
-      resultCustomer = orderData("fecha", resultCustomer, false, enable); // ordena de forma ascendente de acuerdo a la fecha
-
-      setData({
-        ...data,
-        dataResult: resultCustomer,
-        dataResultCopy: resultCustomer,
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const [inicio, setInicio] = useState(); // habilita las notificaciones
+  const [data, setData] = useState();
+  const [dataCustomer, setDataCustomer] = useState();
 
   // Cargar los datos de la configuración
   const loadCongiguration = async () => {
@@ -50,18 +33,21 @@ const Customer = (props) => {
       console.error(error);
     }
   };
+  // Trae los datos del local storage
+  const loadCustomer = async () => {
+    try {
+      let resultCustomer = await onGetCronograma();
+      resultCustomer = orderData("fecha", resultCustomer, false, enable); // ordena de forma ascendente de acuerdo a la fecha
 
-  // Renderiza
-  useFocusEffect(
-    React.useCallback(() => {
-      loadCustomer();
-      loadCongiguration();
-
-      //return () => unsubscribe();
-    }, [setData, setDataConfiguration])
-  );
-  //!!!!!!!!!!!
-
+      setData({
+        ...data,
+        dataResult: resultCustomer,
+        dataResultCopy: resultCustomer,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
   // clasificación de los clientes de acuerdo a la fecha de pago
   const resultCustomer = () => {
     setInicio(false);
@@ -85,10 +71,21 @@ const Customer = (props) => {
       dataResult: result.resultDataResult,
     });
   };
+
+  // Renderiza
+  useFocusEffect(
+    React.useCallback(() => {
+      loadCustomer();
+      loadCongiguration();
+
+      //return () => unsubscribe();
+    }, [setData, setDataConfiguration])
+  );
+
   // Renderiza
   useEffect(() => {
     resultCustomer();
-  }, [data, setDataCustomer, inicio, day]); //! esta para evluar si se agrega en esta parte setCustomer e inicio
+  }, [data, setDataCustomer, inicio, day]);
 
   return (
     <View style={styles.container}>

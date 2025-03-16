@@ -5,16 +5,13 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import Users from "../../components/users/Users";
 import ModalLeyenda from "../../modals/modalLeyenda/ModalLeyenda";
 import Entypo from "react-native-vector-icons/Entypo";
 import Fontisto from "react-native-vector-icons/Fontisto";
-import Loading from "@/src/components/loading/Loading";
-import { RFPercentage } from "react-native-responsive-fontsize";
-import { format } from "date-fns";
-import { customerData, orderData } from "../../utils/thunks/Thunks";
+import { orderData } from "../../utils/thunks/Thunks";
 import { renderImportData } from "./renderImportData";
 import MessageNotification from "../notificacionExpo/MessageNotification";
 const RenderCustomer = ({
@@ -30,41 +27,11 @@ const RenderCustomer = ({
 }) => {
   const [order, setOrder] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
-  //const [dataCustomer, setDataCustomer] = useState();
-  //const [inicio, setInicio] = useState();
-  //const [day, setDay] = useState("");
-
-  // // clasificación de los clientes de acuerdo a la fecha de pago
-  // const resultCustomer = () => {
-  //   setInicio(false);
-
-  //   setDay(format(new Date(), "yyyy-MM-dd"));
-  //   let result = customerData(data.dataResult, day);
-
-  //   // Habilitamos el texto si no existe datos guardados
-  //   if (
-  //     !enable
-  //       ? result?.resultDataResult.length == 0
-  //       : result?.resultCustomerCancelled.length == 0
-  //   ) {
-  //     setInicio(true);
-  //   }
-
-  //   //Seteamos los datos del dataCustomer
-  //   setDataCustomer({
-  //     ...dataCustomer,
-  //     customerCancelled: result?.resultCustomerCancelled,
-  //     dataResult: result.resultDataResult,
-  //   });
-  // };
-  // // Renderiza
-  // useEffect(() => {
-  //   //resultCustomer();
-  // }, [data, setDataCustomer, inicio, day]); //! esta para evluar si se agrega en esta parte setCustomer e inicio
 
   // Ordenar
   const handleSort = (type, value) => {
-    // dataFilter toma los valores dependiendo de que componente es llamado la función, "clientes" o "clientes cancelados"
+    // dataFilter toma los valores dependiendo de que componente es llamado la función,
+    // "clientes" o "clientes cancelados"
     let dataFilter = !enable
       ? dataCustomer?.dataResult
       : dataCustomer?.customerCancelled;
