@@ -214,8 +214,7 @@ const Detail = (props) => {
             <Notification
               data={user}
               typeColor={valueProps?.typeColor}
-              dataNotification={dataSee} //
-              dataConfiguration={valueProps?.dataConfiguration}
+              dataSee={dataSee}
             />
             <View style={{ alignItems: "center" }}>
               <TouchableOpacity

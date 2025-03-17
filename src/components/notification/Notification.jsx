@@ -8,16 +8,11 @@ import UseStorageBusiness from "../hooks/UseHookDataNeg";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { calculoMoraSimple } from "../../utils/calculoCuota/CalculosFuncionesCrediticios";
 
-const Notification = ({
-  data,
-  typeColor,
-  dataNotification,
-  dataConfiguration,
-}) => {
+const Notification = ({ data, typeColor, dataSee }) => {
   const { onGetBusiness } = UseStorageBusiness();
   const [message, setMessage] = useState("");
   const [dataNegocio, setDataNegocio] = useState({});
-  const [cuot, setCuot] = useState("");
+  const [cuota, setCuota] = useState("");
 
   // Iconos de notificacion
   const handleIconNotification = (value, messageValue) => {
@@ -47,7 +42,7 @@ const Notification = ({
         break;
 
       case "email-fast-outline":
-        aplication = `mailto:${data[0]?.correo}?subject=Pago de la cuota N° ${dataNotification?.cuota}&body=${messageValue}`;
+        aplication = `mailto:${data[0]?.correo}?subject=Pago de la cuota N° ${dataSee?.cuota}&body=${messageValue}`;
         break;
     }
     Linking.openURL(aplication);
@@ -69,37 +64,27 @@ const Notification = ({
 
   // Actualiza mensaje
   useEffect(() => {
-    if (dataNotification != undefined) {
+    if (dataSee != undefined) {
       const messagePredetermined = `Hola ${
         data[0]?.nombre?.split(" ")[0]
-      }, tienes una deuda pendiente con la financiera "${
+      }, tienes una deuda pendiente con "${
         dataNegocio[0]?.negocio ? dataNegocio[0]?.negocio : " La Financiera"
-      }" de ${cuot} soles y ${
+      }" de ${cuota} soles y ${
         typeColor == "red" ? "venció" : "vence"
-      } el día ${formatDate(dataNotification?.fechaPago)}, ${
+      } el día ${formatDate(dataSee?.fechaPago)}, ${
         typeColor == "red" ? "evita que suba tu mora" : "evita la mora"
       } y paga hoy. ¡Gracias!`;
 
       typeColor !== null ? setMessage(messagePredetermined) : setMessage(``);
     }
-  }, [cuot, typeColor, , dataNegocio]);
+  }, [cuota, typeColor, , dataNegocio]);
+  console.log("dataSEE: ", dataSee);
 
   // Cuota
   useEffect(() => {
-    // Con Mora
-    if (typeColor == "red") {
-      //! TENEMOS QUE CREAR UNA NUEVA FUNCION PARA EL CALCULO DE LA MORA PERO SOLO PARA EL PRESTAMO INDEPENDIENTE
-      //! YA ESTA LA MORA, ESTE SERA SUMADO A AL CUOTA PARA CALCULAR LA NUEVA CUOTA.
-      //! ES NECESARIO QUE CUANDO EXISTE MORA SE CAMBIE LA NUEVA CUOTA. ASI COMO LA FECHA CANBIA TAMHIEN EL MONTO DE LA DEUDA DEJE CAMHIAR
-      let result = calculoMoraSimple(dataNotification, dataConfiguration);
-
-      setCuot(result);
-    }
-    //Sin mora
-    else {
-      setCuot(dataNotification?.montoCuota);
-    }
-  }, [typeColor, cuot]);
+    let result = parseFloat(dataSee?.cuotaNeto) + parseFloat(dataSee?.mora);
+    setCuota(result.toFixed(2));
+  }, [typeColor, cuota]);
 
   return (
     <View style={styles.container}>

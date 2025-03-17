@@ -36,13 +36,13 @@ const Customer = (props) => {
   // Trae los datos del local storage
   const loadCustomer = async () => {
     try {
-      let resultCustomer = await onGetCronograma();
-      resultCustomer = orderData("fecha", resultCustomer, false, enable); // ordena de forma ascendente de acuerdo a la fecha
+      let result = await onGetCronograma();
+      result = orderData("fecha", result, false, enable); // ordena de forma ascendente de acuerdo a la fecha
 
       setData({
         ...data,
-        dataResult: resultCustomer,
-        dataResultCopy: resultCustomer,
+        dataResult: result,
+        dataResultCopy: result,
       });
     } catch (error) {
       console.error(error);
