@@ -32,7 +32,7 @@ const Detail = (props) => {
   const [indice, setIndice] = useState(0); // Para modificar el índice correcto cuando se realiza un pago
   const [updatePrestamo, setUpdatePrestamo] = useState([]); // ResultPrestamo
   const [modify, setModify] = useState([]); // Para editar el status del pago
-  const [dataSee, setDataSee] = useState([]); // Datos que se renderizará
+  const [dataSee, setDataSee] = useState(); // Datos que se renderizará
   const [cancelledShare, setCancelledShare] = useState(false); // Cuota cancelada
 
   // Trae los datos guardados del local storage
@@ -140,7 +140,7 @@ const Detail = (props) => {
 
   return (
     <View style={styles.container}>
-      {user.length == 0 ? (
+      {dataSee == undefined ? (
         <Loading />
       ) : (
         <ScrollView>

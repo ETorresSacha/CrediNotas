@@ -44,10 +44,10 @@ const Pay = ({
       statusPay: true,
     };
 
-    updatePrestamo.splice(indice, 1, objeto);
+    updatePrestamo?.splice(indice, 1, objeto);
 
     if (
-      indice < (updatePrestamo == undefined ? null : updatePrestamo.length - 1)
+      indice < (updatePrestamo == undefined ? null : updatePrestamo?.length - 1)
     ) {
       // Pago de la cuenta
       setIndice(indice + 1);
@@ -62,7 +62,7 @@ const Pay = ({
       // Cancelación de la deuda
       let objeto = {
         ...modify[0],
-        uuid: data[0].uuid,
+        uuid: data[0]?.uuid,
         cancelled: true,
         resultPrestamo: updatePrestamo,
       };
@@ -78,7 +78,7 @@ const Pay = ({
     //! Cuando tiene cuotas pendientes
     if (indice > 0 && indice < updatePrestamo?.length) {
       let objeto = { ...payShare, statusPay: false };
-      updatePrestamo.splice(indice - 1, 1, objeto); // Modificamos los pagos
+      updatePrestamo?.splice(indice - 1, 1, objeto); // Modificamos los pagos
 
       await onUpdateStatusPay(modify); // Guardamos los datos
       setIndice(indice - 1);
@@ -90,11 +90,11 @@ const Pay = ({
       let result = data[0]?.resultPrestamo[indiceCambiar]; // buscamos el último pago realizado
 
       let objeto = { ...result, statusPay: false }; // modificamos el statusPay del último pago de "true" a "false"
-      updatePrestamo.splice(indiceCambiar, 1, objeto); // modificamos el array del "resultPrestamo"
+      updatePrestamo?.splice(indiceCambiar, 1, objeto); // modificamos el array del "resultPrestamo"
 
       let newResult = {
         ...modify[0],
-        uuid: data[0].uuid,
+        uuid: data[0]?.uuid,
         cancelled: false,
         resultPrestamo: updatePrestamo,
       };
@@ -110,9 +110,7 @@ const Pay = ({
 
   return (
     <View style={styles.container}>
-      {updatePrestamo == undefined ? (
-        <Loading />
-      ) : (
+      {
         <View>
           <View style={styles.pagosTitle}>
             <Text style={styles.titleText}>PAGOS</Text>
@@ -267,7 +265,7 @@ const Pay = ({
               >
                 <Text style={styles.subTitle}>Tipo de préstamo</Text>
                 <Text style={{ color: "white", fontSize: RFValue(14) }}>
-                  {data[0].periodo}
+                  {data[0]?.periodo}
                 </Text>
               </View>
 
@@ -280,7 +278,7 @@ const Pay = ({
               >
                 <Text style={styles.subTitle}>Interes</Text>
                 <Text style={{ color: "white", fontSize: RFValue(14) }}>
-                  {data[0].interes} %
+                  {data[0]?.interes} %
                 </Text>
               </View>
               {/* CUOTA */}
@@ -342,7 +340,7 @@ const Pay = ({
             </TouchableOpacity>
           </View>
         </View>
-      )}
+      }
     </View>
   );
 };
@@ -350,8 +348,6 @@ const Pay = ({
 export default Pay;
 
 const styles = StyleSheet.create({
-  container: {},
-
   pagosTitle: {
     display: "flex",
     flexDirection: "row",
