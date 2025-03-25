@@ -90,9 +90,12 @@ export default Cronograma;
 const styles = StyleSheet.create({
   containerContainer: {
     flex: 1,
+    marginHorizontal: 8,
   },
   containerCuotas: {
     flexDirection: "column",
+    borderRadius: 10,
+    borderWidth: 1,
   },
   containerTitle: {
     display: "flex",

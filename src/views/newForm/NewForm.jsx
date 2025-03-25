@@ -15,6 +15,7 @@ import "react-native-get-random-values"; // generea valores aleatorios para que 
 import { v4 as uuidv4 } from "uuid";
 import { validationDataPerson } from "../../utils/validation/Validation";
 import Header from "../../components/header/Header";
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 const NewForm = (props) => {
   const uuid = uuidv4();
@@ -161,25 +162,29 @@ const NewForm = (props) => {
           dataConfiguration={dataConfiguration}
           valueProps={props.route.params}
         />
-        <View style={{ alignItems: "center" }}>
-          <TouchableOpacity
-            style={styles.buttonContainer}
-            onPress={handleDataKeep}
-          >
-            <Text style={styles.text}>Guardar</Text>
-          </TouchableOpacity>
-        </View>
       </ScrollView>
+      <View
+        style={{
+          alignItems: "center",
+          flex: 2,
+        }}
+      >
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={handleDataKeep}
+        >
+          <Text style={styles.text}>Guardar</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
 
 export default NewForm;
-//! esta el erro entre estos tres componentes, tenemos que psar el valor de edit, par que vuelva a editar
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "rgb(31, 36, 36)",
+    backgroundColor: "#181b21",
     display: "flex",
   },
   buttonContainer: {

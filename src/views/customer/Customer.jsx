@@ -125,11 +125,6 @@ export default Customer;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#042d32",
+    backgroundColor: "#181b21",
   },
 });
-
-//! CONCIDERO QUE COMO ES UN PRESTAMO INDIVIDUAL, LO QUE SE TIENE QUE HACER EL EL INTERES
-
-//! MORATORIO INGRESE A ESTA PARTE Y DE AHI AL COMPONENTE NECESARIO PARA CALCULAR EL INTERS MORATORIO
-//! PARA QUE SE VISUALICE LA CUOTA CON LA MORA

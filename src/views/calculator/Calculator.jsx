@@ -222,12 +222,6 @@ const Calculator = ({
           valuePrest={valuePrest}
           cleanCalculator={cleanCalculator}
           clean={clean}
-          // setErrorsP={setErrorsP}
-          // errorsP={errorsP}
-          // setCleanCalculator={setCleanCalculator}
-          // setClean={setClean}
-          // dataPerson={dataPerson}
-          // setDataPerson={setDataPerson}
         />
         <View>
           {/* ------------------ CALCULAR ------------------*/}
@@ -274,7 +268,7 @@ const Calculator = ({
 export default Calculator;
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 3,
     resizeMode: "cover", // o 'contain' según tu preferencia
   },
   titleEvaluar: {

@@ -242,7 +242,7 @@ export default Detail;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#19202c",
+    backgroundColor: "#181b21",
     verticalAlign: "middle",
   },
 

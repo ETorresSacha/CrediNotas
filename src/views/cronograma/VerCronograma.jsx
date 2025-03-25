@@ -35,6 +35,6 @@ export default VerCronograma;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "rgb(31, 36, 36)",
+    backgroundColor: "#181b21",
   },
 });

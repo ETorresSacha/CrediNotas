@@ -22,9 +22,6 @@ const Prestamo = ({
   valuePrest,
   cleanCalculator,
   clean,
-  dataPerson,
-  setDataPerson,
-  setTipoPago,
 }) => {
   const [value, setValue] = useState("");
   const [placeholderNumCuotas, setPlaceholderNumCuotas] = useState("");

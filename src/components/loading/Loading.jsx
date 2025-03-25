@@ -1,11 +1,4 @@
-import {
-  StyleSheet,
-  View,
-  ActivityIndicator,
-  ImageBackground,
-  Image,
-  Text,
-} from "react-native";
+import { StyleSheet, View, ActivityIndicator, Text } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import React from "react";
 const Loading = () => {
@@ -14,7 +7,6 @@ const Loading = () => {
   };
   return (
     <View style={styles.background}>
-      {/* <Image source={logo} style={styles.profileImage}></Image> */}
       <Text
         style={{
           color: "white",
