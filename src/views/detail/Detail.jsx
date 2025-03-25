@@ -28,7 +28,7 @@ const Detail = (props) => {
     enable: "",
     dataConfiguration: "",
   });
-  //const [intMora, setIntMora] = useState(0);
+
   const [indice, setIndice] = useState(0); // Para modificar el índice correcto cuando se realiza un pago
   const [updatePrestamo, setUpdatePrestamo] = useState([]); // ResultPrestamo
   const [modify, setModify] = useState([]); // Para editar el status del pago
@@ -206,8 +206,6 @@ const Detail = (props) => {
               cancelledShare={cancelledShare}
               setCancelledShare={setCancelledShare}
               updatePrestamo={updatePrestamo}
-              //intMora={intMora}
-              color={valueProps?.typeColor}
               valueProps={valueProps}
               setValueProps={setValueProps}
             />
@@ -244,7 +242,7 @@ export default Detail;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "rgb(31, 36, 36)",
+    backgroundColor: "#19202c",
     verticalAlign: "middle",
   },
 

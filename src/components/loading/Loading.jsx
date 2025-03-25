@@ -6,19 +6,26 @@ import {
   Image,
   Text,
 } from "react-native";
-import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import { RFPercentage } from "react-native-responsive-fontsize";
 import React from "react";
-import logo from "../../../assets/icon.png";
 const Loading = () => {
   const getContent = () => {
-    return <ActivityIndicator size="large" color="#00ff00" />;
+    return <ActivityIndicator size="large" color="#f57d11" />;
   };
   return (
     <View style={styles.background}>
-      <Image source={logo} style={styles.profileImage}></Image>
+      {/* <Image source={logo} style={styles.profileImage}></Image> */}
+      <Text
+        style={{
+          color: "white",
+          fontSize: 30,
+          fontFamily: "cursive",
+          letterSpacing: 4,
+        }}
+      >
+        Credi Check
+      </Text>
       <View style={styles.container}>{getContent()}</View>
-
-      {/* <Text style={{ color: "white" }}>CREDI CHECK</Text> */}
     </View>
   );
 };
@@ -32,7 +39,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     alignContent: "center",
-    backgroundColor: "#541e50",
+    backgroundColor: "#19202c",
   },
   profileImage: {
     width: RFPercentage(20),

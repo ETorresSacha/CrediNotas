@@ -125,7 +125,7 @@ export default Customer;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: "#042d32",
   },
 });
 

@@ -78,7 +78,6 @@ const Notification = ({ data, typeColor, dataSee }) => {
       typeColor !== null ? setMessage(messagePredetermined) : setMessage(``);
     }
   }, [cuota, typeColor, , dataNegocio]);
-  console.log("dataSEE: ", dataSee);
 
   // Cuota
   useEffect(() => {

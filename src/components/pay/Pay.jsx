@@ -4,7 +4,6 @@ import UseStorage from "../hooks/UseHookStorage";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { formatDate } from "../../utils/thunks/Thunks";
-import Loading from "../loading/Loading";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 const Pay = ({
   data,
@@ -15,12 +14,10 @@ const Pay = ({
   cancelledShare,
   setCancelledShare,
   updatePrestamo,
-  //intMora,
-  color,
   valueProps,
   setValueProps,
 }) => {
-  const { onUpdateStatusPay, onGetCronograma, onSaveCronograma } = UseStorage();
+  const { onUpdateStatusPay } = UseStorage();
   const [payShare, setPayShere] = useState([]); // Guardar el pago
   const [enable, setEnable] = useState(false); // Boton de cancelar pago (ON OFF)
 
