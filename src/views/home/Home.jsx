@@ -15,7 +15,7 @@ import UseStorageConfiguration from "../../components/hooks/UseHookConfiguration
 import UseStorageBusiness from "../../components/hooks/UseHookDataNeg";
 import fondoHome from "../.././../assets/fondoHome.jpg";
 import logo from "../../../assets/icon.png";
-
+import logoCrediCheck from "../../../assets/logoCrediCheck.png";
 const Home = () => {
   const { onGetBusiness } = UseStorageBusiness();
   const { onGetConfiguration } = UseStorageConfiguration();
@@ -76,7 +76,7 @@ const Home = () => {
       {/* HEADER */}
       <View style={styles.conteinerHeader}>
         <View style={styles.rightConteiner}>
-          <Image source={logo} style={styles.profileImage}></Image>
+          <Image source={logoCrediCheck} style={styles.profileImage}></Image>
         </View>
         <Pressable
           style={styles.leftConteiner}
@@ -141,8 +141,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   profileImage: {
-    width: 40,
-    height: 40,
+    width: 50,
+    height: 50,
     borderRadius: 24,
   },
   title: {
