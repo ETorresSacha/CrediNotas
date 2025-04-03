@@ -6,6 +6,7 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import FontAwesome6 from "react-native-vector-icons/FontAwesome6";
 import { formatDate } from "../../utils/thunks/Thunks";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import ModalCancelPay from "./ModalCancelPay";
 const Pay = ({
   data,
   indice,
@@ -21,7 +22,7 @@ const Pay = ({
   const { onUpdateStatusPay } = UseStorage();
   const [payShare, setPayShere] = useState([]); // Guardar el pago
   const [enable, setEnable] = useState(false); // Boton de cancelar pago (ON OFF)
-
+  const [isVisible, setIsVisible] = useState(false); // Habilita el modal de cancelar la deuda
   useEffect(() => {
     // Buscamos la última cuota pagado (útil cuando la cuenta esta cancelado)
     let cuotaCancelada = data[0]?.resultPrestamo[indice - 1];
@@ -122,7 +123,7 @@ const Pay = ({
               {/* ícono de cancelar la deuda */}
               <TouchableOpacity
                 style={styles.cancelPago}
-                onPress={HandleCancelPay}
+                onPress={() => setIsVisible(true)}
                 disabled={enable}
               >
                 <FontAwesome6
@@ -139,6 +140,15 @@ const Pay = ({
                   Cancelar deuda
                 </Text>
               </TouchableOpacity>
+
+              <ModalCancelPay
+                isVisible={isVisible}
+                setIsVisible={setIsVisible}
+                // setDataHome={setDataBusiness}
+                // setEnable={setEnable}
+                // dataConfiguration={dataConfiguration}
+                // setDataConfiguration={setDataConfiguration}
+              />
               {/* ícono de cancelar la cuota pagada */}
               <TouchableOpacity
                 style={styles.cancelPago}
