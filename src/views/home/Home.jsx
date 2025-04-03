@@ -14,7 +14,6 @@ import ModalConfigPersonal from "../../modals/modalConfigPersonal/ModalConfigPer
 import UseStorageConfiguration from "../../components/hooks/UseHookConfiguration";
 import UseStorageBusiness from "../../components/hooks/UseHookDataNeg";
 import fondoHome from "../.././../assets/fondoHome.jpg";
-import logo from "../../../assets/icon.png";
 import logoCrediCheck from "../../../assets/logoCrediCheck.png";
 const Home = () => {
   const { onGetBusiness } = UseStorageBusiness();

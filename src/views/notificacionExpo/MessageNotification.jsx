@@ -16,6 +16,9 @@ const MessageNotification = ({ data, day }) => {
   let dataRed = data?.dataResult ? filterCustomer(data, day).red : 0;
   let dataYellow = data?.dataResult ? filterCustomer(data, day).yellow : 0;
   let dataGreen = data?.dataResult ? filterCustomer(data, day).green : 0;
+  console.log(" dataRed: ", dataRed);
+  console.log(" dataYellow: ", dataYellow);
+  console.log(" dataGreen: ", dataGreen);
 
   // fecha actual
   let date = new Date();
@@ -24,7 +27,7 @@ const MessageNotification = ({ data, day }) => {
   let hour = date.getHours();
 
   // actualizamos los datos de dataRed y dataYellow para la notificación diaria, cumpliendo esta restricción
-  if (hour > 9) {
+  if (hour > 7) {
     dataRed = dataRed + dataYellow;
     dataYellow = dataGreen;
   }
@@ -63,7 +66,7 @@ const MessageNotification = ({ data, day }) => {
           },
           trigger: {
             type: Notifications.SchedulableTriggerInputTypes.DAILY,
-            hour: 9,
+            hour: 7,
             minute: 0,
             repeats: true, // Se repetirá todos los días a las 9 AM
           },

@@ -3,6 +3,7 @@ import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import UseStorage from "../hooks/UseHookStorage";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import FontAwesome6 from "react-native-vector-icons/FontAwesome6";
 import { formatDate } from "../../utils/thunks/Thunks";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 const Pay = ({
@@ -111,25 +112,54 @@ const Pay = ({
         <View>
           <View style={styles.pagosTitle}>
             <Text style={styles.titleText}>PAGOS</Text>
-            <TouchableOpacity
-              style={styles.cancelPago}
-              onPress={HandleCancelPay}
-              disabled={enable}
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                gap: 20,
+              }}
             >
-              <MaterialIcons
-                name="settings-backup-restore"
-                size={27}
-                color="cornsilk"
-              />
-              <Text
-                style={{
-                  fontSize: 10,
-                  color: "cornsilk",
-                }}
+              {/* ícono de cancelar la deuda */}
+              <TouchableOpacity
+                style={styles.cancelPago}
+                onPress={HandleCancelPay}
+                disabled={enable}
               >
-                Cancelar Pago
-              </Text>
-            </TouchableOpacity>
+                <FontAwesome6
+                  name="hand-holding-dollar"
+                  size={27}
+                  color="cornsilk"
+                />
+                <Text
+                  style={{
+                    fontSize: 10,
+                    color: "cornsilk",
+                  }}
+                >
+                  Cancelar deuda
+                </Text>
+              </TouchableOpacity>
+              {/* ícono de cancelar la cuota pagada */}
+              <TouchableOpacity
+                style={styles.cancelPago}
+                onPress={HandleCancelPay}
+                disabled={enable}
+              >
+                <MaterialIcons
+                  name="settings-backup-restore"
+                  size={27}
+                  color="cornsilk"
+                />
+                <Text
+                  style={{
+                    fontSize: 10,
+                    color: "cornsilk",
+                  }}
+                >
+                  Cancelar pago
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
 
           <View style={styles.pagosDetalle}>
