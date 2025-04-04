@@ -23,6 +23,7 @@ const Pay = ({
   const [payShare, setPayShere] = useState([]); // Guardar el pago
   const [enable, setEnable] = useState(false); // Boton de cancelar pago (ON OFF)
   const [isVisible, setIsVisible] = useState(false); // Habilita el modal de cancelar la deuda
+
   useEffect(() => {
     // Buscamos la última cuota pagado (útil cuando la cuenta esta cancelado)
     let cuotaCancelada = data[0]?.resultPrestamo[indice - 1];
@@ -144,6 +145,7 @@ const Pay = ({
               <ModalCancelPay
                 isVisible={isVisible}
                 setIsVisible={setIsVisible}
+                resultPrestamo={data[0]?.resultPrestamo}
                 // setDataHome={setDataBusiness}
                 // setEnable={setEnable}
                 // dataConfiguration={dataConfiguration}

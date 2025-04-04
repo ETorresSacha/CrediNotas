@@ -337,3 +337,16 @@ export const calculoMoraSimple = (data, dataConfiguration)=>{
      return mora
 
 }
+
+export const calculoCanlelarDeuda =(resultPrestamo, day)=>{
+    let year = day.getFullYear()
+     let month =  day.getMonth()+1
+     console.log(resultPrestamo);
+     
+     let dataCancel = resultPrestamo.find(element=>element?.mora == 0)
+     console.log("dataCancel: ",dataCancel);
+     
+    
+
+
+}

@@ -8,8 +8,14 @@ import {
 import React from "react";
 
 import { RFPercentage } from "react-native-responsive-fontsize";
+import { calculoCanlelarDeuda } from "@/src/utils/calculoCuota/CalculosFuncionesCrediticios";
+import { format } from "date-fns";
 
-const ModalCancelPay = ({ isVisible, setIsVisible }) => {
+const ModalCancelPay = ({ isVisible, setIsVisible, resultPrestamo }) => {
+  let day = new Date();
+  //console.log(day);
+
+  let result = calculoCanlelarDeuda(resultPrestamo, day);
   return (
     <Modal
       style={styles.container}
