@@ -16,13 +16,15 @@ const ModalCancelPay = ({
   setIsVisible,
   resultPrestamo,
   valueProps,
+  interes,
 }) => {
   let day = new Date();
 
   let result = calculoCanlelarDeuda(
     resultPrestamo,
     day,
-    valueProps?.dataConfiguration
+    valueProps?.dataConfiguration,
+    interes
   );
   // let cuotaPrePago = result.find((ele) => ele?.mora == 0);
 

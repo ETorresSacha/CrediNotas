@@ -338,7 +338,7 @@ export const calculoMoraSimple = (data, dataConfiguration)=>{
 
 }
 
-export const calculoCanlelarDeuda =(resultPrestamo, day ,dataConfiguration)=>{
+export const calculoCanlelarDeuda =(resultPrestamo, day ,dataConfiguration,interes)=>{
     let year = day.getFullYear()
      let month =  day.getMonth()+1
     //  console.log("dataConfiguration: ",dataConfiguration);
@@ -354,14 +354,26 @@ export const calculoCanlelarDeuda =(resultPrestamo, day ,dataConfiguration)=>{
     )
 
     // Calculamos la mora total
+    let cuotaMora = moraData.filter(element=>element?.statusPay == false)
+    let moraTotal = cuotaMora.map(element=> element?.mora) // combierte todas la moras en un array
+    
+    const initialValue = 0;
+    moraTotal = moraTotal.reduce((accumulator, currentValue) => accumulator + currentValue,initialValue); // suma todas las moras
+
 
     // Calculamos el interes cancelado a la fecha de cancelación de la cuenta
+  
+//todo desde qui para abajo esta para orregir, lo que  haremos es que sumaremos el capital restante mas la mora si hubiese y calcular el interes por los dias genereados hasta ese momento con el capital restante y el interes dividido epor dias
+console.log(cuotaMora);
 
-    
-    
     let cuotaPrePago = moraData?.find((ele) => ele?.mora == 0);
-    let interesCancelar = calculoMoraSimple(cuotaPrePago,dataConfiguration)
-    console.log("interesCancelar: ", interesCancelar);
+    //console.log("cuotaPrePago: ",cuotaPrePago);
+    
+    let interesGenerado = (parseFloat(cuotaPrePago?.saldoCapital)+ parseFloat(cuotaPrePago?.cuotaCapital))*30*interes/(100*30)
+    console.log("interes",interesGenerado);
+    
+    //let interesCancelar = calculoMoraSimple(cuotaPrePago,dataConfiguration)
+    //console.log("interesCancelar: ", cuotaPrePago);
     return cuotaPrePago
 
 

@@ -146,6 +146,7 @@ const Pay = ({
                 setIsVisible={setIsVisible}
                 resultPrestamo={data[0]?.resultPrestamo}
                 valueProps={valueProps}
+                interes={data[0]?.interes}
                 // setDataHome={setDataBusiness}
                 // setEnable={setEnable}
                 // dataConfiguration={dataConfiguration}
