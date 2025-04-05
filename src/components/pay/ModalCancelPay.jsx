@@ -11,11 +11,23 @@ import { RFPercentage } from "react-native-responsive-fontsize";
 import { calculoCanlelarDeuda } from "@/src/utils/calculoCuota/CalculosFuncionesCrediticios";
 import { format } from "date-fns";
 
-const ModalCancelPay = ({ isVisible, setIsVisible, resultPrestamo }) => {
+const ModalCancelPay = ({
+  isVisible,
+  setIsVisible,
+  resultPrestamo,
+  valueProps,
+}) => {
   let day = new Date();
-  //console.log(day);
 
-  let result = calculoCanlelarDeuda(resultPrestamo, day);
+  let result = calculoCanlelarDeuda(
+    resultPrestamo,
+    day,
+    valueProps?.dataConfiguration
+  );
+  // let cuotaPrePago = result.find((ele) => ele?.mora == 0);
+
+  // console.log("cuotaPrePago: ", result);
+
   return (
     <Modal
       style={styles.container}

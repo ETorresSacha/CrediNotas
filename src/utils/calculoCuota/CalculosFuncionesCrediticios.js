@@ -338,15 +338,31 @@ export const calculoMoraSimple = (data, dataConfiguration)=>{
 
 }
 
-export const calculoCanlelarDeuda =(resultPrestamo, day)=>{
+export const calculoCanlelarDeuda =(resultPrestamo, day ,dataConfiguration)=>{
     let year = day.getFullYear()
      let month =  day.getMonth()+1
-     console.log(resultPrestamo);
+    //  console.log("dataConfiguration: ",dataConfiguration);
+
      
-     let dataCancel = resultPrestamo.find(element=>element?.mora == 0)
-     console.log("dataCancel: ",dataCancel);
-     
+    //  let dataCancel = resultPrestamo.find(element=>element?.mora == 0)
+    //  console.log("dataCancel: ",dataCancel);
+     // Calculamos la mora para cada cuota
+    let moraData = resultPrestamo.map(element=>{   
+        let montoMora = calculoMoraSimple(element,dataConfiguration)
+        return {...element,mora:montoMora}
+    }
+    )
+
+    // Calculamos la mora total
+
+    // Calculamos el interes cancelado a la fecha de cancelación de la cuenta
+
     
+    
+    let cuotaPrePago = moraData?.find((ele) => ele?.mora == 0);
+    let interesCancelar = calculoMoraSimple(cuotaPrePago,dataConfiguration)
+    console.log("interesCancelar: ", interesCancelar);
+    return cuotaPrePago
 
 
 }

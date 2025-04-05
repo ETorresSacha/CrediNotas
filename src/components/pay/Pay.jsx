@@ -125,7 +125,6 @@ const Pay = ({
               <TouchableOpacity
                 style={styles.cancelPago}
                 onPress={() => setIsVisible(true)}
-                disabled={enable}
               >
                 <FontAwesome6
                   name="hand-holding-dollar"
@@ -146,6 +145,7 @@ const Pay = ({
                 isVisible={isVisible}
                 setIsVisible={setIsVisible}
                 resultPrestamo={data[0]?.resultPrestamo}
+                valueProps={valueProps}
                 // setDataHome={setDataBusiness}
                 // setEnable={setEnable}
                 // dataConfiguration={dataConfiguration}
