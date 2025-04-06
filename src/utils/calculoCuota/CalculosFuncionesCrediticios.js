@@ -339,42 +339,50 @@ export const calculoMoraSimple = (data, dataConfiguration)=>{
 }
 
 export const calculoCanlelarDeuda =(resultPrestamo, day ,dataConfiguration,interes)=>{
-    let year = day.getFullYear()
-     let month =  day.getMonth()+1
-    //  console.log("dataConfiguration: ",dataConfiguration);
 
-     
-    //  let dataCancel = resultPrestamo.find(element=>element?.mora == 0)
-    //  console.log("dataCancel: ",dataCancel);
      // Calculamos la mora para cada cuota
     let moraData = resultPrestamo.map(element=>{   
         let montoMora = calculoMoraSimple(element,dataConfiguration)
         return {...element,mora:montoMora}
-    }
-    )
+    })
 
-    // Calculamos la mora total
-    let cuotaMora = moraData.filter(element=>element?.statusPay == false)
+    let cuotaMora = moraData.filter(element=>element?.statusPay == false) // filtramos las cuotas pagadas de las pendientes
+    
+     // suma total de las cuotas que estan en mora
+     let cuotasPendientesMora = cuotaMora.filter(element=>element?.mora!=0)
+     let montoPendienteMora = cuotasPendientesMora?.length * cuotasPendientesMora[0]?.cuotaNeto
+ 
+
+
+    // suma total de la mora
+    const initialValue = 0;
     let moraTotal = cuotaMora.map(element=> element?.mora) // combierte todas la moras en un array
     
-    const initialValue = 0;
     moraTotal = moraTotal.reduce((accumulator, currentValue) => accumulator + currentValue,initialValue); // suma todas las moras
 
 
-    // Calculamos el interes cancelado a la fecha de cancelación de la cuenta
-  
-//todo desde qui para abajo esta para orregir, lo que  haremos es que sumaremos el capital restante mas la mora si hubiese y calcular el interes por los dias genereados hasta ese momento con el capital restante y el interes dividido epor dias
-console.log(cuotaMora);
-
-    let cuotaPrePago = moraData?.find((ele) => ele?.mora == 0);
-    //console.log("cuotaPrePago: ",cuotaPrePago);
     
-    let interesGenerado = (parseFloat(cuotaPrePago?.saldoCapital)+ parseFloat(cuotaPrePago?.cuotaCapital))*30*interes/(100*30)
-    console.log("interes",interesGenerado);
-    
-    //let interesCancelar = calculoMoraSimple(cuotaPrePago,dataConfiguration)
-    //console.log("interesCancelar: ", cuotaPrePago);
-    return cuotaPrePago
+    // interes generado hasta la fecha de pago
+    let cuotaPendiente = cuotaMora.find(element =>element?.mora == 0) // la data que se encuentra dentro del plazo de pago
+console.log("cuotaPendiente: ",cuotaPendiente);
 
+        // cálculo de los dias de diferencia
+
+        const fechaModificada = new Date(cuotaPendiente?.fechaPago); // hacemos una copia
+
+        fechaModificada.setMonth(fechaModificada.getMonth() - 1);
+
+        const diasPendientes = differenceInDays(new Date(),fechaModificada) // diferencia de los dias pendientes
+          
+    let interesGenerado = (parseFloat(cuotaPendiente?.saldoCapital)+ parseFloat(cuotaPendiente?.cuotaCapital))*diasPendientes*interes/(100*30) // formula : I = capital*dias*interes diario
+
+
+    
+    // monto de la deuda a cancelar
+    let capitalPendiente = (parseFloat(cuotaPendiente?.saldoCapital)+ parseFloat(cuotaPendiente?.cuotaCapital))
+
+    let montoCancelar = capitalPendiente + moraTotal + montoPendienteMora + interesGenerado
+
+    return montoCancelar
 
 }
