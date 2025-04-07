@@ -24,8 +24,21 @@ const ModalCancelPay = ({
     valueProps?.dataConfiguration,
     interes
   );
-  console.log(dataSee);
-  console.log(deuda);
+
+  let montoTotal = (
+    parseFloat(deuda?.capitalMora) +
+    parseFloat(deuda?.mora) +
+    parseFloat(deuda?.capitalPendiente) +
+    parseFloat(deuda?.interes)
+  ).toFixed(2);
+
+  let data = [
+    { "Cuotas Pendientes": deuda?.capitalMora },
+    { Mora: deuda?.mora },
+    { "Capital restante": deuda?.capitalPendiente },
+    { "Interes generado": deuda?.interes },
+    { "Monto a cancelar": montoTotal },
+  ];
 
   return (
     <Modal
@@ -72,65 +85,26 @@ const ModalCancelPay = ({
         </View>
         {/* detalle de la cuenta a pagar */}
         <View style={{ paddingHorizontal: 10 }}>
-          {/* Cuotas Pendientes */}
-          <View style={[styles.item, { width: RFPercentage(28) }]}>
-            <Text style={styles.itemTitleDetalle}>Cuotas Pendientes: </Text>
-            <View style={styles.conteinerDato}>
-              <Text style={[styles.itemText]}>S/</Text>
-              <Text style={[styles.itemText, { justifyContent: "flex-end" }]}>
-                {deuda?.capitalMora}
-              </Text>
-            </View>
-          </View>
-
-          {/* mora */}
-          <View style={[styles.item, { width: RFPercentage(28) }]}>
-            <Text style={styles.itemTitleDetalle}>Mora: </Text>
-            <View style={styles.conteinerDato}>
-              <Text style={[styles.itemText]}>S/</Text>
-              <Text style={[styles.itemText, { justifyContent: "flex-end" }]}>
-                {deuda?.mora}
-              </Text>
-            </View>
-          </View>
-
-          {/* Capital restante */}
-          <View style={[styles.item, { width: RFPercentage(28) }]}>
-            <Text style={styles.itemTitleDetalle}>Capital restante: </Text>
-            <View style={styles.conteinerDato}>
-              <Text style={[styles.itemText]}>S/</Text>
-              <Text style={[styles.itemText, { justifyContent: "flex-end" }]}>
-                {deuda?.capitalPendiente}
-              </Text>
-            </View>
-          </View>
-
-          {/* Interes generado */}
-          <View style={[styles.item, { width: RFPercentage(28) }]}>
-            <Text style={styles.itemTitleDetalle}>Interes generado: </Text>
-            <View style={styles.conteinerDato}>
-              <Text style={[styles.itemText]}>S/</Text>
-              <Text style={[styles.itemText, { justifyContent: "flex-end" }]}>
-                {deuda?.interes}
-              </Text>
-            </View>
-          </View>
-
-          {/* Monto a cancelar */}
-          <View style={[styles.item, { width: RFPercentage(28) }]}>
-            <Text style={styles.itemTitleDetalle}>Monto a cancelar: </Text>
-            <View style={styles.conteinerDato}>
-              <Text style={[styles.itemText]}>S/</Text>
-              <Text style={[styles.itemText, { justifyContent: "flex-end" }]}>
-                {(
-                  parseFloat(deuda?.capitalMora) +
-                  parseFloat(deuda?.mora) +
-                  parseFloat(deuda?.capitalPendiente) +
-                  parseFloat(deuda?.interes)
-                ).toFixed(2)}
-              </Text>
-            </View>
-          </View>
+          {data.map((objeto, index) => {
+            return Object.entries(objeto).map(([llave, valor]) => {
+              return (
+                <View
+                  style={[styles.item, { width: RFPercentage(28) }]}
+                  key={index}
+                >
+                  <Text style={styles.itemTitleDetalle}>{llave} </Text>
+                  <View style={styles.conteinerDato}>
+                    <Text style={[styles.itemText]}>S/</Text>
+                    <Text
+                      style={[styles.itemText, { justifyContent: "flex-end" }]}
+                    >
+                      {valor}
+                    </Text>
+                  </View>
+                </View>
+              );
+            });
+          })}
         </View>
       </View>
     </Modal>
@@ -173,7 +147,6 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    // ,
   },
   itemTitle: {
     color: "cornsilk",
