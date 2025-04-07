@@ -54,44 +54,82 @@ const ModalCancelPay = ({
         <View style={styles.graficoContainer}>
           <View style={styles.item}>
             <Text style={styles.itemTitle}>Capital: </Text>
-            <Text style={styles.itemText}>{dataSee?.capital}</Text>
+            <Text style={styles.itemText}>S/ {dataSee?.capital}</Text>
           </View>
-
-          <View style={styles.item}>
-            <Text style={styles.itemTitle}>Cuotas cancelados: </Text>
-            <Text style={styles.itemText}>{dataSee?.cuota - 1}</Text>
+          <View style={{ display: "flex", flexDirection: "column" }}>
+            <View style={styles.item}>
+              <Text style={styles.itemTitle}>Cuotas cancelados: </Text>
+              <Text style={styles.itemText}>{dataSee?.cuota - 1}</Text>
+            </View>
+            <View style={styles.item}>
+              <Text style={styles.itemTitle}>Cuotas pendientes: </Text>
+              <Text style={styles.itemText}>{resultPrestamo?.length}</Text>
+            </View>
           </View>
         </View>
-        <View>
-          <Text style={styles.itemTitle}>Deduccioón de la cuenta a saldar</Text>
-          <View style={styles.item}>
-            <Text style={styles.itemTitle}>Cuotas Pendientes: </Text>
-            <Text style={styles.itemText}>S/ {deuda?.capitalMora}</Text>
-          </View>
-          <View style={styles.item}>
-            <Text style={styles.itemTitle}>Mora: </Text>
-            <Text style={styles.itemText}>S/ {deuda?.mora}</Text>
-          </View>
-          <View style={styles.item}>
-            <Text style={[styles.itemTitle, { backgroundColor: "green" }]}>
-              Capital restante:{" "}
-            </Text>
-            <Text style={styles.itemText}>S/ {deuda?.capitalPendiente}</Text>
+        <View style={{ paddingVertical: 10 }}>
+          <Text style={styles.itemTitle}>Deducción de la cuenta a saldar</Text>
+        </View>
+        {/* detalle de la cuenta a pagar */}
+        <View style={{ paddingHorizontal: 10 }}>
+          {/* Cuotas Pendientes */}
+          <View style={[styles.item, { width: RFPercentage(28) }]}>
+            <Text style={styles.itemTitleDetalle}>Cuotas Pendientes: </Text>
+            <View style={styles.conteinerDato}>
+              <Text style={[styles.itemText]}>S/</Text>
+              <Text style={[styles.itemText, { justifyContent: "flex-end" }]}>
+                {deuda?.capitalMora}
+              </Text>
+            </View>
           </View>
 
-          <View style={styles.item}>
-            <Text style={styles.itemTitle}>Interes generado: </Text>
-            <Text style={styles.itemText}>S/ {deuda?.interes}</Text>
+          {/* mora */}
+          <View style={[styles.item, { width: RFPercentage(28) }]}>
+            <Text style={styles.itemTitleDetalle}>Mora: </Text>
+            <View style={styles.conteinerDato}>
+              <Text style={[styles.itemText]}>S/</Text>
+              <Text style={[styles.itemText, { justifyContent: "flex-end" }]}>
+                {deuda?.mora}
+              </Text>
+            </View>
           </View>
-          <View style={styles.item}>
-            <Text style={styles.itemTitle}>Monto a cancelar: </Text>
-            <Text style={styles.itemText}>
-              S/{" "}
-              {parseFloat(deuda?.capitalMora) +
-                parseFloat(deuda?.mora) +
-                parseFloat(deuda?.capitalPendiente) +
-                parseFloat(deuda?.interes)}
-            </Text>
+
+          {/* Capital restante */}
+          <View style={[styles.item, { width: RFPercentage(28) }]}>
+            <Text style={styles.itemTitleDetalle}>Capital restante: </Text>
+            <View style={styles.conteinerDato}>
+              <Text style={[styles.itemText]}>S/</Text>
+              <Text style={[styles.itemText, { justifyContent: "flex-end" }]}>
+                {deuda?.capitalPendiente}
+              </Text>
+            </View>
+          </View>
+
+          {/* Interes generado */}
+          <View style={[styles.item, { width: RFPercentage(28) }]}>
+            <Text style={styles.itemTitleDetalle}>Interes generado: </Text>
+            <View style={styles.conteinerDato}>
+              <Text style={[styles.itemText]}>S/</Text>
+              <Text style={[styles.itemText, { justifyContent: "flex-end" }]}>
+                {deuda?.interes}
+              </Text>
+            </View>
+          </View>
+
+          {/* Monto a cancelar */}
+          <View style={[styles.item, { width: RFPercentage(28) }]}>
+            <Text style={styles.itemTitleDetalle}>Monto a cancelar: </Text>
+            <View style={styles.conteinerDato}>
+              <Text style={[styles.itemText]}>S/</Text>
+              <Text style={[styles.itemText, { justifyContent: "flex-end" }]}>
+                {(
+                  parseFloat(deuda?.capitalMora) +
+                  parseFloat(deuda?.mora) +
+                  parseFloat(deuda?.capitalPendiente) +
+                  parseFloat(deuda?.interes)
+                ).toFixed(2)}
+              </Text>
+            </View>
           </View>
         </View>
       </View>
@@ -122,30 +160,37 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     borderWidth: 1,
     paddingVertical: 10,
-    paddingHorizontal: 10,
-    backgroundColor: "blue",
-    //sjustifyContent: "space-around",
+    paddingHorizontal: 20,
   },
   graficoContainer: {
     flex: 1,
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    backgroundColor: "red",
   },
 
   item: {
     display: "flex",
     flexDirection: "row",
+    justifyContent: "space-between",
+    // ,
   },
   itemTitle: {
-    //width: 100,
     color: "cornsilk",
-    // fontSize: RFValue(13.5),
+    fontWeight: "bold",
+  },
+  itemTitleDetalle: {
+    color: "cornsilk",
+    width: RFPercentage(16),
     fontWeight: "bold",
   },
   itemText: {
     color: "white",
-    fontSize: RFValue(14),
+    fontSize: RFValue(12),
+  },
+  conteinerDato: {
+    flexDirection: "row",
+    width: RFPercentage(11),
+    justifyContent: "space-between",
   },
 });
