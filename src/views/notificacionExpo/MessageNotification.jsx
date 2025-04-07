@@ -16,9 +16,6 @@ const MessageNotification = ({ data, day }) => {
   let dataRed = data?.dataResult ? filterCustomer(data, day).red : 0;
   let dataYellow = data?.dataResult ? filterCustomer(data, day).yellow : 0;
   let dataGreen = data?.dataResult ? filterCustomer(data, day).green : 0;
-  console.log(" dataRed: ", dataRed);
-  console.log(" dataYellow: ", dataYellow);
-  console.log(" dataGreen: ", dataGreen);
 
   // fecha actual
   let date = new Date();

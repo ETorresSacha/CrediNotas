@@ -147,6 +147,7 @@ const Pay = ({
                 resultPrestamo={data[0]?.resultPrestamo}
                 valueProps={valueProps}
                 interes={data[0]?.interes}
+                dataSee={dataSee}
                 // setDataHome={setDataBusiness}
                 // setEnable={setEnable}
                 // dataConfiguration={dataConfiguration}

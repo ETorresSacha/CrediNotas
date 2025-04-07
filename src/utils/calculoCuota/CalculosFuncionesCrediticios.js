@@ -338,7 +338,7 @@ export const calculoMoraSimple = (data, dataConfiguration)=>{
 
 }
 
-export const calculoCanlelarDeuda =(resultPrestamo, day ,dataConfiguration,interes)=>{
+export const calculoCanlelarDeuda =(resultPrestamo ,dataConfiguration,interes)=>{
 
      // Calculamos la mora para cada cuota
     let moraData = resultPrestamo.map(element=>{   
@@ -361,10 +361,8 @@ export const calculoCanlelarDeuda =(resultPrestamo, day ,dataConfiguration,inter
     moraTotal = moraTotal.reduce((accumulator, currentValue) => accumulator + currentValue,initialValue); // suma todas las moras
 
 
-    
     // interes generado hasta la fecha de pago
     let cuotaPendiente = cuotaMora.find(element =>element?.mora == 0) // la data que se encuentra dentro del plazo de pago
-console.log("cuotaPendiente: ",cuotaPendiente);
 
         // cálculo de los dias de diferencia
 
@@ -382,7 +380,11 @@ console.log("cuotaPendiente: ",cuotaPendiente);
     let capitalPendiente = (parseFloat(cuotaPendiente?.saldoCapital)+ parseFloat(cuotaPendiente?.cuotaCapital))
 
     let montoCancelar = capitalPendiente + moraTotal + montoPendienteMora + interesGenerado
+    
 
-    return montoCancelar
-
+    return {capitalMora : montoPendienteMora.toFixed(2),
+        mora :moraTotal.toFixed(2),
+        interes : interesGenerado.toFixed(2),
+        capitalPendiente:capitalPendiente.toFixed(2),
+        montoTotal : montoCancelar.toFixed(2)}
 }
