@@ -7,9 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React from "react";
-
 import { calculoCanlelarDeuda } from "@/src/utils/calculoCuota/CalculosFuncionesCrediticios";
-import { format } from "date-fns";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 const ModalCancelPay = ({
@@ -39,6 +37,9 @@ const ModalCancelPay = ({
     { "Capital restante": deuda?.capitalPendiente },
     { "Interes generado": deuda?.interes },
   ];
+  const funcionPagar = () => {
+    console.log("pagar");
+  };
 
   return (
     <Modal
@@ -137,18 +138,10 @@ const ModalCancelPay = ({
         </View>
 
         {/* botón de cancelar la deuda */}
-        <View
-          style={{
-            alignItems: "center",
-            // backgroundColor: "red",
-            //top: 10,
-            //bottom: 10,
-            paddingVertical: 10,
-          }}
-        >
+        <View style={{ alignItems: "center", paddingVertical: 10 }}>
           <TouchableOpacity
             style={styles.btnPagar}
-            onPress={() => console.log("cancelar deuda")}
+            onPress={() => funcionPagar()}
           >
             <Text style={styles.subTitle}> Pagar la deuda</Text>
           </TouchableOpacity>
