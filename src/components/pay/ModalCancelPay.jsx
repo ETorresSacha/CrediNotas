@@ -4,6 +4,7 @@ import {
   Text,
   View,
   TouchableWithoutFeedback,
+  TouchableOpacity,
 } from "react-native";
 import React from "react";
 
@@ -37,7 +38,6 @@ const ModalCancelPay = ({
     { Mora: deuda?.mora },
     { "Capital restante": deuda?.capitalPendiente },
     { "Interes generado": deuda?.interes },
-    { "Monto a cancelar": montoTotal },
   ];
 
   return (
@@ -58,6 +58,7 @@ const ModalCancelPay = ({
               justifyContent: "center",
               alignItems: "center",
               textAlign: "center",
+              fontWeight: "bold",
             }}
           >
             CANCELAR LA DEUDA
@@ -105,6 +106,52 @@ const ModalCancelPay = ({
               );
             });
           })}
+          {/* monto a cancelar */}
+          <View style={[styles.item, { width: RFPercentage(28) }]}>
+            <Text style={[styles.itemTitleDetalle, { color: "orange" }]}>
+              Monto a cancelar
+            </Text>
+            <View style={styles.conteinerDato}>
+              <Text
+                style={[
+                  styles.itemText,
+                  { color: "orange", fontWeight: "bold" },
+                ]}
+              >
+                S/
+              </Text>
+              <Text
+                style={[
+                  styles.itemText,
+                  {
+                    justifyContent: "flex-end",
+                    color: "orange",
+                    fontWeight: "bold",
+                  },
+                ]}
+              >
+                {montoTotal}
+              </Text>
+            </View>
+          </View>
+        </View>
+
+        {/* botón de cancelar la deuda */}
+        <View
+          style={{
+            alignItems: "center",
+            // backgroundColor: "red",
+            //top: 10,
+            //bottom: 10,
+            paddingVertical: 10,
+          }}
+        >
+          <TouchableOpacity
+            style={styles.btnPagar}
+            onPress={() => console.log("cancelar deuda")}
+          >
+            <Text style={styles.subTitle}> Pagar la deuda</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </Modal>
@@ -165,5 +212,23 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: RFPercentage(11),
     justifyContent: "space-between",
+  },
+  btnPagar: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    alignContent: "center",
+    height: RFPercentage(5),
+    width: RFPercentage(30),
+    justifyContent: "center",
+    borderRadius: 10,
+    elevation: 5,
+    borderWidth: 1,
+    backgroundColor: "orange",
+  },
+  subTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "white",
   },
 });
