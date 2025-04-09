@@ -37,6 +37,8 @@ const Customer = (props) => {
   const loadCustomer = async () => {
     try {
       let result = await onGetCronograma();
+      console.log("result: ", result);
+
       result = orderData("fecha", result, false, enable); // ordena de forma ascendente de acuerdo a la fecha
 
       setData({
@@ -48,6 +50,8 @@ const Customer = (props) => {
       console.error(error);
     }
   };
+
+  console.log("data: ", data);
   // clasificación de los clientes de acuerdo a la fecha de pago
   const resultCustomer = () => {
     setInicio(false);
@@ -59,7 +63,7 @@ const Customer = (props) => {
     if (
       !enable
         ? result.resultDataResult.length == 0
-        : result.resultCustomerCancelled.length == 0
+        : result.resultCustomerCanceled.length == 0
     ) {
       setInicio(true);
     }
@@ -67,7 +71,7 @@ const Customer = (props) => {
     //Seteamos los datos del dataCustomer
     setDataCustomer({
       ...dataCustomer,
-      customerCancelled: result?.resultCustomerCancelled,
+      customerCanceled: result?.resultCustomerCanceled,
       dataResult: result.resultDataResult,
     });
   };

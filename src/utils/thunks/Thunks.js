@@ -134,22 +134,22 @@ return resultDia
 
 export const customerData =(data)=>{
   
-  let customerCancelled =[]
+  let customerCanceled =[]
   let dataResult = []
  data?.map(element=>{
 
   // Deuda sin cancelar
-   if(element.cancelled == false){
+   if(element.canceled == false){
       dataResult.push(element)
    }
    // Deuda cancelado
   else{
-    customerCancelled.push(element)
+    customerCanceled.push(element)
   }}
  )
 
 return {
-  resultCustomerCancelled:customerCancelled,
+  resultCustomerCanceled:customerCanceled,
   resultDataResult : dataResult
 }
 

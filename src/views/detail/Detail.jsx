@@ -33,7 +33,7 @@ const Detail = (props) => {
   const [updatePrestamo, setUpdatePrestamo] = useState([]); // ResultPrestamo
   const [modify, setModify] = useState([]); // Para editar el status del pago
   const [dataSee, setDataSee] = useState(); // Datos que se renderizará
-  const [cancelledShare, setCancelledShare] = useState(false); // Cuota cancelada
+  const [canceledShare, setCanceledShare] = useState(false); // Cuota cancelada
 
   // Trae los datos guardados del local storage
   const loadCustomerId = async (id) => {
@@ -74,16 +74,16 @@ const Detail = (props) => {
       setDataSee(result);
 
       setIndice(dataSee?.cuota == undefined ? null : dataSee?.cuota - 1);
-      setCancelledShare(false);
+      setCanceledShare(false);
     }
 
     // Cuando la cuota ya esta cancelado
     if (result == undefined) {
       setIndice(user[0]?.resultPrestamo.length);
       setDataSee(user[0]?.resultPrestamo[user[0]?.resultPrestamo.length - 1]);
-      setCancelledShare(true);
+      setCanceledShare(true);
     }
-  }, [user, indice, modify, cancelledShare]); //! tener en cuenta, se esta eliminando el dataSee, si algo no funciona puede ser por esto
+  }, [user, indice, modify, canceledShare]); //! tener en cuenta, se esta eliminando el dataSee, si algo no funciona puede ser por esto
 
   // Actualiza los valores de valueProps
   useFocusEffect(
@@ -203,8 +203,8 @@ const Detail = (props) => {
               setIndice={setIndice}
               modify={modify}
               dataSee={dataSee}
-              cancelledShare={cancelledShare}
-              setCancelledShare={setCancelledShare}
+              canceledShare={canceledShare}
+              setCanceledShare={setCanceledShare}
               updatePrestamo={updatePrestamo}
               valueProps={valueProps}
               setValueProps={setValueProps}

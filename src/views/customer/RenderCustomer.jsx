@@ -34,7 +34,7 @@ const RenderCustomer = ({
     // "clientes" o "clientes cancelados"
     let dataFilter = !enable
       ? dataCustomer?.dataResult
-      : dataCustomer?.customerCancelled;
+      : dataCustomer?.customerCanceled;
 
     let result = orderData(type, dataFilter, value, enable);
     setData({ ...data, dataResult: result });
@@ -118,7 +118,7 @@ const RenderCustomer = ({
           // Cuando no existe ningun cliente guardado
           <View>
             <Users
-              data={dataCustomer?.customerCancelled}
+              data={dataCustomer?.customerCanceled}
               dataConfiguration={dataConfiguration}
               enable={enable}
             />
@@ -135,7 +135,7 @@ const RenderCustomer = ({
             <Text style={styles.piePaginaText}>
               {!enable
                 ? dataCustomer?.dataResult?.length
-                : dataCustomer?.customerCancelled?.length}
+                : dataCustomer?.customerCanceled?.length}
             </Text>
             <Text style={styles.textPiePagina}>Clientes</Text>
           </View>

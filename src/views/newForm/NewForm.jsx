@@ -45,7 +45,7 @@ const NewForm = (props) => {
     correo: !user ? "" : user?.correo,
     direccion: !user ? "" : user?.direccion,
     celular: !user ? "" : user?.celular,
-    cancelled: !user ? false : user?.cancelled,
+    canceled: !user ? false : user?.canceled,
     // Datos del préstamo
     capital: !user ? "" : user?.capital,
     cuotas: !user ? "" : user?.cuotas,
@@ -67,7 +67,7 @@ const NewForm = (props) => {
         correo: "",
         direccion: "",
         celular: "",
-        cancelled: false,
+        canceled: false,
         capital: "",
         cuotas: "",
         interes: "",

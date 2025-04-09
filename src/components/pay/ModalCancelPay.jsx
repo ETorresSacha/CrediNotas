@@ -17,6 +17,9 @@ const ModalCancelPay = ({
   valueProps,
   interes,
   dataSee,
+  updatePrestamo,
+  modify,
+  data,
 }) => {
   let deuda = calculoCanlelarDeuda(
     resultPrestamo,
@@ -31,15 +34,31 @@ const ModalCancelPay = ({
     parseFloat(deuda?.interes)
   ).toFixed(2);
 
-  let data = [
+  let detallePago = [
     { "Cuotas Pendientes": deuda?.capitalMora },
     { Mora: deuda?.mora },
     { "Capital restante": deuda?.capitalPendiente },
     { "Interes generado": deuda?.interes },
   ];
+
   const funcionPagar = () => {
     console.log("pagar");
+    //Cancelación de la deuda
+    let objeto = {
+      ...modify[0],
+      //uuid: data[0]?.uuid,
+      canceled: true,
+      montoCancel: montoTotal,
+      //resultPrestamo: updatePrestamo,
+    };
+    console.log("modify1: ", modify);
+    modify.splice(0, 1, objeto);
+    console.log("modify2: ", modify);
+    // vamos a traer todos los datos del pago y cambiar el cncelled de false a true
+    // y agregar un item en donde diria montoCancelado: el valor,
+    // despues modificar en ver cronograma, etc
   };
+  //console.log("modify: ", modify);
 
   return (
     <Modal
@@ -87,7 +106,7 @@ const ModalCancelPay = ({
         </View>
         {/* detalle de la cuenta a pagar */}
         <View style={{ paddingHorizontal: 10 }}>
-          {data.map((objeto, index) => {
+          {detallePago.map((objeto, index) => {
             return Object.entries(objeto).map(([llave, valor]) => {
               return (
                 <View

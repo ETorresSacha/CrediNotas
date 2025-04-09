@@ -13,8 +13,8 @@ const Pay = ({
   setIndice,
   modify,
   dataSee,
-  cancelledShare,
-  setCancelledShare,
+  canceledShare,
+  setCanceledShare,
   updatePrestamo,
   valueProps,
   setValueProps,
@@ -63,13 +63,13 @@ const Pay = ({
       let objeto = {
         ...modify[0],
         uuid: data[0]?.uuid,
-        cancelled: true,
+        canceled: true,
         resultPrestamo: updatePrestamo,
       };
       modify.splice(0, 1, objeto);
 
       await onUpdateStatusPay(modify);
-      setCancelledShare(true);
+      setCanceledShare(true);
     }
   };
 
@@ -95,14 +95,14 @@ const Pay = ({
       let newResult = {
         ...modify[0],
         uuid: data[0]?.uuid,
-        cancelled: false,
+        canceled: false,
         resultPrestamo: updatePrestamo,
       };
 
       modify.splice(0, 1, newResult); // Reemplazamos los datos de "modify" con los datos actualizados
 
       await onUpdateStatusPay(modify); // Guardamos los datos
-      setCancelledShare(false);
+      setCanceledShare(false);
     }
   };
 
@@ -148,6 +148,9 @@ const Pay = ({
                 valueProps={valueProps}
                 interes={data[0]?.interes}
                 dataSee={dataSee}
+                updatePrestamo={updatePrestamo}
+                modify={modify}
+                data={data}
                 // setDataHome={setDataBusiness}
                 // setEnable={setEnable}
                 // dataConfiguration={dataConfiguration}
@@ -208,7 +211,7 @@ const Pay = ({
                     { color: "orange", fontSize: RFValue(13) },
                   ]}
                 >
-                  {!cancelledShare
+                  {!canceledShare
                     ? dataSee?.fechaPago == undefined
                       ? null
                       : formatDate(dataSee?.fechaPago)
@@ -246,7 +249,7 @@ const Pay = ({
                   ]}
                 >
                   S/{" "}
-                  {!cancelledShare
+                  {!canceledShare
                     ? (
                         parseFloat(dataSee?.cuotaNeto) +
                         parseFloat(dataSee?.mora)
@@ -331,7 +334,7 @@ const Pay = ({
               >
                 <Text style={styles.subTitle}>Cuota</Text>
                 <Text style={{ color: "white", fontSize: RFValue(14) }}>
-                  S/ {!cancelledShare ? dataSee?.cuotaNeto : "0"}
+                  S/ {!canceledShare ? dataSee?.cuotaNeto : "0"}
                 </Text>
               </View>
               {/* MORA */}
@@ -356,7 +359,7 @@ const Pay = ({
           <View style={{ alignItems: "center" }}>
             <TouchableOpacity
               style={
-                !cancelledShare
+                !canceledShare
                   ? [
                       styles.buttonContainer,
                       { backgroundColor: "orange", width: RFPercentage(40) },
@@ -366,17 +369,17 @@ const Pay = ({
                       { borderColor: "white", width: RFPercentage(40) },
                     ]
               }
-              onPress={!cancelledShare ? handlePayShare : null}
-              disabled={cancelledShare}
+              onPress={!canceledShare ? handlePayShare : null}
+              disabled={canceledShare}
             >
-              {!cancelledShare ? (
+              {!canceledShare ? (
                 <FontAwesome
                   name="money"
                   style={{ color: "cornsilk", fontSize: 40 }}
                 />
               ) : null}
               <Text style={styles.subTitle}>
-                {!cancelledShare ? "Pagar" : "Deuda Cancelado"}
+                {!canceledShare ? "Pagar" : "Deuda Cancelado"}
               </Text>
             </TouchableOpacity>
           </View>
