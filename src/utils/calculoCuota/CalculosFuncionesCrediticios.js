@@ -332,17 +332,20 @@ export const calculoMoraSimple = (data, dataConfiguration)=>{
 
     // Cálculo del interes
     if(diff > 0){ mora = (intMoratorio*data?.capital*diff)/100}
-    else{mora=data?.mora} // si no funciona colocamos la mora = 0
+    else{mora=data?.mora}
      
      return mora
 
 }
 
 export const calculoCanlelarDeuda =(resultPrestamo ,dataConfiguration,interes)=>{
-
-     // Calculamos la mora para cada cuota
-    let moraData = resultPrestamo.map(element=>{   
-        let montoMora = calculoMoraSimple(element,dataConfiguration)
+    
+    // Calculamos la mora para cada cuota
+    let moraData = resultPrestamo.map(element=>{  
+        let montoMora = element?.mora
+        if (!element?.statusPay){ //! EN OBSERVACION: verifica cuando la primera cuota se haya pagado dentro del plazo y la segunda este en mora, en la primera la mora debe ser 0 en la segunda si debe marcar la mora correspondiente, despues borrar este comentario
+            montoMora = calculoMoraSimple(element,dataConfiguration)
+        }
         return {...element,mora:montoMora}
     })
 
@@ -350,8 +353,8 @@ export const calculoCanlelarDeuda =(resultPrestamo ,dataConfiguration,interes)=>
     
      // suma total de las cuotas que estan en mora
      let cuotasPendientesMora = cuotaMora.filter(element=>element?.mora!=0)
-     let montoPendienteMora = cuotasPendientesMora?.length * cuotasPendientesMora[0]?.cuotaNeto
- 
+
+     let montoPendienteMora = cuotasPendientesMora?.length * (cuotasPendientesMora?.length == 0 ? 0 :cuotasPendientesMora[0]?.cuotaNeto) // antes de la operación evalua si existen cuaotas pendientes
 
 
     // suma total de la mora
@@ -370,11 +373,11 @@ export const calculoCanlelarDeuda =(resultPrestamo ,dataConfiguration,interes)=>
 
         fechaModificada.setMonth(fechaModificada.getMonth() - 1);
 
-        const diasPendientes = differenceInDays(new Date(),fechaModificada) // diferencia de los dias pendientes
+        const diasPendientes = differenceInDays(new Date(),fechaModificada) // diferencia de los dias pendientes      
           
     let interesGenerado = (parseFloat(cuotaPendiente?.saldoCapital)+ parseFloat(cuotaPendiente?.cuotaCapital))*diasPendientes*interes/(100*30) // formula : I = capital*dias*interes diario
-
-
+        
+        interesGenerado = interesGenerado < 0 ? 0 : interesGenerado // Si el interes generado es negativo se considerará cero debido a la anterioridad de la fecha de vencimiento
     
     // monto de la deuda a cancelar
     let capitalPendiente = (parseFloat(cuotaPendiente?.saldoCapital)+ parseFloat(cuotaPendiente?.cuotaCapital))
