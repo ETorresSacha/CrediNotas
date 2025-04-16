@@ -97,7 +97,9 @@ const ModalCancelPay = ({
             </View>
             <View style={styles.item}>
               <Text style={styles.itemTitle}>Cuotas pendientes: </Text>
-              <Text style={styles.itemText}>{resultPrestamo?.length}</Text>
+              <Text style={styles.itemText}>
+                {resultPrestamo?.length - (dataSee?.cuota - 1)}
+              </Text>
             </View>
           </View>
         </View>

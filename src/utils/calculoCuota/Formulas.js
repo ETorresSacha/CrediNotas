@@ -78,8 +78,9 @@ export const TCEA =(tm,n)=>{
 
 //TODO--> Fórmulas para un cálculo de interes simple
 // Cálculo del monto interés
-export  const monInt=(capital,interes,tiempo,i)=>{
-   const  result = (capital*interes*tiempo)/(tiempo-i)
+export  const monInt=(capital,interes,tiempo)=>{
+    
+   const  result = (capital*interes*tiempo)/(tiempo)
 
     return Number.parseFloat(result).toFixed(2)
 

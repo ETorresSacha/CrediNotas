@@ -11,6 +11,7 @@ const Cronograma = ({ data, dataConfiguration }) => {
   useEffect(() => {
     setUpdatePrestamo(data?.resultPrestamo);
   }, [data]);
+  console.log("updatePrestamo: ", updatePrestamo);
 
   return (
     <View style={styles.containerContainer}>

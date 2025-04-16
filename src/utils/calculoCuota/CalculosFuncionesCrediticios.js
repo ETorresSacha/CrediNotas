@@ -272,16 +272,15 @@ export const calculoCuota = (data,i)=>{
     return cuota
 }
 // Cálculo de la cuota interés, la cuota capital y el saldo capital
-export const cuotInterSimple =(capital,interes,tiempo,i,newCapital)=>{
-
+export const cuotInterSimple =(capital,interes,tiempo,i,newCapital,cuotas)=>{
     let resultCapital
     let resultCuoInt
     let resultCuoCap
-
+    
     if(i === 0){
 
          // Cuota interes
-         resultCuoInt = monInt(capital,interes,tiempo,i)
+         resultCuoInt = monInt(capital,interes,tiempo)
          
          // Cuota capital
          resultCuoCap =  montCap(capital,tiempo)
@@ -292,9 +291,10 @@ export const cuotInterSimple =(capital,interes,tiempo,i,newCapital)=>{
       
     }
     else{
+        
 
         // Cuota interes
-        resultCuoInt = monInt(newCapital[0],interes,tiempo,i)
+        resultCuoInt = monInt(capital,interes,tiempo)
         
         // Cuota capital
         resultCuoCap =  montCap(capital,tiempo)
@@ -311,7 +311,7 @@ export const cuotInterSimple =(capital,interes,tiempo,i,newCapital)=>{
     return {
         resultInt:parseFloat(resultCuoInt).toFixed(2),
         resultCuo: parseFloat(resultCuoCap).toFixed(2),
-        resultCap:resultCapital,
+        resultCap:parseFloat(resultCapital).toFixed(2),
         resultCuoNeto: (parseFloat(resultCuoInt)+parseFloat(resultCuoCap)).toFixed(2)
     }
 }

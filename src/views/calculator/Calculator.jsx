@@ -172,6 +172,7 @@ const Calculator = ({
       const result = changeValue
         ? user[0].resultPrestamo
         : cuotaIndependiente(data);
+      console.log("resultt: ", result);
 
       if (dataPerson != undefined) {
         setDataPerson({

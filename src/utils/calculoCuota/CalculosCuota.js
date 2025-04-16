@@ -113,6 +113,7 @@ export const calculoFRCA = (data) =>{
 
     const interesTotal = parseInt(data?.cuotas)*parseFloat(data?.interes)*parseFloat(data?.capital)/100
     let capital = parseFloat(data?.capital)
+    
     let interes =parseFloat(data?.interes)/100
     let tiempo =parseInt(data?.cuotas)
     
