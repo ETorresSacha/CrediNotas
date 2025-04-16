@@ -11,9 +11,7 @@ const Cronograma = ({ data, dataConfiguration }) => {
   useEffect(() => {
     setUpdatePrestamo(data?.resultPrestamo);
   }, [data]);
-  console.log("updatePrestamo: ", updatePrestamo);
 
-  //! CORREGIR PRIMERO EL MONTO DE LA CUOTA Y DESPUES EL COMPONENTE QUE GUARDA EL CREDITO CUANO SE HACE PAGO ANTICIPADO
   return (
     <View style={styles.containerContainer}>
       {updatePrestamo == undefined ? (
