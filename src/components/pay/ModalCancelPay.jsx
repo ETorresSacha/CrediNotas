@@ -5,10 +5,12 @@ import {
   View,
   TouchableWithoutFeedback,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import React from "react";
 import { calculoCanlelarDeuda } from "@/src/utils/calculoCuota/CalculosFuncionesCrediticios";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import UseStorage from "../hooks/UseHookStorage";
 
 const ModalCancelPay = ({
   isVisible,
@@ -21,6 +23,8 @@ const ModalCancelPay = ({
   modify,
   data,
 }) => {
+  const { onUpdateStatusPay } = UseStorage();
+
   let deuda = calculoCanlelarDeuda(
     resultPrestamo,
     valueProps?.dataConfiguration,
@@ -41,7 +45,7 @@ const ModalCancelPay = ({
     { "Interes generado": deuda?.interes },
   ];
 
-  const funcionPagar = () => {
+  const funcionPagar = async () => {
     console.log("pagar");
     //Cancelación de la deuda
     let objeto = {
@@ -54,6 +58,21 @@ const ModalCancelPay = ({
     console.log("modify1: ", modify);
     modify.splice(0, 1, objeto);
     console.log("modify2: ", modify);
+
+    Alert.alert("Cancelar la deuda", "¿Desea continuar?", [
+      {
+        text: "Si",
+        onPress: async () => {
+          await onUpdateStatusPay(modify);
+          console.log(`${"monto: S/" + montoTotal}`);
+        },
+        style: "destructive",
+      },
+      {
+        text: "No",
+        style: "destructive",
+      },
+    ]);
     // vamos a traer todos los datos del pago y cambiar el cncelled de false a true
     // y agregar un item en donde diria montoCancelado: el valor,
     // despues modificar en ver cronograma, etc
