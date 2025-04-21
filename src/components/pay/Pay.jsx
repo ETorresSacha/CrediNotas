@@ -13,6 +13,7 @@ const Pay = ({
   setIndice,
   modify,
   dataSee,
+  setDataSee,
   canceledShare,
   setCanceledShare,
   updatePrestamo,
@@ -23,6 +24,7 @@ const Pay = ({
   const [payShare, setPayShere] = useState([]); // Guardar el pago
   const [enable, setEnable] = useState(false); // Boton de cancelar pago (ON OFF)
   const [isVisible, setIsVisible] = useState(false); // Habilita el modal de cancelar la deuda
+  console.log("dataSee: ", dataSee);
 
   useEffect(() => {
     // Buscamos la última cuota pagado (útil cuando la cuenta esta cancelado)
@@ -36,45 +38,67 @@ const Pay = ({
       setEnable(false);
     }
   }, [indice]);
+  //console.log("modify:", modify);
 
   //todo-->  Pagar la cuota
+  let count = dataSee?.cuota;
   const handlePayShare = async () => {
-    let objeto = {
-      ...dataSee,
-      statusPay: true,
-    };
+    // count = count + 1;
+    // console.log("count: ", count);
 
-    updatePrestamo?.splice(indice, 1, objeto);
-
-    if (
-      indice < (updatePrestamo == undefined ? null : updatePrestamo?.length - 1)
-    ) {
-      // Pago de la cuenta
-      setIndice(indice + 1);
-
-      await onUpdateStatusPay(modify);
-      setValueProps({
-        ...valueProps,
-        typeColor: "cornsilk",
-      });
-      setEnable(false); // Habilita el boton de cancelar el pago
-    } else {
-      // Cancelación de la deuda
+    if (count - 1 == indice) {
+      //console.log("indice: ", indice);
       let objeto = {
-        ...modify[0],
-        uuid: data[0]?.uuid,
-        canceled: true,
-        resultPrestamo: updatePrestamo,
+        ...dataSee,
+        statusPay: true,
       };
-      modify.splice(0, 1, objeto);
+      updatePrestamo?.splice(indice, 1, objeto);
 
-      await onUpdateStatusPay(modify);
-      setCanceledShare(true);
+      if (
+        indice <
+        (updatePrestamo == undefined ? null : updatePrestamo?.length - 1)
+      ) {
+        // Pago de la cuenta
+        setIndice(indice + 1);
+
+        setDataSee(objeto); //! esto se ha agregado, probamos sin await
+        await onUpdateStatusPay(modify);
+        setValueProps({
+          ...valueProps,
+          typeColor: "cornsilk",
+        });
+
+        setEnable(false); // Habilita el boton de cancelar el pago
+        //console.log("indice2: ", indice);
+        count = count + 1;
+      } else {
+        // Cancelación de la deuda
+        let objeto = {
+          ...modify[0],
+          uuid: data[0]?.uuid,
+          canceled: true,
+          resultPrestamo: updatePrestamo,
+        };
+        modify.splice(0, 1, objeto);
+
+        await onUpdateStatusPay(modify);
+        setCanceledShare(true);
+      }
     }
   };
+  console.log("count: ", count);
+  console.log("indice: ", indice);
 
   //todo--> Cancelar el pago de la cuota
   const HandleCancelPay = async () => {
+    // if (modify?.canceled) {
+    //   let objeto = { ...modify, canceled: false };
+    //   delete objeto.montoCancel;
+    //   console.log("objeto: ", objeto);
+
+    //   return objeto;
+    // }
+
     //! Cuando tiene cuotas pendientes
     if (indice > 0 && indice < updatePrestamo?.length) {
       let objeto = { ...payShare, statusPay: false };
@@ -122,24 +146,26 @@ const Pay = ({
               }}
             >
               {/* ícono de cancelar la deuda */}
-              <TouchableOpacity
-                style={styles.cancelPago}
-                onPress={() => setIsVisible(true)}
-              >
-                <FontAwesome6
-                  name="hand-holding-dollar"
-                  size={27}
-                  color="cornsilk"
-                />
-                <Text
-                  style={{
-                    fontSize: 10,
-                    color: "cornsilk",
-                  }}
+              {valueProps?.enable ? null : (
+                <TouchableOpacity
+                  style={styles.cancelPago}
+                  onPress={() => setIsVisible(true)}
                 >
-                  Cancelar deuda
-                </Text>
-              </TouchableOpacity>
+                  <FontAwesome6
+                    name="hand-holding-dollar"
+                    size={27}
+                    color="cornsilk"
+                  />
+                  <Text
+                    style={{
+                      fontSize: 10,
+                      color: "cornsilk",
+                    }}
+                  >
+                    Cancelar deuda
+                  </Text>
+                </TouchableOpacity>
+              )}
 
               <ModalCancelPay
                 isVisible={isVisible}
@@ -151,6 +177,7 @@ const Pay = ({
                 updatePrestamo={updatePrestamo}
                 modify={modify}
                 data={data}
+                setCanceledShare={setCanceledShare}
                 // setDataHome={setDataBusiness}
                 // setEnable={setEnable}
                 // dataConfiguration={dataConfiguration}

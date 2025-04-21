@@ -203,6 +203,7 @@ const Detail = (props) => {
               setIndice={setIndice}
               modify={modify}
               dataSee={dataSee}
+              setDataSee={setDataSee}
               canceledShare={canceledShare}
               setCanceledShare={setCanceledShare}
               updatePrestamo={updatePrestamo}

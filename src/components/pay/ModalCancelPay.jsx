@@ -22,6 +22,7 @@ const ModalCancelPay = ({
   updatePrestamo,
   modify,
   data,
+  setCanceledShare,
 }) => {
   const { onUpdateStatusPay } = UseStorage();
 
@@ -55,29 +56,33 @@ const ModalCancelPay = ({
       montoCancel: montoTotal,
       //resultPrestamo: updatePrestamo,
     };
-    console.log("modify1: ", modify);
+    //console.log("modify1: ", modify);
     modify.splice(0, 1, objeto);
-    console.log("modify2: ", modify);
+    //console.log("modify2: ", modify);
 
     Alert.alert("Cancelar la deuda", "¿Desea continuar?", [
       {
         text: "Si",
         onPress: async () => {
-          await onUpdateStatusPay(modify);
-          console.log(`${"monto: S/" + montoTotal}`);
+          setIsVisible(false);
+          //await onUpdateStatusPay(modify);
+          return setCanceledShare(true);
+          //console.log(`${"monto: S/" + montoTotal}`);
         },
         style: "destructive",
       },
       {
         text: "No",
+        onPress: async () => setIsVisible(false),
         style: "destructive",
       },
     ]);
+    //setIsVisible(false);
     // vamos a traer todos los datos del pago y cambiar el cncelled de false a true
     // y agregar un item en donde diria montoCancelado: el valor,
     // despues modificar en ver cronograma, etc
   };
-  //console.log("modify: ", modify);
+  //console.log("valueProps?.enable: ", valueProps?.enable);
 
   return (
     <Modal
