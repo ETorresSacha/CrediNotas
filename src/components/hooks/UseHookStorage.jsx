@@ -112,7 +112,6 @@ const UseStorage = () => {
           indice = index;
         }
       });
-      console.log("indiceHook: ", indice);
 
       let newObjeto = data?.uuid == undefined ? data[0] : data;
       resultGet.splice(indice, 1, newObjeto);
