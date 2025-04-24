@@ -158,7 +158,7 @@ const Pay = ({
               }}
             >
               {/* ícono de cancelar la deuda */}
-              {valueProps?.enable ? null : (
+              {modify[0]?.canceled ? null : (
                 <TouchableOpacity
                   style={styles.cancelPago}
                   onPress={() => setIsVisible(true)}
