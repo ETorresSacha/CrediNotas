@@ -47,7 +47,6 @@ const Pay = ({
 
   // NOTA: cuando el usuario hace click sucecivo en el botón "pagar" (rápido), "countPay" ayuda a que
   //       de manera controlada se ejecute, se forma sucesiva, sin cometer errores en el orden de pago.
-  // console.log("enable: ", enable);
 
   let countPay = dataSee?.cuota;
 
@@ -65,9 +64,10 @@ const Pay = ({
       ) {
         // Pago de la cuenta
         setIndice(indice + 1);
+        setDataSee(objeto);
 
-        setDataSee(objeto); //! esto se ha agregado, probamos sin await
         await onUpdateStatusPay(modify);
+
         setValueProps({
           ...valueProps,
           typeColor: "cornsilk",
@@ -94,36 +94,19 @@ const Pay = ({
 
   //todo--> Cancelar el pago de la cuota
 
-  let countShare = payShare?.cuota; // ayuda  a que las cancelaciones se ejecuten en orden, función similar a countPay pero al inverso.
-  // console.log("modify: ", modify);
+  let countShare = payShare?.cuota; // función similar a countPay pero al inverso.
 
   const HandleCancelPay = async () => {
-    // if (modify?.canceled) {
-    //   let objeto = { ...modify, canceled: false };
-    //   delete objeto.montoCancel;
-    //   console.log("objeto: ", objeto);
-
-    //   return objeto;
-    // }
-    //!!!!!!!!!!!!!!!!!!!!!! desde           no esta cancelando el pago
-    console.log("modifyCANCEL: ", modify);
     if (modify[0]?.montoCanceled) {
-      //console.log("entro");
-
       let objeto = { ...modify[0], canceled: false };
-      // console.log("objeto: ", objeto);
       delete objeto.montoCanceled;
-      console.log("objeto2: ", objeto);
 
       await onUpdateStatusPay(objeto); // Guardamos los datos
-      setUser([objeto]);
-      // console.log("guardo");
+
+      setUser([objeto]); // seteamos para la vista
 
       setCanceledShare(false);
-      //!!!!!!!!!!!!! hasta
     } else {
-      //sconsole.log("no entro");
-
       if (countShare == indice) {
         if (indice > 0 && indice < updatePrestamo?.length) {
           let objeto = { ...payShare, statusPay: false };
@@ -157,10 +140,8 @@ const Pay = ({
         }
       }
     }
-
-    //! Cuando tiene cuotas pendientes
   };
-  //!!!!!!! continuar con el pago del agua
+
   //! OJO: PODRIAMOS CONSIDERAR EN AUMENTAR LOS DIAS DE MORA, SERIA OPTIMO O VISIBLE SOLO CUANDO EXISTE LA MORA
 
   return (
@@ -205,14 +186,8 @@ const Pay = ({
                 valueProps={valueProps}
                 interes={data[0]?.interes}
                 dataSee={dataSee}
-                updatePrestamo={updatePrestamo}
                 modify={modify}
-                data={data}
                 setCanceledShare={setCanceledShare}
-                // setDataHome={setDataBusiness}
-                // setEnable={setEnable}
-                // dataConfiguration={dataConfiguration}
-                // setDataConfiguration={setDataConfiguration}
               />
               {/* ícono de cancelar la cuota pagada */}
               <TouchableOpacity
