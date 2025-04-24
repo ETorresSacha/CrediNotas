@@ -7,6 +7,7 @@ import { calculoMoraSimple } from "@/src/utils/calculoCuota/CalculosFuncionesCre
 
 const Cronograma = ({ data, dataConfiguration }) => {
   const [updatePrestamo, setUpdatePrestamo] = useState([]); // ResultPrestamo
+  console.log("data: ", data);
 
   useEffect(() => {
     setUpdatePrestamo(data?.resultPrestamo);
@@ -49,10 +50,26 @@ const Cronograma = ({ data, dataConfiguration }) => {
                         ]
                   }
                 >
-                  <Text style={styles.dataText}>
+                  <Text
+                    style={[
+                      styles.dataText,
+                      {
+                        color:
+                          data?.canceled && !element?.statusPay ? "gray" : null,
+                      },
+                    ]}
+                  >
                     {element.cuota.toString().padStart(2, "0")}
                   </Text>
-                  <Text style={styles.dataText}>
+                  <Text
+                    style={[
+                      styles.dataText,
+                      {
+                        color:
+                          data?.canceled && !element?.statusPay ? "gray" : null,
+                      },
+                    ]}
+                  >
                     {formatDate(element.fechaPago)}
                   </Text>
                   <Text
@@ -60,8 +77,12 @@ const Cronograma = ({ data, dataConfiguration }) => {
                       styles.dataText,
                       {
                         color:
-                          `${calculoMoraSimple(element, dataConfiguration)}` !=
-                          0
+                          data?.canceled && !element?.statusPay
+                            ? "gray"
+                            : `${calculoMoraSimple(
+                                element,
+                                dataConfiguration
+                              )}` != 0
                             ? "red"
                             : null,
                       },
@@ -84,6 +105,13 @@ const Cronograma = ({ data, dataConfiguration }) => {
                 </View>
               );
             })}
+            {data?.canceled ? (
+              <View style={styles.dataContainer}>
+                <Text style={[styles.tilteText, { color: "black" }]}>
+                  CUENTA CANCELADO
+                </Text>
+              </View>
+            ) : null}
           </ScrollView>
         </View>
       )}

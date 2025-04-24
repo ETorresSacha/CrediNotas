@@ -158,26 +158,26 @@ const Pay = ({
               }}
             >
               {/* ícono de cancelar la deuda */}
-              {modify[0]?.canceled ? null : (
-                <TouchableOpacity
-                  style={styles.cancelPago}
-                  onPress={() => setIsVisible(true)}
+
+              <TouchableOpacity
+                style={styles.cancelPago}
+                onPress={() => setIsVisible(true)}
+                disabled={modify[0]?.canceled}
+              >
+                <FontAwesome6
+                  name="hand-holding-dollar"
+                  size={27}
+                  color={modify[0]?.canceled ? "gray" : "cornsilk"}
+                />
+                <Text
+                  style={{
+                    fontSize: 10,
+                    color: `${modify[0]?.canceled ? "gray" : "cornsilk"}`,
+                  }}
                 >
-                  <FontAwesome6
-                    name="hand-holding-dollar"
-                    size={27}
-                    color="cornsilk"
-                  />
-                  <Text
-                    style={{
-                      fontSize: 10,
-                      color: "cornsilk",
-                    }}
-                  >
-                    Cancelar deuda
-                  </Text>
-                </TouchableOpacity>
-              )}
+                  Cancelar deuda
+                </Text>
+              </TouchableOpacity>
 
               <ModalCancelPay
                 isVisible={isVisible}
@@ -198,12 +198,12 @@ const Pay = ({
                 <MaterialIcons
                   name="settings-backup-restore"
                   size={27}
-                  color="cornsilk"
+                  color={dataSee?.cuota == 1 ? "gray" : "cornsilk"}
                 />
                 <Text
                   style={{
                     fontSize: 10,
-                    color: "cornsilk",
+                    color: `${dataSee?.cuota == 1 ? "gray" : "cornsilk"}`,
                   }}
                 >
                   Cancelar pago
