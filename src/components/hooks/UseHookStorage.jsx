@@ -104,6 +104,7 @@ const UseStorage = () => {
   const handleUpdateStatusPay = async (data) => {
     try {
       const resultGet = await handleGetCronograma();
+
       let indice;
       resultGet?.find((element, index) => {
         if (

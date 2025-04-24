@@ -63,26 +63,69 @@ const Detail = (props) => {
     let result = user[0]?.resultPrestamo.find(
       (element) => element.statusPay == false
     );
+    setDataSee(result);
 
-    // Para pagar la cuota
-    if (result != undefined) {
-      result = {
-        ...result,
-        mora: calculoMoraSimple(result, valueProps?.dataConfiguration),
-      };
+    console.log("user: ", user);
 
-      setDataSee(result);
-
-      setIndice(dataSee?.cuota == undefined ? null : dataSee?.cuota - 1);
-      setCanceledShare(false);
-    }
-
-    // Cuando la cuota ya esta cancelado
-    if (result == undefined) {
-      setIndice(user[0]?.resultPrestamo.length);
-      setDataSee(user[0]?.resultPrestamo[user[0]?.resultPrestamo.length - 1]);
+    if (user[0]?.canceled) {
+      if (!user[0]?.montoCanceled) {
+        setIndice(user[0]?.resultPrestamo.length);
+        setDataSee(user[0]?.resultPrestamo[user[0]?.resultPrestamo.length - 1]);
+      } else {
+        setIndice(result?.cuota - 1);
+        setDataSee(result);
+      }
       setCanceledShare(true);
+    } else {
+      // setModify(user);
+      // setUpdatePrestamo(user[0]?.resultPrestamo);
+
+      // let result = user[0]?.resultPrestamo.find(
+      //   (element) => element.statusPay == false
+      // );
+
+      //console.log("resutl: ", result);
+      // Para pagar la cuota
+      if (result != undefined) {
+        result = {
+          ...result,
+          mora: calculoMoraSimple(result, valueProps?.dataConfiguration),
+        };
+
+        setDataSee(result);
+
+        setIndice(dataSee?.cuota == undefined ? null : dataSee?.cuota - 1);
+        setCanceledShare(false);
+      }
     }
+    // setModify(user);
+    // setUpdatePrestamo(user[0]?.resultPrestamo);
+
+    // let result = user[0]?.resultPrestamo.find(
+    //   (element) => element.statusPay == false
+    // );
+
+    // console.log("resutl: ", result);
+    // // Para pagar la cuota
+    // if (result != undefined) {
+    //   result = {
+    //     ...result,
+    //     mora: calculoMoraSimple(result, valueProps?.dataConfiguration),
+    //   };
+
+    //   setDataSee(result);
+
+    //   setIndice(dataSee?.cuota == undefined ? null : dataSee?.cuota - 1);
+    //   setCanceledShare(false);
+    // }
+
+    // // Cuando la cuota ya esta cancelado
+    // if (result == undefined) {
+    //   setIndice(user[0]?.resultPrestamo.length);
+    //   setDataSee(user[0]?.resultPrestamo[user[0]?.resultPrestamo.length - 1]);
+
+    //   setCanceledShare(true);
+    // }
   }, [user, indice, modify, canceledShare]); //! tener en cuenta, se esta eliminando el dataSee, si algo no funciona puede ser por esto
 
   // Actualiza los valores de valueProps
@@ -137,6 +180,7 @@ const Detail = (props) => {
       },
     ]);
   };
+  //console.log("setCanceledShare: ", canceledShare);
 
   return (
     <View style={styles.container}>
@@ -209,6 +253,7 @@ const Detail = (props) => {
               updatePrestamo={updatePrestamo}
               valueProps={valueProps}
               setValueProps={setValueProps}
+              setUser={setUser}
             />
             <Notification
               data={user}

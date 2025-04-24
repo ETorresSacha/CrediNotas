@@ -19,6 +19,7 @@ const Pay = ({
   updatePrestamo,
   valueProps,
   setValueProps,
+  setUser,
 }) => {
   const { onUpdateStatusPay } = UseStorage();
   const [payShare, setPayShere] = useState([]); // Guardar el pago
@@ -33,6 +34,10 @@ const Pay = ({
     // Deshabilitar y habilitar el botonde cancelar pago
     if (indice == 0) {
       setEnable(true);
+    }
+    if (modify[0]?.montoCanceled) {
+      //
+      setEnable(false);
     } else {
       setEnable(false);
     }
@@ -42,6 +47,7 @@ const Pay = ({
 
   // NOTA: cuando el usuario hace click sucecivo en el botón "pagar" (rápido), "countPay" ayuda a que
   //       de manera controlada se ejecute, se forma sucesiva, sin cometer errores en el orden de pago.
+  // console.log("enable: ", enable);
 
   let countPay = dataSee?.cuota;
 
@@ -89,6 +95,7 @@ const Pay = ({
   //todo--> Cancelar el pago de la cuota
 
   let countShare = payShare?.cuota; // ayuda  a que las cancelaciones se ejecuten en orden, función similar a countPay pero al inverso.
+  // console.log("modify: ", modify);
 
   const HandleCancelPay = async () => {
     // if (modify?.canceled) {
@@ -98,42 +105,62 @@ const Pay = ({
 
     //   return objeto;
     // }
+    //!!!!!!!!!!!!!!!!!!!!!! desde           no esta cancelando el pago
+    console.log("modifyCANCEL: ", modify);
+    if (modify[0]?.montoCanceled) {
+      //console.log("entro");
 
-    //! Cuando tiene cuotas pendientes
-    if (countShare == indice) {
-      if (indice > 0 && indice < updatePrestamo?.length) {
-        let objeto = { ...payShare, statusPay: false };
-        updatePrestamo?.splice(indice - 1, 1, objeto); // Modificamos los pagos
+      let objeto = { ...modify[0], canceled: false };
+      // console.log("objeto: ", objeto);
+      delete objeto.montoCanceled;
+      console.log("objeto2: ", objeto);
 
-        await onUpdateStatusPay(modify); // Guardamos los datos
-        setIndice(indice - 1);
+      await onUpdateStatusPay(objeto); // Guardamos los datos
+      setUser([objeto]);
+      // console.log("guardo");
 
-        countShare = countShare - 1; // resta 1 por cada pago cancelado, para continuar con el siguiente
-      }
+      setCanceledShare(false);
+      //!!!!!!!!!!!!! hasta
+    } else {
+      //sconsole.log("no entro");
 
-      //! Cuando la deuda esta completamente cancelado
-      if (indice == data[0]?.resultPrestamo.length) {
-        let indiceCambiar = data[0]?.resultPrestamo?.length - 1; //  seleccionamos el ultimo indice del objeto "resultPrestamo"
-        let result = data[0]?.resultPrestamo[indiceCambiar]; // buscamos el último pago realizado
+      if (countShare == indice) {
+        if (indice > 0 && indice < updatePrestamo?.length) {
+          let objeto = { ...payShare, statusPay: false };
+          updatePrestamo?.splice(indice - 1, 1, objeto); // Modificamos los pagos
 
-        let objeto = { ...result, statusPay: false }; // modificamos el statusPay del último pago de "true" a "false"
-        updatePrestamo?.splice(indiceCambiar, 1, objeto); // modificamos el array del "resultPrestamo"
+          await onUpdateStatusPay(modify); // Guardamos los datos
+          setIndice(indice - 1);
 
-        let newResult = {
-          ...modify[0],
-          uuid: data[0]?.uuid,
-          canceled: false,
-          resultPrestamo: updatePrestamo,
-        };
+          countShare = countShare - 1; // resta 1 por cada pago cancelado, para continuar con el siguiente
+        }
 
-        modify.splice(0, 1, newResult); // Reemplazamos los datos de "modify" con los datos actualizados
+        //! Cuando la deuda esta completamente cancelado
+        if (indice == data[0]?.resultPrestamo.length) {
+          let indiceCambiar = data[0]?.resultPrestamo?.length - 1; //  seleccionamos el ultimo indice del objeto "resultPrestamo"
+          let result = data[0]?.resultPrestamo[indiceCambiar]; // buscamos el último pago realizado
 
-        await onUpdateStatusPay(modify); // Guardamos los datos
-        setCanceledShare(false);
+          let objeto = { ...result, statusPay: false }; // modificamos el statusPay del último pago de "true" a "false"
+          updatePrestamo?.splice(indiceCambiar, 1, objeto); // modificamos el array del "resultPrestamo"
+
+          let newResult = {
+            ...modify[0],
+            uuid: data[0]?.uuid,
+            canceled: false,
+            resultPrestamo: updatePrestamo,
+          };
+
+          modify.splice(0, 1, newResult); // Reemplazamos los datos de "modify" con los datos actualizados
+
+          await onUpdateStatusPay(modify); // Guardamos los datos
+          setCanceledShare(false);
+        }
       }
     }
-  };
 
+    //! Cuando tiene cuotas pendientes
+  };
+  //!!!!!!! continuar con el pago del agua
   //! OJO: PODRIAMOS CONSIDERAR EN AUMENTAR LOS DIAS DE MORA, SERIA OPTIMO O VISIBLE SOLO CUANDO EXISTE LA MORA
 
   return (

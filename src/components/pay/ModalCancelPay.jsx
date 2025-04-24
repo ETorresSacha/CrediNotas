@@ -53,7 +53,7 @@ const ModalCancelPay = ({
       ...modify[0],
       //uuid: data[0]?.uuid,
       canceled: true,
-      montoCancel: montoTotal,
+      montoCanceled: montoTotal,
       //resultPrestamo: updatePrestamo,
     };
     //console.log("modify1: ", modify);
@@ -65,8 +65,8 @@ const ModalCancelPay = ({
         text: "Si",
         onPress: async () => {
           setIsVisible(false);
-          //await onUpdateStatusPay(modify);
-          return setCanceledShare(true);
+          await onUpdateStatusPay(modify);
+          setCanceledShare(true);
           //console.log(`${"monto: S/" + montoTotal}`);
         },
         style: "destructive",
