@@ -32,12 +32,12 @@ const Pay = ({
     setPayShere(cuotaCancelada);
 
     // Deshabilitar y habilitar el botonde cancelar pago
-    if (indice == 0) {
-      setEnable(true);
-    }
-    if (modify[0]?.montoCanceled) {
-      //
+
+    if (modify[0]?.montoCanceled != undefined) {
+      // cuenta cancelada anticipado
       setEnable(false);
+    } else if (indice == 0) {
+      setEnable(true);
     } else {
       setEnable(false);
     }
