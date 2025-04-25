@@ -36,7 +36,9 @@ const Pay = ({
     if (modify[0].canceled) {
       // cuenta cancelada anticipado
       setEnable(false);
-    } else if (payShare == undefined && modify[0].canceled == false) {
+    }
+    //! ERROR: el boton de cancelar pago cambia de blanco a gris cuando el indice es cero, hay un intermintente de cambio de color que no debe pasar
+    else if (payShare == undefined && modify[0].canceled == false) {
       setEnable(true);
     } else {
       setEnable(false);
@@ -47,11 +49,6 @@ const Pay = ({
 
   // NOTA: cuando el usuario hace click sucecivo en el botón "pagar" (rápido), "countPay" ayuda a que
   //       de manera controlada se ejecute, se forma sucesiva, sin cometer errores en el orden de pago.
-  console.log("enable: ", enable);
-  console.log("indice: ", indice);
-  console.log("payShare: ", payShare);
-  console.log("modify[0]?.montoCanceled: ", modify[0]?.montoCanceled);
-  console.log("modify[0], canceled: ", modify[0].canceled);
 
   let countPay = dataSee?.cuota;
 
@@ -78,7 +75,7 @@ const Pay = ({
           typeColor: "cornsilk",
         });
 
-        setEnable(false); // Habilita el boton de cancelar el pago
+        //setEnable(false); // Habilita el boton de cancelar el pago
 
         countPay = countPay + 1; // se suma 1 por cada pago ejecutado, para continuar con el siguiente
       } else {
@@ -204,12 +201,14 @@ const Pay = ({
                 <MaterialIcons
                   name="settings-backup-restore"
                   size={27}
-                  color={enable || dataSee?.cuota == 1 ? "gray" : "cornsilk"}
+                  color={enable && dataSee?.cuota == 1 ? "gray" : "cornsilk"}
                 />
                 <Text
                   style={{
                     fontSize: 10,
-                    color: `${dataSee?.cuota == 1 ? "gray" : "cornsilk"}`,
+                    color: `${
+                      enable && dataSee?.cuota == 1 ? "gray" : "cornsilk"
+                    }`,
                   }}
                 >
                   Cancelar pago
