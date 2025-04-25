@@ -21,6 +21,7 @@ const ModalCancelPay = ({
   dataSee,
   modify,
   setCanceledShare,
+  setEnable,
 }) => {
   const { onUpdateStatusPay } = UseStorage();
 
@@ -59,6 +60,7 @@ const ModalCancelPay = ({
         onPress: async () => {
           setIsVisible(false);
           await onUpdateStatusPay(modify);
+          setEnable(false);
           setCanceledShare(true);
         },
         style: "destructive",

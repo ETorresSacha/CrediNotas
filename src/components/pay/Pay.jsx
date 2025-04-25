@@ -33,20 +33,25 @@ const Pay = ({
 
     // Deshabilitar y habilitar el botonde cancelar pago
 
-    if (modify[0]?.montoCanceled != undefined) {
+    if (modify[0].canceled) {
       // cuenta cancelada anticipado
       setEnable(false);
-    } else if (indice == 0) {
+    } else if (payShare == undefined && modify[0].canceled == false) {
       setEnable(true);
     } else {
       setEnable(false);
     }
-  }, [indice]);
+  }, [indice, enable, payShare, modify]);
 
   //todo-->  Pagar la cuota
 
   // NOTA: cuando el usuario hace click sucecivo en el botón "pagar" (rápido), "countPay" ayuda a que
   //       de manera controlada se ejecute, se forma sucesiva, sin cometer errores en el orden de pago.
+  console.log("enable: ", enable);
+  console.log("indice: ", indice);
+  console.log("payShare: ", payShare);
+  console.log("modify[0]?.montoCanceled: ", modify[0]?.montoCanceled);
+  console.log("modify[0], canceled: ", modify[0].canceled);
 
   let countPay = dataSee?.cuota;
 
@@ -188,6 +193,7 @@ const Pay = ({
                 dataSee={dataSee}
                 modify={modify}
                 setCanceledShare={setCanceledShare}
+                setEnable={setEnable}
               />
               {/* ícono de cancelar la cuota pagada */}
               <TouchableOpacity
@@ -198,7 +204,7 @@ const Pay = ({
                 <MaterialIcons
                   name="settings-backup-restore"
                   size={27}
-                  color={dataSee?.cuota == 1 ? "gray" : "cornsilk"}
+                  color={enable || dataSee?.cuota == 1 ? "gray" : "cornsilk"}
                 />
                 <Text
                   style={{
