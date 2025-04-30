@@ -22,7 +22,7 @@ const Pay = ({
   setUser,
 }) => {
   const { onUpdateStatusPay } = UseStorage();
-  const [payShare, setPayShere] = useState([]); // Guardar el pago
+  const [payShare, setPayShere] = useState(); // Guardar el pago
   const [enable, setEnable] = useState(false); // Boton de cancelar pago (ON OFF)
   const [isVisible, setIsVisible] = useState(false); // Habilita el modal de cancelar la deuda
 
@@ -37,6 +37,7 @@ const Pay = ({
       // cuenta cancelada anticipado
       setEnable(false);
     }
+
     //! ERROR: el boton de cancelar pago cambia de blanco a gris cuando el indice es cero, hay un intermintente de cambio de color que no debe pasar
     else if (payShare == undefined && modify[0].canceled == false) {
       setEnable(true);
@@ -46,11 +47,14 @@ const Pay = ({
   }, [indice, enable, payShare, modify]);
 
   //todo-->  Pagar la cuota
+  console.log("enable: ", enable);
 
   // NOTA: cuando el usuario hace click sucecivo en el botón "pagar" (rápido), "countPay" ayuda a que
   //       de manera controlada se ejecute, se forma sucesiva, sin cometer errores en el orden de pago.
 
   let countPay = dataSee?.cuota;
+  console.log("payshere: ", payShare);
+  console.log("dataSee: ", dataSee);
 
   const handlePayShare = async () => {
     if (countPay - 1 == indice) {
@@ -143,6 +147,10 @@ const Pay = ({
       }
     }
   };
+  console.log(
+    "!canceledShare && dataSee?.cuota == 1: ",
+    !canceledShare && dataSee?.cuota == 1
+  );
 
   //! OJO: PODRIAMOS CONSIDERAR EN AUMENTAR LOS DIAS DE MORA, SERIA OPTIMO O VISIBLE SOLO CUANDO EXISTE LA MORA
   //! NOTA: EISTE EL ERROR QUE CUANDO NO SE REALIZA UN PAGO Y SE HACE LA CANCELACION DEL PAGO, LOS ICONOS NO CAMBIAN DE COLOR, VERIFICAR ESE ERROR
@@ -201,13 +209,18 @@ const Pay = ({
                 <MaterialIcons
                   name="settings-backup-restore"
                   size={27}
-                  color={enable && dataSee?.cuota == 1 ? "gray" : "cornsilk"}
+                  // color={!payShare && !canceledShare ? "gray" : "cornsilk"}
+                  color={
+                    !canceledShare && dataSee?.cuota == 1 ? "gray" : "cornsilk"
+                  }
                 />
                 <Text
                   style={{
                     fontSize: 10,
                     color: `${
-                      enable && dataSee?.cuota == 1 ? "gray" : "cornsilk"
+                      !canceledShare && dataSee?.cuota == 1
+                        ? "gray"
+                        : "cornsilk"
                     }`,
                   }}
                 >

@@ -7,7 +7,7 @@ import { calculoMoraSimple } from "@/src/utils/calculoCuota/CalculosFuncionesCre
 
 const Cronograma = ({ data, dataConfiguration }) => {
   const [updatePrestamo, setUpdatePrestamo] = useState([]); // ResultPrestamo
-  console.log("data: ", data);
+  //console.log("data: ", data);
 
   useEffect(() => {
     setUpdatePrestamo(data?.resultPrestamo);
