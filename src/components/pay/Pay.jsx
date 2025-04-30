@@ -224,6 +224,7 @@ const Pay = ({
                 paddingBottom: 15,
               }}
             >
+              {/* Fecha de pago */}
               <View
                 style={[
                   styles.containerSubTitle,
@@ -254,6 +255,8 @@ const Pay = ({
                     : "-  -  -"}
                 </Text>
               </View>
+
+              {/* Cuota total */}
               <View
                 style={[
                   styles.containerSubTitle,
@@ -275,7 +278,8 @@ const Pay = ({
                   style={[
                     styles.subTitle,
                     {
-                      color: dataSee?.mora != 0 ? "red" : "orange",
+                      color:
+                        !canceledShare && dataSee?.mora != 0 ? "red" : "orange",
 
                       fontSize:
                         dataSee?.cuotaNeto?.length >= 8
@@ -383,11 +387,13 @@ const Pay = ({
                 <Text style={styles.subTitle}>Mora</Text>
                 <Text
                   style={{
-                    color: dataSee?.mora != 0 ? "red" : "white",
+                    color:
+                      !canceledShare && dataSee?.mora != 0 ? "red" : "white",
                     fontSize: RFValue(14),
                   }}
                 >
-                  S/ {parseFloat(dataSee?.mora).toFixed(2)}
+                  S/{" "}
+                  {!canceledShare ? parseFloat(dataSee?.mora).toFixed(2) : "0"}
                 </Text>
               </View>
             </View>
