@@ -53,7 +53,6 @@ const Detail = (props) => {
       //return () => unsubscribe();
     }, [valueProps])
   );
-  console.log("canceledShare: ", canceledShare);
 
   useEffect(() => {
     setModify(user);

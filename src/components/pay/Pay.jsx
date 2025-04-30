@@ -36,10 +36,7 @@ const Pay = ({
     if (modify[0].canceled) {
       // cuenta cancelada anticipado
       setEnable(false);
-    }
-
-    //! ERROR: el boton de cancelar pago cambia de blanco a gris cuando el indice es cero, hay un intermintente de cambio de color que no debe pasar
-    else if (payShare == undefined && modify[0].canceled == false) {
+    } else if (payShare == undefined && modify[0].canceled == false) {
       setEnable(true);
     } else {
       setEnable(false);
@@ -47,14 +44,11 @@ const Pay = ({
   }, [indice, enable, payShare, modify]);
 
   //todo-->  Pagar la cuota
-  console.log("enable: ", enable);
 
   // NOTA: cuando el usuario hace click sucecivo en el botón "pagar" (rápido), "countPay" ayuda a que
   //       de manera controlada se ejecute, se forma sucesiva, sin cometer errores en el orden de pago.
 
   let countPay = dataSee?.cuota;
-  console.log("payshere: ", payShare);
-  console.log("dataSee: ", dataSee);
 
   const handlePayShare = async () => {
     if (countPay - 1 == indice) {
@@ -78,8 +72,6 @@ const Pay = ({
           ...valueProps,
           typeColor: "cornsilk",
         });
-
-        //setEnable(false); // Habilita el boton de cancelar el pago
 
         countPay = countPay + 1; // se suma 1 por cada pago ejecutado, para continuar con el siguiente
       } else {
@@ -147,13 +139,7 @@ const Pay = ({
       }
     }
   };
-  console.log(
-    "!canceledShare && dataSee?.cuota == 1: ",
-    !canceledShare && dataSee?.cuota == 1
-  );
-
   //! OJO: PODRIAMOS CONSIDERAR EN AUMENTAR LOS DIAS DE MORA, SERIA OPTIMO O VISIBLE SOLO CUANDO EXISTE LA MORA
-  //! NOTA: EISTE EL ERROR QUE CUANDO NO SE REALIZA UN PAGO Y SE HACE LA CANCELACION DEL PAGO, LOS ICONOS NO CAMBIAN DE COLOR, VERIFICAR ESE ERROR
   return (
     <View style={styles.container}>
       {
@@ -209,7 +195,6 @@ const Pay = ({
                 <MaterialIcons
                   name="settings-backup-restore"
                   size={27}
-                  // color={!payShare && !canceledShare ? "gray" : "cornsilk"}
                   color={
                     !canceledShare && dataSee?.cuota == 1 ? "gray" : "cornsilk"
                   }
